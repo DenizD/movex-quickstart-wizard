@@ -5,8 +5,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search, Plus, MoreVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Shows = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('All');
 
@@ -57,7 +59,11 @@ const Shows = () => {
             <option>Newest to Oldest</option>
             <option>Oldest to Newest</option>
           </select>
-          <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white" data-onboarding="create-show-button">
+          <Button 
+            className="bg-[#0066CC] hover:bg-[#0052A3] text-white" 
+            data-onboarding="create-show-button"
+            onClick={() => navigate('/shows/create')}
+          >
             <Plus className="w-4 h-4 mr-2" />
             Create Show
           </Button>

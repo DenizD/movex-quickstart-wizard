@@ -34,8 +34,11 @@ export const useOnboarding = () => {
     switch (path) {
       case '/': return 'overview';
       case '/shows': return 'shows';
+      case '/shows/create': return 'create-show';
       case '/clips': return 'clips';
+      case '/clips/create': return 'create-clip';
       case '/media-library': return 'media-library';
+      case '/media-library/create': return 'create-media-library';
       case '/users': return 'users';
       case '/analytics': return 'analytics';
       case '/customisation': return 'customisation';

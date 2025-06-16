@@ -108,6 +108,40 @@ const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
         }
       ];
 
+    case 'create-show':
+      return [
+        {
+          id: 1,
+          title: 'Show erstellen',
+          description: 'Hier erstellen Sie eine neue Live Shopping Show. Füllen Sie alle notwendigen Informationen aus.',
+          targetSelector: '[data-onboarding="create-show-header"]'
+        },
+        {
+          id: 2,
+          title: 'Grundinformationen',
+          description: 'Geben Sie den Namen und die Beschreibung Ihrer Show ein.',
+          targetSelector: '[data-onboarding="show-basic-info"]'
+        },
+        {
+          id: 3,
+          title: 'Zeitplanung',
+          description: 'Planen Sie Datum, Uhrzeit und Dauer Ihrer Live Show.',
+          targetSelector: '[data-onboarding="show-schedule"]'
+        },
+        {
+          id: 4,
+          title: 'Show-Einstellungen',
+          description: 'Konfigurieren Sie Chat, Warteraum und Aufzeichnungsoptionen.',
+          targetSelector: '[data-onboarding="show-settings"]'
+        },
+        {
+          id: 5,
+          title: 'Vorschau & Aktionen',
+          description: 'Sehen Sie eine Vorschau Ihrer Show und erstellen Sie sie final.',
+          targetSelector: '[data-onboarding="show-preview"]'
+        }
+      ];
+
     case 'clips':
       return [
         {
@@ -136,6 +170,40 @@ const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
         }
       ];
 
+    case 'create-clip':
+      return [
+        {
+          id: 1,
+          title: 'Clip erstellen',
+          description: 'Erstellen Sie einen neuen shoppable Video Clip. Laden Sie Ihr Video hoch und konfigurieren Sie es.',
+          targetSelector: '[data-onboarding="create-clip-header"]'
+        },
+        {
+          id: 2,
+          title: 'Video hochladen',
+          description: 'Laden Sie Ihr Video hoch oder ziehen Sie es in den Upload-Bereich.',
+          targetSelector: '[data-onboarding="clip-upload"]'
+        },
+        {
+          id: 3,
+          title: 'Clip-Informationen',
+          description: 'Geben Sie Name, Beschreibung und Tags für Ihren Clip ein.',
+          targetSelector: '[data-onboarding="clip-basic-info"]'
+        },
+        {
+          id: 4,
+          title: 'Thumbnail auswählen',
+          description: 'Wählen Sie ein ansprechendes Thumbnail für Ihren Clip.',
+          targetSelector: '[data-onboarding="clip-thumbnail"]'
+        },
+        {
+          id: 5,
+          title: 'Clip-Einstellungen',
+          description: 'Konfigurieren Sie Shopping-Features und Veröffentlichungsoptionen.',
+          targetSelector: '[data-onboarding="clip-settings"]'
+        }
+      ];
+
     case 'media-library':
       return [
         {
@@ -155,6 +223,34 @@ const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
           title: 'Content Organisation',
           description: 'Jede Bibliothek zeigt die Anzahl der enthaltenen Videos und kann einzeln verwaltet werden.',
           targetSelector: '[data-onboarding="library-table"]'
+        }
+      ];
+
+    case 'create-media-library':
+      return [
+        {
+          id: 1,
+          title: 'Media Library erstellen',
+          description: 'Erstellen Sie eine neue Bibliothek zur Organisation Ihrer Video-Inhalte.',
+          targetSelector: '[data-onboarding="create-library-header"]'
+        },
+        {
+          id: 2,
+          title: 'Grundinformationen',
+          description: 'Geben Sie Name, Beschreibung und Kategorie für Ihre Bibliothek ein.',
+          targetSelector: '[data-onboarding="library-basic-info"]'
+        },
+        {
+          id: 3,
+          title: 'Datenschutz & Zugriff',
+          description: 'Bestimmen Sie, wer Zugriff auf diese Bibliothek haben soll.',
+          targetSelector: '[data-onboarding="library-privacy"]'
+        },
+        {
+          id: 4,
+          title: 'Organisations-Einstellungen',
+          description: 'Konfigurieren Sie, wie Inhalte automatisch organisiert werden sollen.',
+          targetSelector: '[data-onboarding="library-organization"]'
         }
       ];
 

@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, MoreVertical, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const MediaLibrary = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
   const mediaLibraries = [
@@ -37,7 +39,11 @@ const MediaLibrary = () => {
             <option>Sort A-Z</option>
             <option>Sort Z-A</option>
           </select>
-          <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white" data-onboarding="create-library-button">
+          <Button 
+            className="bg-[#0066CC] hover:bg-[#0052A3] text-white" 
+            data-onboarding="create-library-button"
+            onClick={() => navigate('/media-library/create')}
+          >
             <Plus className="w-4 h-4 mr-2" />
             Create media library
           </Button>
