@@ -27,21 +27,23 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/shows" element={<Shows />} />
             <Route path="/shows/create" element={<CreateShow />} />
-            <Route path="/scheduled" element={<div className="p-6"><h1 className="text-2xl font-bold">Scheduled Shows</h1><p>Coming soon...</p></div>} />
-            <Route path="/products" element={<div className="p-6"><h1 className="text-2xl font-bold">Products</h1><p>Coming soon...</p></div>} />
-            <Route path="/sales" element={<div className="p-6"><h1 className="text-2xl font-bold">Sales</h1><p>Coming soon...</p></div>} />
             <Route path="/clips" element={<Clips />} />
             <Route path="/clips/create" element={<CreateClip />} />
             <Route path="/media-library" element={<MediaLibrary />} />
             <Route path="/media-library/create" element={<CreateMediaLibrary />} />
-            <Route path="/chat" element={<div className="p-6"><h1 className="text-2xl font-bold">Chat Moderation</h1><p>Coming soon...</p></div>} />
+            <Route path="/streaming" element={<div className="p-6"><h1 className="text-2xl font-bold">Streaming App</h1><p>Download and manage your streaming application.</p></div>} />
             <Route path="/users" element={<Users />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/performance" element={<div className="p-6"><h1 className="text-2xl font-bold">Performance</h1><p>Coming soon...</p></div>} />
             <Route path="/customisation" element={<Customisation />} />
-            <Route path="/user-settings" element={<UserSettings />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/account-settings" element={<AccountSettings />} />
-            <Route path="/streaming" element={<div className="p-6"><h1 className="text-2xl font-bold">Streaming App</h1><p>Coming soon...</p></div>} />
+            <Route path="/payment-history" element={<div className="p-6"><h1 className="text-2xl font-bold">Payment History</h1><p>View your billing and payment history.</p></div>} />
+            <Route path="/usage" element={<div className="p-6"><h1 className="text-2xl font-bold">Usage</h1><p>Monitor your platform usage and consumption.</p></div>} />
+            <Route path="/company-settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Company Settings</h1><p>Manage your company-wide settings and configurations.</p></div>} />
+            <Route path="/support" element={<div className="p-6"><h1 className="text-2xl font-bold">Support</h1><p>Get help and contact our support team.</p></div>} />
+            <Route path="/language" element={<div className="p-6"><h1 className="text-2xl font-bold">Language Settings</h1><p>Change your language preferences.</p></div>} />
+            <Route path="/user-settings" element={<UserSettings />} />
+            <Route path="/role" element={<div className="p-6"><h1 className="text-2xl font-bold">Role Information</h1><p>View your current role and permissions.</p></div>} />
+            <Route path="/logout" element={<div className="p-6"><h1 className="text-2xl font-bold">Logout</h1><p>You have been logged out successfully.</p></div>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

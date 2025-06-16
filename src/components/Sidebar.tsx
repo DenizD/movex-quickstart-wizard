@@ -17,7 +17,12 @@ import {
   Calendar,
   MessageSquare,
   TrendingUp,
-  Zap
+  Zap,
+  Globe,
+  CreditCard,
+  LogOut,
+  ChevronDown,
+  Building
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -26,48 +31,55 @@ const Sidebar = () => {
   
   const navItems = [
     {
-      section: 'Dashboard',
+      section: '🎬 Content Management',
       items: [
-        { icon: BarChart3, label: t('nav.overview'), path: '/', id: 'overview' }
+        { icon: BarChart3, label: 'Overview', path: '/', id: 'overview' },
+        { icon: Video, label: 'Shows', path: '/shows', id: 'shows' },
+        { icon: Scissors, label: 'Clips', path: '/clips', id: 'clips' },
+        { icon: Library, label: 'Media Library', path: '/media-library', id: 'media-library' }
       ]
     },
     {
-      section: 'Live Shopping',
+      section: '📡 Live-Streaming',
       items: [
-        { icon: Video, label: 'Live Shows', path: '/shows', id: 'shows' },
-        { icon: Calendar, label: 'Scheduled Shows', path: '/scheduled', id: 'scheduled' },
-        { icon: ShoppingBag, label: 'Products', path: '/products', id: 'products' },
-        { icon: TrendingUp, label: 'Sales', path: '/sales', id: 'sales' }
+        { icon: Download, label: 'Streaming App', path: '/streaming', id: 'streaming-app' }
       ]
     },
     {
-      section: 'Content',
+      section: '👥 User Management',
       items: [
-        { icon: Scissors, label: t('nav.clips'), path: '/clips', id: 'clips' },
-        { icon: Library, label: t('nav.mediaLibrary'), path: '/media-library', id: 'media-library' },
-        { icon: MessageSquare, label: 'Chat Moderation', path: '/chat', id: 'chat' }
+        { icon: Users, label: 'Users', path: '/users', id: 'users' },
+        { icon: Settings, label: 'Customisation', path: '/customisation', id: 'customisation' }
       ]
     },
     {
-      section: 'Analytics',
+      section: '📊 Analytics & Insights',
       items: [
-        { icon: BarChart3, label: t('nav.analytics'), path: '/analytics', id: 'analytics' },
-        { icon: Users, label: t('nav.users'), path: '/users', id: 'users' },
-        { icon: Zap, label: 'Performance', path: '/performance', id: 'performance' }
+        { icon: BarChart3, label: 'Analytics', path: '/analytics', id: 'analytics' }
       ]
     },
     {
-      section: 'Tools',
+      section: '💼 Billing & Plans',
       items: [
-        { icon: Download, label: t('nav.streamingApp'), path: '/streaming', id: 'streaming-app' }
+        { icon: CreditCard, label: 'Manage Plan', path: '/account-settings', id: 'account-settings' },
+        { icon: TrendingUp, label: 'Payment History', path: '/payment-history', id: 'payment-history' },
+        { icon: Zap, label: 'Usage', path: '/usage', id: 'usage' }
       ]
     },
     {
-      section: 'Settings',
+      section: '⚙️ Settings',
       items: [
-        { icon: Settings, label: 'Platform Settings', path: '/customisation', id: 'customisation' },
-        { icon: User, label: 'Profile Settings', path: '/user-settings', id: 'user-settings' },
-        { icon: UserCog, label: 'Account & Billing', path: '/account-settings', id: 'account-settings' }
+        { icon: Building, label: 'Company Settings', path: '/company-settings', id: 'company-settings' },
+        { icon: HelpCircle, label: 'Support', path: '/support', id: 'support' },
+        { icon: Globe, label: 'Language (En)', path: '/language', id: 'language' }
+      ]
+    },
+    {
+      section: '👤 My Area',
+      items: [
+        { icon: User, label: 'Profile (Deniz OSP)', path: '/user-settings', id: 'user-settings' },
+        { icon: UserCog, label: 'Show Role', path: '/role', id: 'role' },
+        { icon: LogOut, label: 'Logout', path: '/logout', id: 'logout' }
       ]
     }
   ];
@@ -88,7 +100,7 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 overflow-y-auto">
         {navItems.map((section, sectionIndex) => (
           <div key={sectionIndex} className="mb-6">
             <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
@@ -117,14 +129,6 @@ const Sidebar = () => {
           </div>
         ))}
       </nav>
-
-      {/* Support */}
-      <div className="p-4 border-t border-gray-200">
-        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 w-full">
-          <HelpCircle size={18} />
-          <span>{t('nav.support')}</span>
-        </button>
-      </div>
     </div>
   );
 };
