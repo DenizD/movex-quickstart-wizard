@@ -29,13 +29,13 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
     <>
       <div className="fixed inset-0 bg-black/40 z-40" />
       <div 
-        className="fixed z-50 pointer-events-none border-2 border-teal-500 rounded-lg shadow-lg"
+        className="fixed z-50 pointer-events-none border-2 border-[#0066CC] rounded-lg shadow-lg"
         style={{
           top: rect.top - 4,
           left: rect.left - 4,
           width: rect.width + 8,
           height: rect.height + 8,
-          boxShadow: '0 0 0 4px rgba(20, 184, 166, 0.2)'
+          boxShadow: '0 0 0 4px rgba(0, 102, 204, 0.2)'
         }}
       />
     </>
@@ -49,65 +49,203 @@ interface OnboardingStep {
   targetSelector?: string;
 }
 
-const onboardingSteps: OnboardingStep[] = [
-  {
-    id: 1,
-    title: 'Willkommen bei MOVEX Live Shopping',
-    description: 'Entdecken Sie die Möglichkeiten von Live Shopping mit MOVEX. Wir führen Sie durch die wichtigsten Funktionen.',
-    targetSelector: '[data-onboarding="overview-header"]'
-  },
-  {
-    id: 2,
-    title: 'Dashboard Übersicht',
-    description: 'Hier sehen Sie alle wichtigen Kennzahlen und Analytics auf einen Blick. Verfolgen Sie Ihre Performance in Echtzeit.',
-    targetSelector: '[data-onboarding="analytics-chart"]'
-  },
-  {
-    id: 3,
-    title: 'Content erstellen',
-    description: 'Erstellen Sie Shows, Clips und Media Libraries für Ihre Live Shopping Events.',
-    targetSelector: '[data-onboarding="content-creation"]'
-  },
-  {
-    id: 4,
-    title: 'Live Shows verwalten',
-    description: 'Planen und verwalten Sie Ihre Live Shopping Events mit unserem Show-Management.',
-    targetSelector: '[data-onboarding="shows"]'
-  },
-  {
-    id: 5,
-    title: 'Video Clips erstellen',
-    description: 'Erstellen Sie kurze, shoppable Videos die jederzeit verfügbar sind.',
-    targetSelector: '[data-onboarding="clips"]'
-  },
-  {
-    id: 6,
-    title: 'Media Library organisieren',
-    description: 'Organisieren Sie Ihre Inhalte in übersichtlichen Media Libraries und Playlists.',
-    targetSelector: '[data-onboarding="media-library"]'
-  },
-  {
-    id: 7,
-    title: 'Team Verwaltung',
-    description: 'Verwalten Sie Teammitglieder und deren Berechtigungen für Ihr Live Shopping.',
-    targetSelector: '[data-onboarding="users"]'
-  },
-  {
-    id: 8,
-    title: 'Detaillierte Analytics',
-    description: 'Analysieren Sie die Performance Ihrer Shows mit detaillierten Metriken und Insights.',
-    targetSelector: '[data-onboarding="analytics"]'
+// Page-specific onboarding steps
+const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
+  switch (currentPage) {
+    case 'overview':
+      return [
+        {
+          id: 1,
+          title: 'Willkommen bei MOVEX',
+          description: 'Ihre Live Shopping Plattform für interaktive Verkaufserlebnisse. Hier bekommen Sie einen Überblick über alle wichtigen Metriken.',
+          targetSelector: '[data-onboarding="overview-header"]'
+        },
+        {
+          id: 2,
+          title: 'Performance Dashboard',
+          description: 'Verfolgen Sie Ihre wichtigsten KPIs wie Zuschauer, Conversion Rate und Engagement in Echtzeit.',
+          targetSelector: '[data-onboarding="stats-cards"]'
+        },
+        {
+          id: 3,
+          title: 'Analytics Übersicht',
+          description: 'Detaillierte Diagramme zeigen Ihnen die Performance Ihrer Shows über verschiedene Zeiträume.',
+          targetSelector: '[data-onboarding="analytics-chart"]'
+        },
+        {
+          id: 4,
+          title: 'Schnellaktionen',
+          description: 'Erstellen Sie neue Shows, Clips oder Media Libraries direkt von hier aus.',
+          targetSelector: '[data-onboarding="quick-actions"]'
+        }
+      ];
+
+    case 'shows':
+      return [
+        {
+          id: 1,
+          title: 'Show Management',
+          description: 'Verwalten Sie alle Ihre Live Shopping Shows an einem Ort. Planen, starten und analysieren Sie Ihre Events.',
+          targetSelector: '[data-onboarding="shows-header"]'
+        },
+        {
+          id: 2,
+          title: 'Show erstellen',
+          description: 'Klicken Sie hier, um eine neue Live Shopping Show zu erstellen und zu planen.',
+          targetSelector: '[data-onboarding="create-show-button"]'
+        },
+        {
+          id: 3,
+          title: 'Show Status',
+          description: 'Hier sehen Sie den aktuellen Status Ihrer Shows - Live, Geplant oder Beendet.',
+          targetSelector: '[data-onboarding="shows-tabs"]'
+        },
+        {
+          id: 4,
+          title: 'Show Verwaltung',
+          description: 'Jede Show kann bearbeitet, dupliziert oder gelöscht werden über das Menü.',
+          targetSelector: '[data-onboarding="shows-grid"]'
+        }
+      ];
+
+    case 'clips':
+      return [
+        {
+          id: 1,
+          title: 'Video Clips',
+          description: 'Erstellen und verwalten Sie kurze, shoppable Videos für Ihre Produkte.',
+          targetSelector: '[data-onboarding="clips-header"]'
+        },
+        {
+          id: 2,
+          title: 'Clip erstellen',
+          description: 'Erstellen Sie neue Video Clips mit integrierten Shopping-Funktionen.',
+          targetSelector: '[data-onboarding="create-clip-button"]'
+        },
+        {
+          id: 3,
+          title: 'Clip Status',
+          description: 'Verfolgen Sie den Bearbeitungsstatus Ihrer Clips - Entwurf, Bereit oder Fehler.',
+          targetSelector: '[data-onboarding="clips-tabs"]'
+        },
+        {
+          id: 4,
+          title: 'Clip Bibliothek',
+          description: 'Alle Ihre Clips werden hier übersichtlich dargestellt mit Vorschau und Status.',
+          targetSelector: '[data-onboarding="clips-grid"]'
+        }
+      ];
+
+    case 'media-library':
+      return [
+        {
+          id: 1,
+          title: 'Media Library',
+          description: 'Organisieren Sie Ihre Inhalte in strukturierten Bibliotheken für bessere Übersicht.',
+          targetSelector: '[data-onboarding="media-header"]'
+        },
+        {
+          id: 2,
+          title: 'Bibliothek erstellen',
+          description: 'Erstellen Sie neue Media Libraries um Ihre Inhalte zu kategorisieren.',
+          targetSelector: '[data-onboarding="create-library-button"]'
+        },
+        {
+          id: 3,
+          title: 'Content Organisation',
+          description: 'Jede Bibliothek zeigt die Anzahl der enthaltenen Videos und kann einzeln verwaltet werden.',
+          targetSelector: '[data-onboarding="library-table"]'
+        }
+      ];
+
+    case 'users':
+      return [
+        {
+          id: 1,
+          title: 'Team Verwaltung',
+          description: 'Verwalten Sie Teammitglieder und deren Berechtigungen für Ihre MOVEX Plattform.',
+          targetSelector: '[data-onboarding="users-header"]'
+        },
+        {
+          id: 2,
+          title: 'Benutzer einladen',
+          description: 'Laden Sie neue Teammitglieder ein und weisen Sie ihnen Rollen zu.',
+          targetSelector: '[data-onboarding="invite-user-button"]'
+        },
+        {
+          id: 3,
+          title: 'Team Übersicht',
+          description: 'Hier sehen Sie alle Teammitglieder mit ihren Rollen und Berechtigungen.',
+          targetSelector: '[data-onboarding="users-list"]'
+        }
+      ];
+
+    case 'analytics':
+      return [
+        {
+          id: 1,
+          title: 'Detaillierte Analytics',
+          description: 'Analysieren Sie die Performance Ihrer Shows mit umfassenden Metriken und Insights.',
+          targetSelector: '[data-onboarding="analytics-header"]'
+        },
+        {
+          id: 2,
+          title: 'Performance Metriken',
+          description: 'Verfolgen Sie wichtige KPIs wie Zuschauerzahlen, Engagement und Conversion Rates.',
+          targetSelector: '[data-onboarding="analytics-cards"]'
+        },
+        {
+          id: 3,
+          title: 'Zeitraum Analyse',
+          description: 'Analysieren Sie Trends über verschiedene Zeiträume - täglich, wöchentlich oder monatlich.',
+          targetSelector: '[data-onboarding="analytics-charts"]'
+        }
+      ];
+
+    case 'customisation':
+      return [
+        {
+          id: 1,
+          title: 'Plattform Anpassung',
+          description: 'Personalisieren Sie Ihre MOVEX Plattform nach Ihren Bedürfnissen und Ihrem Branding.',
+          targetSelector: '[data-onboarding="customisation-header"]'
+        },
+        {
+          id: 2,
+          title: 'Design Einstellungen',
+          description: 'Passen Sie Farben, Logos und das Layout Ihrer Live Shopping Erfahrung an.',
+          targetSelector: '[data-onboarding="design-settings"]'
+        },
+        {
+          id: 3,
+          title: 'Funktionen konfigurieren',
+          description: 'Aktivieren oder deaktivieren Sie spezifische Features je nach Ihren Anforderungen.',
+          targetSelector: '[data-onboarding="feature-settings"]'
+        }
+      ];
+
+    default:
+      return [
+        {
+          id: 1,
+          title: 'Willkommen bei MOVEX',
+          description: 'Entdecken Sie die Möglichkeiten der Live Shopping Plattform.',
+        }
+      ];
   }
-];
+};
 
 interface OnboardingWizardProps {
   onComplete: () => void;
+  currentPage: string;
 }
 
-const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
+const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, currentPage }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
+
+  const onboardingSteps = getOnboardingSteps(currentPage);
 
   const handleNext = () => {
     if (currentStep < onboardingSteps.length - 1) {
@@ -124,7 +262,6 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
   };
 
   const handleComplete = () => {
-    localStorage.setItem('movex_onboarding_completed', 'true');
     setIsVisible(false);
     setTimeout(() => {
       onComplete();
@@ -156,7 +293,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
         <div className="fixed bottom-4 right-4 z-50">
           <div className="bg-white rounded-lg shadow-xl p-4 flex items-center gap-3 border border-gray-200">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-[#0066CC] rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-gray-900">MOVEX Tour läuft</span>
             </div>
             <Button
@@ -181,15 +318,15 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
       {!isMinimized && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 border border-gray-200">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 border border-gray-100">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <div className="flex items-center justify-between p-6 border-b border-gray-100">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
-                  <div className="w-4 h-4 bg-white rounded-sm"></div>
+                <div className="w-10 h-10 bg-[#0066CC] rounded-xl flex items-center justify-center">
+                  <div className="w-5 h-5 bg-white rounded-sm"></div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">MOVEX Tour</h3>
+                  <h3 className="text-lg font-bold text-gray-900">MOVEX Tour</h3>
                   <p className="text-sm text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
                 </div>
               </div>
@@ -198,7 +335,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                   size="sm"
                   variant="ghost"
                   onClick={handleMinimize}
-                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600 hover:bg-gray-50"
                 >
                   <Minimize2 size={16} />
                 </Button>
@@ -206,7 +343,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                   size="sm"
                   variant="ghost"
                   onClick={handleSkip}
-                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600 hover:bg-gray-50"
                 >
                   <X size={16} />
                 </Button>
@@ -215,27 +352,27 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
             {/* Progress */}
             <div className="px-6 pt-4">
-              <Progress value={progress} className="h-2 bg-gray-100">
+              <div className="w-full bg-gray-100 rounded-full h-2">
                 <div 
-                  className="h-full bg-teal-500 rounded-full transition-all duration-300 ease-out"
+                  className="bg-[#0066CC] h-2 rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${progress}%` }}
                 />
-              </Progress>
+              </div>
             </div>
 
             {/* Content */}
             <div className="p-6">
-              <h4 className="text-xl font-semibold mb-3 text-gray-900">{currentStepData.title}</h4>
-              <p className="text-gray-600 leading-relaxed">{currentStepData.description}</p>
+              <h4 className="text-xl font-bold mb-4 text-gray-900">{currentStepData.title}</h4>
+              <p className="text-gray-600 leading-relaxed text-base">{currentStepData.description}</p>
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between p-6 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+            <div className="flex items-center justify-between p-6 border-t border-gray-50 bg-white rounded-b-2xl">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2 border-gray-300"
+                className="flex items-center gap-2 border-gray-200 hover:bg-gray-50 disabled:opacity-50"
               >
                 <ChevronLeft size={16} />
                 Zurück
@@ -245,11 +382,11 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                 {onboardingSteps.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-2 h-2 rounded-full transition-colors ${
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentStep
-                        ? 'bg-teal-500'
+                        ? 'bg-[#0066CC] scale-125'
                         : index < currentStep
-                        ? 'bg-teal-300'
+                        ? 'bg-[#0066CC] opacity-60'
                         : 'bg-gray-200'
                     }`}
                   />
@@ -258,7 +395,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
               <Button
                 onClick={handleNext}
-                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700"
+                className="flex items-center gap-2 bg-[#0066CC] hover:bg-[#0052A3] text-white px-6"
               >
                 {isLastStep ? 'Tour beenden' : 'Weiter'}
                 {!isLastStep && <ChevronRight size={16} />}

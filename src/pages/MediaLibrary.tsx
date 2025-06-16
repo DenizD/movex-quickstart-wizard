@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, MoreVertical } from 'lucide-react';
+import { Search, MoreVertical, Plus } from 'lucide-react';
 
 const MediaLibrary = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,9 +16,9 @@ const MediaLibrary = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-6" data-onboarding="media-header">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Media Library</h1>
-        <p className="text-gray-600">Customise media libraries for live, upcoming and ended shows.</p>
+        <p className="text-gray-600">Organisieren Sie Ihre Inhalte in strukturierten Bibliotheken.</p>
       </div>
 
       {/* Controls */}
@@ -37,14 +37,15 @@ const MediaLibrary = () => {
             <option>Sort A-Z</option>
             <option>Sort Z-A</option>
           </select>
-          <Button className="bg-teal-600 hover:bg-teal-700 text-white">
+          <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white" data-onboarding="create-library-button">
+            <Plus className="w-4 h-4 mr-2" />
             Create media library
           </Button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg border">
+      <div className="bg-white rounded-lg border" data-onboarding="library-table">
         <div className="grid grid-cols-3 gap-4 p-4 border-b font-medium text-sm text-gray-700">
           <div>Media Libraries</div>
           <div className="text-center">Number of Videos</div>

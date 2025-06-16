@@ -1,159 +1,230 @@
 
 import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { ArrowLeft, X } from 'lucide-react';
+import { Palette, Upload, Settings, Bell, Shield, Globe } from 'lucide-react';
 
 const Customisation = () => {
-  const [activeTab, setActiveTab] = useState('Profile Details');
-  const [showPreview, setShowPreview] = useState(true);
-
-  const tabs = ['Profile Details', 'Colors', 'Typography'];
+  const [brandColor, setBrandColor] = useState('#0066CC');
+  const [notifications, setNotifications] = useState(true);
+  const [publicProfile, setPublicProfile] = useState(false);
 
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm">
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Customisation</h1>
-          <p className="text-gray-600">Personalize your videos to fit your brands style.</p>
+      <div className="mb-6" data-onboarding="customisation-header">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Customisation</h1>
+        <p className="text-gray-600">Personalisieren Sie Ihre MOVEX Plattform</p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Design Settings */}
+        <div className="space-y-6" data-onboarding="design-settings">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Palette className="w-5 h-5" />
+                Brand Design
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="brand-color">Brand Color</Label>
+                <div className="flex items-center gap-3 mt-2">
+                  <Input
+                    id="brand-color"
+                    type="color"
+                    value={brandColor}
+                    onChange={(e) => setBrandColor(e.target.value)}
+                    className="w-16 h-10"
+                  />
+                  <Input
+                    value={brandColor}
+                    onChange={(e) => setBrandColor(e.target.value)}
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="logo-upload">Company Logo</Label>
+                <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <Upload className="w-8 h-8 mx-auto text-gray-400 mb-2" />
+                  <p className="text-sm text-gray-600">Drag & drop your logo here or click to browse</p>
+                  <Button variant="outline" className="mt-2">
+                    Choose File
+                  </Button>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="company-name">Company Name</Label>
+                <Input
+                  id="company-name"
+                  placeholder="Enter your company name"
+                  className="mt-2"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Globe className="w-5 h-5" />
+                Platform Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="public-profile">Public Profile</Label>
+                  <p className="text-sm text-gray-600">Make your profile visible to everyone</p>
+                </div>
+                <Switch
+                  id="public-profile"
+                  checked={publicProfile}
+                  onCheckedChange={setPublicProfile}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="timezone">Timezone</Label>
+                <select className="w-full mt-2 p-2 border border-gray-300 rounded-md">
+                  <option>Europe/Berlin</option>
+                  <option>Europe/London</option>
+                  <option>America/New_York</option>
+                  <option>America/Los_Angeles</option>
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="language">Language</Label>
+                <select className="w-full mt-2 p-2 border border-gray-300 rounded-md">
+                  <option>Deutsch</option>
+                  <option>English</option>
+                  <option>Français</option>
+                  <option>Español</option>
+                </select>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-        <div className="ml-auto flex gap-2">
-          <Button variant="outline">Delete profile</Button>
-          <Button className="bg-teal-600 hover:bg-teal-700 text-white">Edit</Button>
+
+        {/* Feature Settings */}
+        <div className="space-y-6" data-onboarding="feature-settings">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="w-5 h-5" />
+                Notifications
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="email-notifications">Email Notifications</Label>
+                  <p className="text-sm text-gray-600">Receive email updates about your shows</p>
+                </div>
+                <Switch
+                  id="email-notifications"
+                  checked={notifications}
+                  onCheckedChange={setNotifications}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="push-notifications">Push Notifications</Label>
+                  <p className="text-sm text-gray-600">Receive browser notifications</p>
+                </div>
+                <Switch id="push-notifications" />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="sms-notifications">SMS Notifications</Label>
+                  <p className="text-sm text-gray-600">Receive SMS alerts for important events</p>
+                </div>
+                <Switch id="sms-notifications" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="w-5 h-5" />
+                Feature Controls
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="auto-record">Auto-Record Shows</Label>
+                  <p className="text-sm text-gray-600">Automatically record all live shows</p>
+                </div>
+                <Switch id="auto-record" defaultChecked />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="chat-moderation">Chat Moderation</Label>
+                  <p className="text-sm text-gray-600">Enable automatic chat moderation</p>
+                </div>
+                <Switch id="chat-moderation" defaultChecked />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="analytics-tracking">Analytics Tracking</Label>
+                  <p className="text-sm text-gray-600">Track detailed user analytics</p>
+                </div>
+                <Switch id="analytics-tracking" defaultChecked />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                Privacy & Security
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="two-factor">Two-Factor Authentication</Label>
+                  <p className="text-sm text-gray-600">Add an extra layer of security</p>
+                </div>
+                <Switch id="two-factor" />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="data-export">Data Export</Label>
+                  <p className="text-sm text-gray-600">Allow users to export their data</p>
+                </div>
+                <Switch id="data-export" defaultChecked />
+              </div>
+
+              <Button variant="outline" className="w-full">
+                Download Privacy Report
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
-      <div className="flex gap-8">
-        {/* Left Panel */}
-        <div className="flex-1 max-w-2xl">
-          {/* Tabs */}
-          <div className="border-b border-gray-200 mb-6">
-            <nav className="flex space-x-8">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === tab
-                      ? 'border-teal-600 text-teal-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          {/* Profile Details Content */}
-          {activeTab === 'Profile Details' && (
-            <div className="space-y-6">
-              <div>
-                <Label htmlFor="profileName">Profile Name</Label>
-                <Input id="profileName" defaultValue="Default style" className="mt-1" />
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Header</h3>
-                
-                <div className="mb-4">
-                  <Label>Logo</Label>
-                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center bg-green-50">
-                    <div className="text-green-600 mb-2">✓</div>
-                    <div className="text-sm text-green-600">Upload successful</div>
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <Label htmlFor="logoSize">Logo Size</Label>
-                  <select id="logoSize" className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2">
-                    <option>100 %</option>
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="headerLabel">Header Label</Label>
-                    <Input id="headerLabel" placeholder="Assign a label" className="mt-1" />
-                  </div>
-                  <div>
-                    <Label htmlFor="headerUrl">Header Label URL</Label>
-                    <div className="relative mt-1">
-                      <Input id="headerUrl" placeholder="https://..." />
-                      <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400">
-                        <X size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Right Panel - Preview */}
-        {showPreview && (
-          <div className="w-80">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold">Desktop</h3>
-              <select className="border border-gray-300 rounded px-2 py-1 text-sm">
-                <option>Live</option>
-              </select>
-            </div>
-            
-            {/* Desktop Preview */}
-            <Card className="mb-6">
-              <CardContent className="p-0">
-                <div className="bg-gradient-to-r from-orange-400 to-pink-400 rounded-t-lg h-64 relative overflow-hidden">
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs">LIVE</div>
-                  <div className="absolute top-4 right-4">
-                    <button className="text-white"><X size={16} /></button>
-                  </div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xl font-bold">
-                    MOVEX
-                  </div>
-                  <div className="absolute bottom-4 right-4 bg-white rounded-lg p-2 text-xs w-32">
-                    <div className="font-semibold text-purple-600 mb-1">HIGHLIGHTS</div>
-                    <div className="space-y-1">
-                      <div className="bg-gray-100 rounded p-1">Soft cotton T-shirt</div>
-                      <div className="bg-gray-100 rounded p-1">Maxi shirt with a smocked upper...</div>
-                    </div>
-                    <div className="font-semibold text-purple-600 mt-2 mb-1">PRODUCTS</div>
-                    <div className="space-y-1">
-                      <div className="bg-gray-100 rounded p-1">Soft cotton T-shirt</div>
-                      <div className="bg-gray-100 rounded p-1">Premium cotton sweatshirt</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Mobile Preview */}
-            <div className="mb-4">
-              <h3 className="font-semibold">Mobile</h3>
-            </div>
-            <Card className="w-48 mx-auto">
-              <CardContent className="p-0">
-                <div className="bg-gradient-to-r from-orange-400 to-pink-400 rounded-t-lg h-80 relative overflow-hidden">
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs">LIVE</div>
-                  <div className="absolute top-4 right-4">
-                    <button className="text-white"><X size={16} /></button>
-                  </div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-lg font-bold">
-                    MOVEX
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+      {/* Save Button */}
+      <div className="mt-8 flex justify-end">
+        <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white px-8">
+          Save Changes
+        </Button>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Search, MoreVertical } from 'lucide-react';
+import { Search, MoreVertical, Plus } from 'lucide-react';
 
 const Clips = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,9 +36,9 @@ const Clips = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-6" data-onboarding="clips-header">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Clips</h1>
-        <p className="text-gray-600">Customize your clips.</p>
+        <p className="text-gray-600">Erstellen und verwalten Sie Ihre Video Clips.</p>
       </div>
 
       {/* Controls */}
@@ -57,14 +57,15 @@ const Clips = () => {
             <option>Newest to Oldest</option>
             <option>Oldest to Newest</option>
           </select>
-          <Button className="bg-teal-600 hover:bg-teal-700 text-white">
+          <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white" data-onboarding="create-clip-button">
+            <Plus className="w-4 h-4 mr-2" />
             Create clips
           </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 mb-6">
+      <div className="border-b border-gray-200 mb-6" data-onboarding="clips-tabs">
         <nav className="flex space-x-8">
           {tabs.map((tab) => (
             <button
@@ -72,7 +73,7 @@ const Clips = () => {
               onClick={() => setActiveTab(tab)}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab
-                  ? 'border-teal-600 text-teal-600'
+                  ? 'border-[#0066CC] text-[#0066CC]'
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
@@ -83,7 +84,7 @@ const Clips = () => {
       </div>
 
       {/* Clips Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" data-onboarding="clips-grid">
         {clips.map((clip) => (
           <Card key={clip.id} className="relative">
             <CardContent className="p-4">

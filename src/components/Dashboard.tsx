@@ -51,11 +51,11 @@ const Dashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-onboarding="stats-cards">
           <Card className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-teal-600" />
+              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
                 <p className="text-sm text-gray-600">Gesamte Zuschauer</p>
@@ -67,8 +67,8 @@ const Dashboard = () => {
 
           <Card className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
+                <Users className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
                 <p className="text-sm text-gray-600">Aktive Shows</p>
@@ -80,8 +80,8 @@ const Dashboard = () => {
 
           <Card className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <Play className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
+                <Play className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
                 <p className="text-sm text-gray-600">Clips erstellt</p>
@@ -93,8 +93,8 @@ const Dashboard = () => {
 
           <Card className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <Star className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
+                <Star className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
                 <p className="text-sm text-gray-600">Conversion Rate</p>
@@ -111,7 +111,7 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold">Performance Übersicht</h2>
             <div className="flex gap-2">
               <Button variant="outline" size="sm">7 Tage</Button>
-              <Button variant="outline" size="sm" className="bg-teal-50 text-teal-600 border-teal-200">30 Tage</Button>
+              <Button variant="outline" size="sm" className="bg-[#E6F3FF] text-[#0066CC] border-[#0066CC]">30 Tage</Button>
               <Button variant="outline" size="sm">90 Tage</Button>
             </div>
           </div>
@@ -123,8 +123,8 @@ const Dashboard = () => {
                 <Area 
                   type="monotone" 
                   dataKey="viewers" 
-                  stroke="#14b8a6" 
-                  fill="#14b8a6" 
+                  stroke="#0066CC" 
+                  fill="#0066CC" 
                   fillOpacity={0.1}
                   strokeWidth={2}
                 />
@@ -134,46 +134,46 @@ const Dashboard = () => {
         </Card>
 
         {/* Quick Actions */}
-        <div className="mb-8" data-onboarding="content-creation">
+        <div className="mb-8" data-onboarding="quick-actions">
           <h2 className="text-xl font-semibold mb-6">Schnellaktionen</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="p-6 text-center" data-onboarding="shows">
-              <div className="w-16 h-16 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-teal-600" />
+            <Card className="p-6 text-center">
+              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-8 h-8 text-[#0066CC]" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Neue Show erstellen</h3>
               <p className="text-gray-600 mb-4 text-sm">
                 Planen Sie Ihre nächste Live Shopping Show mit Produktintegration.
               </p>
-              <Button className="bg-teal-600 hover:bg-teal-700 text-white w-full">
+              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
                 Show erstellen
               </Button>
             </Card>
 
-            <Card className="p-6 text-center" data-onboarding="clips">
-              <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Play className="w-8 h-8 text-orange-600" />
+            <Card className="p-6 text-center">
+              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Play className="w-8 h-8 text-[#0066CC]" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Neuen Clip erstellen</h3>
               <p className="text-gray-600 mb-4 text-sm">
                 Erstellen Sie kurze, ansprechende Videos für Ihre Produkte.
               </p>
-              <Button className="bg-orange-600 hover:bg-orange-700 text-white w-full">
+              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
                 Clip erstellen
               </Button>
             </Card>
 
-            <Card className="p-6 text-center" data-onboarding="media-library">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="w-8 h-8 text-blue-600" />
+            <Card className="p-6 text-center">
+              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="w-8 h-8 text-[#0066CC]" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Media Library</h3>
               <p className="text-gray-600 mb-4 text-sm">
                 Organisieren Sie Ihre Inhalte in übersichtlichen Bibliotheken.
               </p>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full">
+              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
                 Bibliothek erstellen
               </Button>
@@ -219,7 +219,7 @@ const Dashboard = () => {
               ].map((video, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-8 bg-teal-500 rounded flex items-center justify-center">
+                    <div className="w-10 h-8 bg-[#0066CC] rounded flex items-center justify-center">
                       <Play className="w-3 h-3 text-white" />
                     </div>
                     <div>

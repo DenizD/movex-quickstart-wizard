@@ -7,13 +7,13 @@ import { Plus, Users as UsersIcon } from 'lucide-react';
 const Users = () => {
   return (
     <div className="flex-1 p-6">
-      <div className="mb-6">
+      <div className="mb-6" data-onboarding="users-header">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Users</h1>
-        <p className="text-gray-600">Manage team members and permissions.</p>
+        <p className="text-gray-600">Verwalten Sie Teammitglieder und Berechtigungen.</p>
       </div>
 
       <div className="flex justify-end mb-6">
-        <Button className="bg-movex-blue hover:bg-blue-700" data-onboarding="invite-user-button">
+        <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white" data-onboarding="invite-user-button">
           <Plus size={16} className="mr-2" />
           Invite User
         </Button>
@@ -27,7 +27,7 @@ const Users = () => {
         <CardContent>
           <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-movex-blue rounded-full flex items-center justify-center text-white font-medium">
+              <div className="w-10 h-10 bg-[#0066CC] rounded-full flex items-center justify-center text-white font-medium">
                 D
               </div>
               <div>

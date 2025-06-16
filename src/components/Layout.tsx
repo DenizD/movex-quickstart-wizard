@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { shouldShowOnboarding, completeOnboarding, resetOnboarding } = useOnboarding();
+  const { shouldShowOnboarding, completeOnboarding, currentPage } = useOnboarding();
   const [showWizard, setShowWizard] = useState(false);
 
   const handleStartTour = () => {
@@ -19,7 +19,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const handleCompleteTour = () => {
     setShowWizard(false);
-    completeOnboarding();
+    if (shouldShowOnboarding) {
+      completeOnboarding();
+    }
   };
 
   return (
@@ -34,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 onClick={handleStartTour}
                 variant="outline"
                 size="sm"
-                className="text-teal-600 border-teal-600 hover:bg-teal-50"
+                className="text-[#0066CC] border-[#0066CC] hover:bg-[#0066CC] hover:text-white transition-colors"
               >
                 Tour starten
               </Button>
@@ -49,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Show wizard if it should be shown initially or manually triggered */}
       {(shouldShowOnboarding || showWizard) && (
-        <OnboardingWizard onComplete={handleCompleteTour} />
+        <OnboardingWizard onComplete={handleCompleteTour} currentPage={currentPage} />
       )}
     </>
   );
