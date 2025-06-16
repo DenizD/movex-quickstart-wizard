@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { ChevronLeft, ChevronRight, X, Minimize2, Maximize2, ExternalLink, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Minimize2, Maximize2, ExternalLink, Play, ArrowRight } from 'lucide-react';
 
 interface OnboardingStep {
   id: number;
@@ -11,13 +11,11 @@ interface OnboardingStep {
   content: string;
   tip?: string;
   highlight?: string;
-  gif?: string;
   links?: Array<{
     text: string;
     url: string;
-    type: 'demo' | 'docs' | 'video' | 'feature';
+    type: 'primary' | 'secondary';
   }>;
-  interactiveDemo?: string;
 }
 
 const onboardingSteps: OnboardingStep[] = [
@@ -27,10 +25,9 @@ const onboardingSteps: OnboardingStep[] = [
     title: 'Willkommen bei MOVEX',
     content: 'Willkommen auf deiner interaktiven Live Shopping Plattform! Mit MOVEX kannst du Live-Formate erstellen, einbetten und auswerten – inklusive Clips, Media Library, Moderation & Analytics.',
     highlight: 'Bereit für deine Live Shopping Journey?',
-    gif: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=200&fit=crop',
     links: [
-      { text: 'Platform Demo ansehen', url: '#demo', type: 'demo' },
-      { text: 'Getting Started Guide', url: '#guide', type: 'docs' }
+      { text: 'Platform Demo ansehen', url: '#demo', type: 'primary' },
+      { text: 'Getting Started Guide', url: '#guide', type: 'secondary' }
     ]
   },
   {
@@ -39,13 +36,11 @@ const onboardingSteps: OnboardingStep[] = [
     title: 'Show erstellen – der zentrale Content-Typ',
     content: 'Klicke auf "Shows" in der linken Navigation und wähle "Create Show". Gib Titel, Beschreibung, Datum & Uhrzeit ein. Lade ein Cover hoch, füge Produkte & Tags hinzu.',
     tip: 'Funktionen: Pre-Live Modus, CTA-Button, FAB-Modus, Miniplayer aktivieren',
-    highlight: 'Eine Show ist das Herzstück deines Live Shopping-Erlebnisses – sie bündelt Inhalte, Video, Produkte & Nutzerinteraktion.',
-    gif: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=200&fit=crop',
+    highlight: 'Eine Show ist das Herzstück deines Live Shopping-Erlebnisses',
     links: [
-      { text: '▶ Show Creator öffnen', url: '#shows/create', type: 'feature' },
-      { text: 'Show Setup Tutorial', url: '#tutorial-shows', type: 'video' }
-    ],
-    interactiveDemo: 'Klicke hier um eine Demo-Show zu erstellen'
+      { text: 'Show Creator öffnen', url: '#shows/create', type: 'primary' },
+      { text: 'Show Setup Tutorial', url: '#tutorial-shows', type: 'secondary' }
+    ]
   },
   {
     id: 3,
@@ -54,10 +49,9 @@ const onboardingSteps: OnboardingStep[] = [
     content: 'Gehe in die Detailansicht der Show und kopiere den Einbettungscode. Du kannst MOVEX auf jeder Seite per iFrame einbinden oder direkt per JavaScript Snippet.',
     tip: 'Optional: FAB oder Miniplayer aktivieren, PDP-Einbindung möglich.',
     highlight: 'MOVEX ist vollständig Headless-fähig – ideal für CMS, Shopsysteme & mobile Views.',
-    gif: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop',
     links: [
-      { text: 'Embed Code Generator', url: '#embed', type: 'feature' },
-      { text: 'Integration Docs', url: '#docs/embed', type: 'docs' }
+      { text: 'Embed Code Generator', url: '#embed', type: 'primary' },
+      { text: 'Integration Docs', url: '#docs/embed', type: 'secondary' }
     ]
   },
   {
@@ -67,10 +61,9 @@ const onboardingSteps: OnboardingStep[] = [
     content: 'Clips sind kurze, shoppable Videos (z. B. 15–90 Sekunden). Lade Video + Cover hoch, verknüpfe ein Produkt, schreibe eine kurze Beschreibung.',
     tip: 'Clips können auf Startseiten, PDPs oder in Playlists genutzt werden.',
     highlight: 'Clips funktionieren unabhängig von Zeit & Live-Status – ideal für Conversion im On-Demand-Umfeld.',
-    gif: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=200&fit=crop',
     links: [
-      { text: '🎬 Clip Creator öffnen', url: '#clips/create', type: 'feature' },
-      { text: 'Clip Best Practices', url: '#guide/clips', type: 'docs' }
+      { text: 'Clip Creator öffnen', url: '#clips/create', type: 'primary' },
+      { text: 'Clip Best Practices', url: '#guide/clips', type: 'secondary' }
     ]
   },
   {
@@ -80,10 +73,9 @@ const onboardingSteps: OnboardingStep[] = [
     content: 'Erstelle Playlists, um Shows & Clips zu gruppieren (z. B. "Kampagne Mai", "Sneaker Woche"). Ordne Playlists per Drag & Drop, setze Tags & Status (Live, Upcoming, Ended).',
     tip: 'Nutze die Mediathek als dauerhaftes Live Shopping Archiv.',
     highlight: 'Die Library ist ein wachsender Content-Hub mit Filter- und Suchfunktionen für deine Nutzer:innen.',
-    gif: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop',
     links: [
-      { text: '📚 Media Library öffnen', url: '#library', type: 'feature' },
-      { text: 'Playlist Management Guide', url: '#guide/playlists', type: 'docs' }
+      { text: 'Media Library öffnen', url: '#library', type: 'primary' },
+      { text: 'Playlist Management Guide', url: '#guide/playlists', type: 'secondary' }
     ]
   },
   {
@@ -93,10 +85,9 @@ const onboardingSteps: OnboardingStep[] = [
     content: 'Navigiere zu "Users" und lade per E-Mail weitere Personen ein.',
     tip: 'Rollen: Admin (alles), Host (Shows & Clips), Moderator (Chat & Live Tools), Analytics (nur Leserechte)',
     highlight: 'MOVEX unterstützt kollaboratives Arbeiten mit klarer Rollentrennung und Rechteverwaltung.',
-    gif: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=200&fit=crop',
     links: [
-      { text: '👥 Team Management öffnen', url: '#users', type: 'feature' },
-      { text: 'Rollen & Rechte erklärt', url: '#docs/roles', type: 'docs' }
+      { text: 'Team Management öffnen', url: '#users', type: 'primary' },
+      { text: 'Rollen & Rechte erklärt', url: '#docs/roles', type: 'secondary' }
     ]
   },
   {
@@ -106,10 +97,9 @@ const onboardingSteps: OnboardingStep[] = [
     content: 'Nach jeder Show findest du in "Analytics" KPIs wie: Zuschauer live & on demand, Watchtime, Produktklicks & Engagement, Conversion Funnels.',
     tip: 'Nutze die KPIs zur Optimierung von Format, Laufzeit & Produktinszenierung.',
     highlight: 'Datenbasierte Entscheidungen für bessere Live Shopping Performance.',
-    gif: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=200&fit=crop',
     links: [
-      { text: '📊 Analytics Dashboard', url: '#analytics', type: 'feature' },
-      { text: 'KPI Interpretation Guide', url: '#guide/analytics', type: 'docs' }
+      { text: 'Analytics Dashboard', url: '#analytics', type: 'primary' },
+      { text: 'KPI Interpretation Guide', url: '#guide/analytics', type: 'secondary' }
     ]
   },
   {
@@ -118,10 +108,9 @@ const onboardingSteps: OnboardingStep[] = [
     title: 'Let\'s go!',
     content: 'Du bist bereit! Starte deine erste Show oder lege deine Clips & Playlists an. Dein MOVEX Setup steht.',
     highlight: 'Viel Erfolg beim Live Shopping!',
-    gif: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=200&fit=crop',
     links: [
-      { text: '🎬 Erste Show erstellen', url: '#shows/create', type: 'feature' },
-      { text: '📚 Education Hub öffnen', url: '#education', type: 'docs' }
+      { text: 'Erste Show erstellen', url: '#shows/create', type: 'primary' },
+      { text: 'Education Hub öffnen', url: '#education', type: 'secondary' }
     ]
   }
 ];
@@ -171,32 +160,32 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
   if (!isVisible) return null;
 
-  // Minimized view
+  // Minimized view - cleaner floating indicator
   if (isMinimized) {
     return (
-      <div className="fixed bottom-4 right-4 z-50 animate-fade-in">
-        <div className="bg-gradient-to-r from-movex-blue to-blue-600 text-white rounded-lg shadow-lg p-4 flex items-center gap-3 cursor-pointer hover:shadow-xl transition-shadow max-w-sm">
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 flex items-center gap-3 cursor-pointer hover:shadow-xl transition-all max-w-xs">
           <div className="text-2xl">{currentStepData.emoji}</div>
           <div className="flex-1">
-            <h4 className="font-semibold text-sm">MOVEX Setup</h4>
-            <p className="text-xs text-blue-100">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+            <h4 className="font-medium text-gray-900 text-sm">MOVEX Setup</h4>
+            <p className="text-xs text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
           </div>
           <div className="flex gap-1">
             <Button
               size="sm"
               variant="ghost"
               onClick={handleMinimize}
-              className="text-white hover:bg-white/20 h-8 w-8 p-0"
+              className="h-7 w-7 p-0 hover:bg-gray-100"
             >
-              <Maximize2 size={14} />
+              <Maximize2 size={12} />
             </Button>
             <Button
               size="sm"
               variant="ghost"
               onClick={handleSkip}
-              className="text-white hover:bg-white/20 h-8 w-8 p-0"
+              className="h-7 w-7 p-0 hover:bg-gray-100"
             >
-              <X size={14} />
+              <X size={12} />
             </Button>
           </div>
         </div>
@@ -205,128 +194,84 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-4 animate-slide-in max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="relative p-6 pb-4 bg-gradient-to-r from-movex-blue to-blue-600 text-white rounded-t-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
+        {/* Header - minimal and clean */}
+        <div className="relative px-8 py-6 border-b border-gray-100">
           <div className="absolute top-4 right-4 flex gap-2">
             <button
               onClick={handleMinimize}
-              className="p-1 hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <Minimize2 size={20} />
+              <Minimize2 size={16} className="text-gray-500" />
             </button>
             <button
               onClick={handleSkip}
-              className="p-1 hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <X size={20} />
+              <X size={16} className="text-gray-500" />
             </button>
           </div>
-          <div className="text-center">
-            <h2 className="text-xl font-bold mb-2">MOVEX | Live Shopping</h2>
-            <p className="text-blue-100 text-sm">Quick Setup Wizard</p>
+          <div className="pr-20">
+            <h2 className="text-xl font-semibold text-gray-900">MOVEX Setup</h2>
+            <p className="text-sm text-gray-500 mt-1">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="px-6 py-3 bg-movex-light">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-movex-blue font-medium">
-              Schritt {currentStep + 1} von {onboardingSteps.length}
-            </span>
-            <span className="text-sm text-gray-600">{Math.round(progress)}%</span>
-          </div>
+        <div className="px-8 py-4 bg-gray-50">
           <Progress value={progress} className="h-2" />
         </div>
 
         {/* Content */}
-        <div className="p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left side - Content */}
-            <div>
-              <div className="text-center mb-6">
-                <div className="text-6xl mb-4 animate-bounce">
-                  {currentStepData.emoji}
-                </div>
-                <h3 className="text-2xl font-bold text-movex-blue mb-4">
-                  {currentStepData.title}
-                </h3>
-                <p className="text-gray-700 text-base mb-4 leading-relaxed text-left">
-                  {currentStepData.content}
-                </p>
-                {currentStepData.tip && (
-                  <div className="text-sm text-gray-600 bg-gray-50 px-4 py-2 rounded-lg mb-4 text-left">
-                    <strong>💡 Tipp:</strong> {currentStepData.tip}
-                  </div>
-                )}
-                {currentStepData.highlight && (
-                  <p className="text-movex-blue font-semibold bg-movex-light px-4 py-3 rounded-lg text-sm">
-                    ✨ {currentStepData.highlight}
-                  </p>
-                )}
-              </div>
-
-              {/* Interactive Demo */}
-              {currentStepData.interactiveDemo && (
-                <div className="mb-6">
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-2 border-dashed border-movex-blue text-movex-blue hover:bg-movex-blue hover:text-white"
-                  >
-                    <Play className="w-4 h-4 mr-2" />
-                    {currentStepData.interactiveDemo}
-                  </Button>
-                </div>
-              )}
-
-              {/* Quick Links */}
-              {currentStepData.links && (
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-800 text-sm mb-3">🔗 Schnellzugriff:</h4>
-                  {currentStepData.links.map((link, index) => (
-                    <Button
-                      key={index}
-                      variant="ghost"
-                      size="sm"
-                      className={`w-full justify-start text-left hover:bg-gray-50 ${
-                        link.type === 'feature' ? 'text-movex-blue hover:bg-movex-light' : 'text-gray-600'
-                      }`}
-                    >
-                      <ExternalLink className="w-3 h-3 mr-2" />
-                      {link.text}
-                    </Button>
-                  ))}
-                </div>
-              )}
+        <div className="px-8 py-8">
+          <div className="text-center mb-8">
+            <div className="text-5xl mb-4">
+              {currentStepData.emoji}
             </div>
-
-            {/* Right side - Visual */}
-            <div className="flex flex-col justify-center">
-              {currentStepData.gif && (
-                <div className="mb-4">
-                  <img
-                    src={currentStepData.gif}
-                    alt={`${currentStepData.title} Demo`}
-                    className="w-full h-48 object-cover rounded-lg shadow-md"
-                  />
-                </div>
-              )}
-              
-              {/* Feature Preview Box */}
-              <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-lg border-2 border-dashed border-gray-200">
-                <div className="text-center text-gray-500">
-                  <div className="text-3xl mb-2">{currentStepData.emoji}</div>
-                  <p className="text-sm font-medium">Feature Preview</p>
-                  <p className="text-xs mt-1">Hier siehst du später eine<br />Live-Vorschau der Funktion</p>
-                </div>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              {currentStepData.title}
+            </h3>
+            <p className="text-gray-600 text-base leading-relaxed mb-6">
+              {currentStepData.content}
+            </p>
+            
+            {currentStepData.tip && (
+              <div className="text-sm text-gray-600 bg-blue-50 px-4 py-3 rounded-lg mb-4">
+                <span className="font-medium">💡 Tipp:</span> {currentStepData.tip}
               </div>
-            </div>
+            )}
+            
+            {currentStepData.highlight && (
+              <div className="text-movex-blue font-medium bg-movex-light px-4 py-3 rounded-lg text-sm">
+                ✨ {currentStepData.highlight}
+              </div>
+            )}
           </div>
+
+          {/* Action Links */}
+          {currentStepData.links && (
+            <div className="space-y-3 mb-8">
+              {currentStepData.links.map((link, index) => (
+                <Button
+                  key={index}
+                  variant={link.type === 'primary' ? 'default' : 'outline'}
+                  className={`w-full justify-between ${
+                    link.type === 'primary' 
+                      ? 'bg-movex-blue hover:bg-movex-blue/90' 
+                      : 'border-gray-200 hover:bg-gray-50'
+                  }`}
+                >
+                  <span>{link.text}</span>
+                  <ArrowRight size={16} />
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center p-6 pt-0 border-t">
+        <div className="flex justify-between items-center px-8 py-6 border-t border-gray-100 bg-gray-50">
           <Button
             variant="outline"
             onClick={handlePrevious}
@@ -342,12 +287,12 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
               <button
                 key={index}
                 onClick={() => setCurrentStep(index)}
-                className={`w-3 h-3 rounded-full transition-colors hover:scale-110 ${
+                className={`w-2 h-2 rounded-full transition-all ${
                   index === currentStep
-                    ? 'bg-movex-blue'
+                    ? 'bg-movex-blue w-6'
                     : index < currentStep
-                    ? 'bg-blue-300 hover:bg-blue-400'
-                    : 'bg-gray-200 hover:bg-gray-300'
+                    ? 'bg-blue-300'
+                    : 'bg-gray-200'
                 }`}
               />
             ))}
@@ -355,7 +300,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
           <Button
             onClick={handleNext}
-            className="flex items-center gap-2 bg-movex-blue hover:bg-blue-700"
+            className="flex items-center gap-2 bg-movex-blue hover:bg-movex-blue/90"
           >
             {isLastStep ? 'Jetzt loslegen' : 'Weiter'}
             {!isLastStep && <ChevronRight size={16} />}
