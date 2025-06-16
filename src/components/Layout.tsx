@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useOnboarding } from '@/hooks/useOnboarding';
+import { useLanguage } from '@/hooks/useLanguage';
 import Sidebar from './Sidebar';
 import OnboardingWizard from './OnboardingWizard';
+import LanguageSelector from './LanguageSelector';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +13,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { shouldShowOnboarding, completeOnboarding, currentPage } = useOnboarding();
+  const { t } = useLanguage();
   const [showWizard, setShowWizard] = useState(false);
 
   const handleStartTour = () => {
@@ -29,17 +32,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="min-h-screen bg-gray-50 flex">
         <Sidebar />
         <div className="flex-1 flex flex-col">
-          {/* Header with Tour Button */}
+          {/* Header with Tour Button and Language Selector */}
           <div className="bg-white border-b border-gray-200 px-6 py-4">
-            <div className="flex justify-end">
-              <Button
-                onClick={handleStartTour}
-                variant="outline"
-                size="sm"
-                className="text-[#0066CC] border-[#0066CC] hover:bg-[#0066CC] hover:text-white transition-colors"
-              >
-                Tour starten
-              </Button>
+            <div className="flex justify-between items-center">
+              <div></div>
+              <div className="flex items-center gap-4">
+                <LanguageSelector />
+                <Button
+                  onClick={handleStartTour}
+                  variant="outline"
+                  size="sm"
+                  className="text-[#0066CC] border-[#0066CC] hover:bg-[#0066CC] hover:text-white transition-colors"
+                >
+                  {t('action.startTour')}
+                </Button>
+              </div>
             </div>
           </div>
           

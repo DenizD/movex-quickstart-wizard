@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, MoreVertical, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const MediaLibrary = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
 
   const mediaLibraries = [
@@ -19,8 +21,8 @@ const MediaLibrary = () => {
     <div className="p-6">
       {/* Header */}
       <div className="mb-6" data-onboarding="media-header">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Media Library</h1>
-        <p className="text-gray-600">Organisieren Sie Ihre Inhalte in strukturierten Bibliotheken.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('page.mediaLibrary.title')}</h1>
+        <p className="text-gray-600">{t('page.mediaLibrary.subtitle')}</p>
       </div>
 
       {/* Controls */}
@@ -28,7 +30,7 @@ const MediaLibrary = () => {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           <Input
-            placeholder="Search"
+            placeholder={t('action.search')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 w-64"
@@ -45,7 +47,7 @@ const MediaLibrary = () => {
             onClick={() => navigate('/media-library/create')}
           >
             <Plus className="w-4 h-4 mr-2" />
-            Create media library
+            {t('action.create')} media library
           </Button>
         </div>
       </div>

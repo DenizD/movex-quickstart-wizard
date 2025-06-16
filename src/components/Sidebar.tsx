@@ -12,30 +12,33 @@ import {
   HelpCircle,
   Play
 } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const Sidebar = () => {
+  const { t } = useLanguage();
+  
   const navItems = [
     {
       section: 'Collections',
       items: [
-        { icon: BarChart3, label: 'Overview', path: '/', id: 'overview' },
-        { icon: Video, label: 'Shows', path: '/shows', id: 'shows' },
-        { icon: Scissors, label: 'Clips', path: '/clips', id: 'clips' },
-        { icon: Library, label: 'Media Library', path: '/media-library', id: 'media-library' }
+        { icon: BarChart3, label: t('nav.overview'), path: '/', id: 'overview' },
+        { icon: Video, label: t('nav.shows'), path: '/shows', id: 'shows' },
+        { icon: Scissors, label: t('nav.clips'), path: '/clips', id: 'clips' },
+        { icon: Library, label: t('nav.mediaLibrary'), path: '/media-library', id: 'media-library' }
       ]
     },
     {
       section: 'Streaming',
       items: [
-        { icon: Download, label: 'Streaming APP', path: '/streaming', id: 'streaming-app' }
+        { icon: Download, label: t('nav.streamingApp'), path: '/streaming', id: 'streaming-app' }
       ]
     },
     {
       section: 'Users & Data',
       items: [
-        { icon: Users, label: 'Users', path: '/users', id: 'users' },
-        { icon: BarChart3, label: 'Analytics', path: '/analytics', id: 'analytics' },
-        { icon: Settings, label: 'Customisation', path: '/customisation', id: 'customisation' }
+        { icon: Users, label: t('nav.users'), path: '/users', id: 'users' },
+        { icon: BarChart3, label: t('nav.analytics'), path: '/analytics', id: 'analytics' },
+        { icon: Settings, label: t('nav.customisation'), path: '/customisation', id: 'customisation' }
       ]
     }
   ];
@@ -90,7 +93,7 @@ const Sidebar = () => {
       <div className="p-4 border-t border-gray-200">
         <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 w-full">
           <HelpCircle size={18} />
-          <span>Support</span>
+          <span>{t('nav.support')}</span>
         </button>
       </div>
     </div>

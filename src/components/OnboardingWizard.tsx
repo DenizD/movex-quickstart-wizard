@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ChevronLeft, ChevronRight, X, Minimize2, Maximize2 } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface HighlightBoxProps {
   targetSelector: string;
@@ -49,33 +49,33 @@ interface OnboardingStep {
   targetSelector?: string;
 }
 
-// Page-specific onboarding steps
-const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
+// Page-specific onboarding steps with translation support
+const getOnboardingSteps = (currentPage: string, t: (key: string) => string): OnboardingStep[] => {
   switch (currentPage) {
     case 'overview':
       return [
         {
           id: 1,
-          title: 'Willkommen bei MOVEX',
-          description: 'Ihre Live Shopping Plattform für interaktive Verkaufserlebnisse. Hier bekommen Sie einen Überblick über alle wichtigen Metriken.',
+          title: t('wizard.welcome.title'),
+          description: t('wizard.welcome.description'),
           targetSelector: '[data-onboarding="overview-header"]'
         },
         {
           id: 2,
-          title: 'Performance Dashboard',
-          description: 'Verfolgen Sie Ihre wichtigsten KPIs wie Zuschauer, Conversion Rate und Engagement in Echtzeit.',
+          title: t('wizard.performance.title'),
+          description: t('wizard.performance.description'),
           targetSelector: '[data-onboarding="stats-cards"]'
         },
         {
           id: 3,
-          title: 'Analytics Übersicht',
-          description: 'Detaillierte Diagramme zeigen Ihnen die Performance Ihrer Shows über verschiedene Zeiträume.',
+          title: t('wizard.analytics.title'),
+          description: t('wizard.analytics.description'),
           targetSelector: '[data-onboarding="analytics-chart"]'
         },
         {
           id: 4,
-          title: 'Schnellaktionen',
-          description: 'Erstellen Sie neue Shows, Clips oder Media Libraries direkt von hier aus.',
+          title: t('wizard.quickActions.title'),
+          description: t('wizard.quickActions.description'),
           targetSelector: '[data-onboarding="quick-actions"]'
         }
       ];
@@ -324,8 +324,8 @@ const getOnboardingSteps = (currentPage: string): OnboardingStep[] => {
       return [
         {
           id: 1,
-          title: 'Willkommen bei MOVEX',
-          description: 'Entdecken Sie die Möglichkeiten der Live Shopping Plattform.',
+          title: t('wizard.welcome.title'),
+          description: t('wizard.welcome.description'),
         }
       ];
   }
@@ -340,8 +340,9 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, current
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
+  const { t } = useLanguage();
 
-  const onboardingSteps = getOnboardingSteps(currentPage);
+  const onboardingSteps = getOnboardingSteps(currentPage, t);
 
   const handleNext = () => {
     if (currentStep < onboardingSteps.length - 1) {
@@ -471,7 +472,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, current
                 className="flex items-center gap-2 border-gray-200 hover:bg-gray-50 disabled:opacity-50"
               >
                 <ChevronLeft size={16} />
-                Zurück
+                {t('action.back')}
               </Button>
 
               <div className="flex gap-2">
@@ -493,7 +494,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, current
                 onClick={handleNext}
                 className="flex items-center gap-2 bg-[#0066CC] hover:bg-[#0052A3] text-white px-6"
               >
-                {isLastStep ? 'Tour beenden' : 'Weiter'}
+                {isLastStep ? t('action.finish') : t('action.next')}
                 {!isLastStep && <ChevronRight size={16} />}
               </Button>
             </div>
