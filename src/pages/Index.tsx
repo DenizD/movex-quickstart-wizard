@@ -2,7 +2,7 @@
 import React from 'react';
 import { useOnboarding } from '@/hooks/useOnboarding';
 import OnboardingWizard from '@/components/OnboardingWizard';
-import Overview from './Overview';
+import Dashboard from '@/components/Dashboard';
 
 const Index = () => {
   const { shouldShowOnboarding, isLoading, completeOnboarding, resetOnboarding } = useOnboarding();
@@ -20,7 +20,7 @@ const Index = () => {
 
   return (
     <>
-      <Overview />
+      <Dashboard onResetOnboarding={resetOnboarding} />
       {shouldShowOnboarding && (
         <OnboardingWizard onComplete={completeOnboarding} />
       )}
