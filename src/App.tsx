@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from '@/components/LanguageProvider';
@@ -26,12 +27,17 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/shows" element={<Shows />} />
             <Route path="/shows/create" element={<CreateShow />} />
+            <Route path="/scheduled" element={<div className="p-6"><h1 className="text-2xl font-bold">Scheduled Shows</h1><p>Coming soon...</p></div>} />
+            <Route path="/products" element={<div className="p-6"><h1 className="text-2xl font-bold">Products</h1><p>Coming soon...</p></div>} />
+            <Route path="/sales" element={<div className="p-6"><h1 className="text-2xl font-bold">Sales</h1><p>Coming soon...</p></div>} />
             <Route path="/clips" element={<Clips />} />
             <Route path="/clips/create" element={<CreateClip />} />
             <Route path="/media-library" element={<MediaLibrary />} />
             <Route path="/media-library/create" element={<CreateMediaLibrary />} />
+            <Route path="/chat" element={<div className="p-6"><h1 className="text-2xl font-bold">Chat Moderation</h1><p>Coming soon...</p></div>} />
             <Route path="/users" element={<Users />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/performance" element={<div className="p-6"><h1 className="text-2xl font-bold">Performance</h1><p>Coming soon...</p></div>} />
             <Route path="/customisation" element={<Customisation />} />
             <Route path="/user-settings" element={<UserSettings />} />
             <Route path="/account-settings" element={<AccountSettings />} />

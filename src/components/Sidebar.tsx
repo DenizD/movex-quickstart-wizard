@@ -12,7 +12,12 @@ import {
   HelpCircle,
   Play,
   User,
-  UserCog
+  UserCog,
+  ShoppingBag,
+  Calendar,
+  MessageSquare,
+  TrendingUp,
+  Zap
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -21,24 +26,34 @@ const Sidebar = () => {
   
   const navItems = [
     {
-      section: 'Overview',
+      section: 'Dashboard',
       items: [
         { icon: BarChart3, label: t('nav.overview'), path: '/', id: 'overview' }
       ]
     },
     {
-      section: 'Content Management',
+      section: 'Live Shopping',
       items: [
-        { icon: Video, label: t('nav.shows'), path: '/shows', id: 'shows' },
-        { icon: Scissors, label: t('nav.clips'), path: '/clips', id: 'clips' },
-        { icon: Library, label: t('nav.mediaLibrary'), path: '/media-library', id: 'media-library' }
+        { icon: Video, label: 'Live Shows', path: '/shows', id: 'shows' },
+        { icon: Calendar, label: 'Scheduled Shows', path: '/scheduled', id: 'scheduled' },
+        { icon: ShoppingBag, label: 'Products', path: '/products', id: 'products' },
+        { icon: TrendingUp, label: 'Sales', path: '/sales', id: 'sales' }
       ]
     },
     {
-      section: 'Analytics & Users',
+      section: 'Content',
+      items: [
+        { icon: Scissors, label: t('nav.clips'), path: '/clips', id: 'clips' },
+        { icon: Library, label: t('nav.mediaLibrary'), path: '/media-library', id: 'media-library' },
+        { icon: MessageSquare, label: 'Chat Moderation', path: '/chat', id: 'chat' }
+      ]
+    },
+    {
+      section: 'Analytics',
       items: [
         { icon: BarChart3, label: t('nav.analytics'), path: '/analytics', id: 'analytics' },
-        { icon: Users, label: t('nav.users'), path: '/users', id: 'users' }
+        { icon: Users, label: t('nav.users'), path: '/users', id: 'users' },
+        { icon: Zap, label: 'Performance', path: '/performance', id: 'performance' }
       ]
     },
     {
@@ -50,9 +65,9 @@ const Sidebar = () => {
     {
       section: 'Settings',
       items: [
-        { icon: Settings, label: 'Customisation', path: '/customisation', id: 'customisation' },
-        { icon: User, label: 'User Settings', path: '/user-settings', id: 'user-settings' },
-        { icon: UserCog, label: 'Account Settings', path: '/account-settings', id: 'account-settings' }
+        { icon: Settings, label: 'Platform Settings', path: '/customisation', id: 'customisation' },
+        { icon: User, label: 'Profile Settings', path: '/user-settings', id: 'user-settings' },
+        { icon: UserCog, label: 'Account & Billing', path: '/account-settings', id: 'account-settings' }
       ]
     }
   ];

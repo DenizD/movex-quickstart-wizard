@@ -5,34 +5,34 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Palette, Upload, Settings, Bell, Shield, Globe } from 'lucide-react';
+import { Palette, Upload, Settings, Monitor, Mic, Camera } from 'lucide-react';
 
 const Customisation = () => {
   const [brandColor, setBrandColor] = useState('#0066CC');
-  const [notifications, setNotifications] = useState(true);
-  const [publicProfile, setPublicProfile] = useState(false);
+  const [autoRecord, setAutoRecord] = useState(true);
+  const [chatModeration, setChatModeration] = useState(true);
 
   return (
     <div className="p-6">
       {/* Header */}
       <div className="mb-6" data-onboarding="customisation-header">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Customisation</h1>
-        <p className="text-gray-600">Personalisieren Sie Ihre MOVEX Plattform</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Platform Settings</h1>
+        <p className="text-gray-600">Configure your MOVEX live shopping platform</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Design Settings */}
+        {/* Brand Settings */}
         <div className="space-y-6" data-onboarding="design-settings">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Palette className="w-5 h-5" />
-                Brand Design
+                Brand Customization
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="brand-color">Brand Color</Label>
+                <Label htmlFor="brand-color">Primary Brand Color</Label>
                 <div className="flex items-center gap-3 mt-2">
                   <Input
                     id="brand-color"
@@ -53,7 +53,7 @@ const Customisation = () => {
                 <Label htmlFor="logo-upload">Company Logo</Label>
                 <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                   <Upload className="w-8 h-8 mx-auto text-gray-400 mb-2" />
-                  <p className="text-sm text-gray-600">Drag & drop your logo here or click to browse</p>
+                  <p className="text-sm text-gray-600">Upload your logo for live shows</p>
                   <Button variant="outline" className="mt-2">
                     Choose File
                   </Button>
@@ -61,10 +61,75 @@ const Customisation = () => {
               </div>
 
               <div>
-                <Label htmlFor="company-name">Company Name</Label>
+                <Label htmlFor="company-name">Store Name</Label>
                 <Input
                   id="company-name"
-                  placeholder="Enter your company name"
+                  placeholder="Enter your store name"
+                  className="mt-2"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="welcome-message">Welcome Message</Label>
+                <textarea
+                  id="welcome-message"
+                  rows={3}
+                  className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+                  placeholder="Welcome message for viewers joining your live shows"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Live Shopping Settings */}
+        <div className="space-y-6" data-onboarding="feature-settings">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Monitor className="w-5 h-5" />
+                Live Show Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="auto-record">Auto-Record Shows</Label>
+                  <p className="text-sm text-gray-600">Automatically record all live shows</p>
+                </div>
+                <Switch
+                  id="auto-record"
+                  checked={autoRecord}
+                  onCheckedChange={setAutoRecord}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="chat-moderation">Chat Moderation</Label>
+                  <p className="text-sm text-gray-600">Enable automatic chat filtering</p>
+                </div>
+                <Switch
+                  id="chat-moderation"
+                  checked={chatModeration}
+                  onCheckedChange={setChatModeration}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="viewer-count">Show Viewer Count</Label>
+                  <p className="text-sm text-gray-600">Display live viewer count to audience</p>
+                </div>
+                <Switch id="viewer-count" defaultChecked />
+              </div>
+
+              <div>
+                <Label htmlFor="max-viewers">Maximum Viewers</Label>
+                <Input
+                  id="max-viewers"
+                  type="number"
+                  placeholder="1000"
                   className="mt-2"
                 />
               </div>
@@ -74,147 +139,37 @@ const Customisation = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Globe className="w-5 h-5" />
-                Platform Settings
+                <Camera className="w-5 h-5" />
+                Stream Quality
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="public-profile">Public Profile</Label>
-                  <p className="text-sm text-gray-600">Make your profile visible to everyone</p>
-                </div>
-                <Switch
-                  id="public-profile"
-                  checked={publicProfile}
-                  onCheckedChange={setPublicProfile}
-                />
-              </div>
-
               <div>
-                <Label htmlFor="timezone">Timezone</Label>
+                <Label htmlFor="video-quality">Default Video Quality</Label>
                 <select className="w-full mt-2 p-2 border border-gray-300 rounded-md">
-                  <option>Europe/Berlin</option>
-                  <option>Europe/London</option>
-                  <option>America/New_York</option>
-                  <option>America/Los_Angeles</option>
+                  <option>1080p HD</option>
+                  <option>720p</option>
+                  <option>480p</option>
+                  <option>Auto</option>
                 </select>
               </div>
 
               <div>
-                <Label htmlFor="language">Language</Label>
+                <Label htmlFor="audio-quality">Audio Quality</Label>
                 <select className="w-full mt-2 p-2 border border-gray-300 rounded-md">
-                  <option>Deutsch</option>
-                  <option>English</option>
-                  <option>Français</option>
-                  <option>Español</option>
+                  <option>High (128 kbps)</option>
+                  <option>Medium (96 kbps)</option>
+                  <option>Low (64 kbps)</option>
                 </select>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Feature Settings */}
-        <div className="space-y-6" data-onboarding="feature-settings">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bell className="w-5 h-5" />
-                Notifications
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="email-notifications">Email Notifications</Label>
-                  <p className="text-sm text-gray-600">Receive email updates about your shows</p>
-                </div>
-                <Switch
-                  id="email-notifications"
-                  checked={notifications}
-                  onCheckedChange={setNotifications}
-                />
-              </div>
 
               <div className="flex items-center justify-between">
                 <div>
-                  <Label htmlFor="push-notifications">Push Notifications</Label>
-                  <p className="text-sm text-gray-600">Receive browser notifications</p>
+                  <Label htmlFor="adaptive-streaming">Adaptive Streaming</Label>
+                  <p className="text-sm text-gray-600">Automatically adjust quality based on connection</p>
                 </div>
-                <Switch id="push-notifications" />
+                <Switch id="adaptive-streaming" defaultChecked />
               </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="sms-notifications">SMS Notifications</Label>
-                  <p className="text-sm text-gray-600">Receive SMS alerts for important events</p>
-                </div>
-                <Switch id="sms-notifications" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="w-5 h-5" />
-                Feature Controls
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="auto-record">Auto-Record Shows</Label>
-                  <p className="text-sm text-gray-600">Automatically record all live shows</p>
-                </div>
-                <Switch id="auto-record" defaultChecked />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="chat-moderation">Chat Moderation</Label>
-                  <p className="text-sm text-gray-600">Enable automatic chat moderation</p>
-                </div>
-                <Switch id="chat-moderation" defaultChecked />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="analytics-tracking">Analytics Tracking</Label>
-                  <p className="text-sm text-gray-600">Track detailed user analytics</p>
-                </div>
-                <Switch id="analytics-tracking" defaultChecked />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                Privacy & Security
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="two-factor">Two-Factor Authentication</Label>
-                  <p className="text-sm text-gray-600">Add an extra layer of security</p>
-                </div>
-                <Switch id="two-factor" />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="data-export">Data Export</Label>
-                  <p className="text-sm text-gray-600">Allow users to export their data</p>
-                </div>
-                <Switch id="data-export" defaultChecked />
-              </div>
-
-              <Button variant="outline" className="w-full">
-                Download Privacy Report
-              </Button>
             </CardContent>
           </Card>
         </div>
@@ -223,7 +178,7 @@ const Customisation = () => {
       {/* Save Button */}
       <div className="mt-8 flex justify-end">
         <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white px-8">
-          Save Changes
+          Save Settings
         </Button>
       </div>
     </div>
