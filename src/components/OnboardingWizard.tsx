@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ChevronLeft, ChevronRight, X, Minimize2, Maximize2, ArrowRight } from 'lucide-react';
@@ -28,7 +28,7 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/50 z-40 pointer-events-none" />
+      <div className="fixed inset-0 bg-black/60 z-40 pointer-events-none" />
       <div 
         className="fixed z-50 pointer-events-none"
         style={{
@@ -38,9 +38,9 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
           height: rect.height + 16,
           border: '3px solid #002A60',
           borderRadius: '12px',
-          boxShadow: '0 0 0 4px rgba(0, 42, 96, 0.2), 0 0 20px rgba(0, 42, 96, 0.3)',
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(1px)'
+          boxShadow: '0 0 0 4px rgba(0, 42, 96, 0.3), 0 0 30px rgba(0, 42, 96, 0.4)',
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(2px)'
         }}
       />
     </>
@@ -66,20 +66,20 @@ const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
     emoji: '🎉',
-    title: 'Willkommen bei MOVEX',
-    content: 'Willkommen auf deiner Live Shopping Plattform! MOVEX ermöglicht es dir, interaktive Live-Events zu erstellen und nahtlos in deine Website zu integrieren.',
-    highlight: 'Bereit für deine Live Shopping Journey?',
+    title: 'Willkommen bei MOVEX Live Shopping',
+    content: 'Herzlich willkommen auf Ihrer Live Shopping Plattform! MOVEX ermöglicht es Ihnen, interaktive Live-Events zu erstellen und nahtlos in Ihre Website zu integrieren.',
+    highlight: 'Bereit für Ihre Live Shopping Journey?',
     targetSelector: '[data-onboarding="overview-header"]',
     links: [
-      { text: 'Los gehts!', action: 'next', type: 'primary' }
+      { text: 'Tour starten', action: 'next', type: 'primary' }
     ]
   },
   {
     id: 2,
     emoji: '📊',
     title: 'Analytics Dashboard',
-    content: 'Hier siehst du deine wichtigsten Kennzahlen auf einen Blick: Viewer, Chat-Nachrichten, Likes und Produkt-Klicks.',
-    tip: 'Die Analytics helfen dir dabei, den Erfolg deiner Shows zu messen',
+    content: 'Hier sehen Sie Ihre wichtigsten Kennzahlen auf einen Blick: Viewer, Chat-Nachrichten, Likes und Produkt-Klicks in Echtzeit.',
+    tip: 'Die Analytics helfen Ihnen dabei, den Erfolg Ihrer Shows zu messen und zu optimieren',
     targetSelector: '[data-onboarding="analytics-chart"]',
     links: [
       { text: 'Verstanden!', action: 'next', type: 'primary' }
@@ -89,41 +89,41 @@ const onboardingSteps: OnboardingStep[] = [
     id: 3,
     emoji: '🎬',
     title: 'Content erstellen',
-    content: 'In diesem Bereich kannst du neue Shows, Clips und Media Libraries erstellen. Jeder Content-Typ hat seinen eigenen Zweck.',
-    tip: 'Shows sind live, Clips sind kurz und immer verfügbar, Media Libraries organisieren deine Inhalte',
+    content: 'In diesem Bereich können Sie neue Shows, Clips und Media Libraries erstellen. Jeder Content-Typ hat seinen eigenen Zweck und Einsatzbereich.',
+    tip: 'Shows sind live, Clips sind kurz und immer verfügbar, Media Libraries organisieren Ihre Inhalte',
     targetSelector: '[data-onboarding="content-creation"]',
     links: [
-      { text: 'Alles klar!', action: 'next', type: 'primary' }
+      { text: 'Weiter erkunden', action: 'next', type: 'primary' }
     ]
   },
   {
     id: 4,
     emoji: '📺',
-    title: 'Shows verwalten',
-    content: 'Im Shows-Bereich findest du alle deine Live Shopping Events. Du kannst sie filtern, bearbeiten und neue erstellen.',
-    tip: 'Nutze die Tabs um zwischen Live, Upcoming und Ended Shows zu wechseln',
+    title: 'Live Shows verwalten',
+    content: 'Shows sind Ihre Live Shopping Events. Hier können Sie sie erstellen, planen und verwalten. Perfekt für Produktlaunches und interaktive Verkaufsevents.',
+    tip: 'Live Shows erzielen die höchsten Engagement-Raten und Conversion-Rates',
     targetSelector: '[data-onboarding="shows"]',
     links: [
-      { text: 'Shows ansehen', action: 'navigate', type: 'primary' }
+      { text: 'Show erstellen', action: 'navigate', type: 'primary' }
     ]
   },
   {
     id: 5,
     emoji: '✂️',
     title: 'Clips für Evergreen Content',
-    content: 'Clips sind kurze shoppable Videos, die dauerhaft auf deiner Website verfügbar sind und hohe Conversion-Raten erzielen.',
-    tip: 'Clips eignen sich perfekt für Produktpräsentationen und können überall eingebettet werden',
+    content: 'Clips sind kurze shoppable Videos, die dauerhaft auf Ihrer Website verfügbar sind. Sie eignen sich perfekt für Produktpräsentationen und erzielen hohe Conversion-Raten.',
+    tip: 'Clips können überall eingebettet werden und arbeiten 24/7 für Sie',
     targetSelector: '[data-onboarding="clips"]',
     links: [
-      { text: 'Clips entdecken', action: 'navigate', type: 'primary' }
+      { text: 'Clip erstellen', action: 'navigate', type: 'primary' }
     ]
   },
   {
     id: 6,
     emoji: '📚',
     title: 'Media Library Organisation',
-    content: 'Die Media Library organisiert all deine Inhalte in strukturierten Playlists mit erweiterten Filter- und Suchfunktionen.',
-    tip: 'Erstelle thematische Playlists für bessere Organisation',
+    content: 'Die Media Library organisiert all Ihre Inhalte in strukturierten Playlists. Mit erweiterten Filter- und Suchfunktionen behalten Sie immer den Überblick.',
+    tip: 'Erstellen Sie thematische Playlists für bessere Organisation und einfacheres Auffinden',
     targetSelector: '[data-onboarding="media-library"]',
     links: [
       { text: 'Library erkunden', action: 'navigate', type: 'primary' }
@@ -133,7 +133,7 @@ const onboardingSteps: OnboardingStep[] = [
     id: 7,
     emoji: '👥',
     title: 'Team-Verwaltung',
-    content: 'Hier kannst du Teammitglieder einladen und Rollen wie Admin, Host oder Moderator vergeben.',
+    content: 'Hier können Sie Teammitglieder einladen und Rollen wie Admin, Host oder Moderator vergeben. Perfekte Zusammenarbeit für erfolgreiche Live Shopping Events.',
     tip: 'Eine gute Team-Organisation ist der Schlüssel für erfolgreiche Live Shopping Events',
     targetSelector: '[data-onboarding="users"]',
     links: [
@@ -142,10 +142,10 @@ const onboardingSteps: OnboardingStep[] = [
   },
   {
     id: 8,
-    emoji: '📊',
+    emoji: '📈',
     title: 'Detaillierte Analytics',
-    content: 'Im Analytics-Bereich erhältst du tiefe Einblicke in Performance-Metriken, Conversion-Funnels und Viewer-Verhalten.',
-    tip: 'Nutze die Daten für datenbasierte Optimierungen deiner Shows',
+    content: 'Im Analytics-Bereich erhalten Sie tiefe Einblicke in Performance-Metriken, Conversion-Funnels und Viewer-Verhalten für datenbasierte Optimierungen.',
+    tip: 'Nutzen Sie die Daten für kontinuierliche Verbesserungen Ihrer Shows und Clips',
     targetSelector: '[data-onboarding="analytics"]',
     links: [
       { text: 'Analytics öffnen', action: 'navigate', type: 'primary' }
@@ -154,11 +154,11 @@ const onboardingSteps: OnboardingStep[] = [
   {
     id: 9,
     emoji: '🚀',
-    title: 'Bereit zum Start!',
-    content: 'Perfekt! Du kennst jetzt alle wichtigen Bereiche der MOVEX Plattform. Starte mit deiner ersten Show oder erkunde die Features weiter.',
+    title: 'Bereit für Live Shopping!',
+    content: 'Perfekt! Sie kennen jetzt alle wichtigen Bereiche der MOVEX Plattform. Starten Sie mit Ihrer ersten Show oder erkunden Sie die Features weiter.',
     highlight: 'Viel Erfolg beim Live Shopping!',
     links: [
-      { text: 'Jetzt loslegen!', action: 'complete', type: 'primary' }
+      { text: 'Plattform nutzen', action: 'complete', type: 'primary' }
     ]
   }
 ];
@@ -247,18 +247,18 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
       {isMinimized && (
         <div className="fixed bottom-6 right-6 z-50">
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 flex items-center gap-3 cursor-pointer hover:shadow-xl transition-all max-w-xs">
+          <div className="bg-white border-2 border-movex-blue rounded-xl shadow-xl p-4 flex items-center gap-3 cursor-pointer hover:shadow-2xl transition-all max-w-xs">
             <div className="text-2xl">{currentStepData.emoji}</div>
             <div className="flex-1">
-              <h4 className="font-medium text-gray-900 text-sm">MOVEX Tour</h4>
-              <p className="text-xs text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+              <h4 className="font-semibold text-movex-blue text-sm">MOVEX Platform Tour</h4>
+              <p className="text-xs text-gray-600">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
             </div>
             <div className="flex gap-1">
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={handleMinimize}
-                className="h-7 w-7 p-0 hover:bg-gray-100"
+                className="h-7 w-7 p-0 hover:bg-movex-light"
               >
                 <Maximize2 size={12} />
               </Button>
@@ -276,102 +276,102 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
       )}
 
       {!isMinimized && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 max-h-[90vh] overflow-hidden">
-            {/* Header */}
-            <div className="relative px-6 py-4 border-b border-gray-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 max-h-[90vh] overflow-hidden border-2 border-gray-100">
+            {/* Header mit MOVEX Styling */}
+            <div className="relative px-6 py-5 bg-gradient-to-r from-movex-blue to-blue-700 text-white">
               <div className="absolute top-3 right-3 flex gap-1">
                 <button
                   onClick={handleMinimize}
-                  className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <Minimize2 size={14} className="text-gray-500" />
+                  <Minimize2 size={14} className="text-white" />
                 </button>
                 <button
                   onClick={handleSkip}
-                  className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <X size={14} className="text-gray-500" />
+                  <X size={14} className="text-white" />
                 </button>
               </div>
               <div className="pr-16">
-                <h2 className="text-lg font-semibold text-gray-900">MOVEX Platform Tour</h2>
-                <p className="text-xs text-gray-500 mt-1">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+                <h2 className="text-xl font-bold">MOVEX Platform Tour</h2>
+                <p className="text-sm text-blue-100 mt-1">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
               </div>
             </div>
 
-            {/* Progress */}
-            <div className="px-6 py-3 bg-gray-50">
-              <Progress value={progress} className="h-1.5" />
+            {/* Progress Bar */}
+            <div className="px-6 py-4 bg-gray-50">
+              <Progress value={progress} className="h-2" />
             </div>
 
             {/* Content */}
             <div className="px-6 py-6">
               <div className="text-center mb-6">
-                <div className="text-4xl mb-3">
+                <div className="text-5xl mb-4">
                   {currentStepData.emoji}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {currentStepData.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <p className="text-gray-700 leading-relaxed mb-4">
                   {currentStepData.content}
                 </p>
                 
                 {currentStepData.tip && (
-                  <div className="text-xs text-movex-blue bg-movex-light px-3 py-2 rounded-lg mb-3">
-                    <span className="font-medium">💡 Tipp:</span> {currentStepData.tip}
+                  <div className="text-sm text-movex-blue bg-movex-light px-4 py-3 rounded-lg mb-4 border border-blue-200">
+                    <span className="font-semibold">💡 Tipp:</span> {currentStepData.tip}
                   </div>
                 )}
                 
                 {currentStepData.highlight && (
-                  <div className="text-movex-blue font-medium bg-movex-light px-3 py-2 rounded-lg text-xs">
+                  <div className="text-movex-blue font-semibold bg-gradient-to-r from-movex-light to-blue-50 px-4 py-3 rounded-lg text-sm border border-blue-200">
                     ✨ {currentStepData.highlight}
                   </div>
                 )}
               </div>
 
               {currentStepData.links && (
-                <div className="space-y-2 mb-4">
+                <div className="space-y-3 mb-4">
                   {currentStepData.links.map((link, index) => (
                     <Button
                       key={index}
                       onClick={() => handleAction(link.action)}
                       variant={link.type === 'primary' ? 'default' : 'outline'}
-                      className={`w-full justify-between text-sm ${
+                      className={`w-full justify-between ${
                         link.type === 'primary' 
-                          ? 'bg-movex-blue hover:bg-blue-700' 
-                          : 'border-gray-200 hover:bg-gray-50'
+                          ? 'bg-movex-blue hover:bg-blue-700 text-white' 
+                          : 'border-movex-blue text-movex-blue hover:bg-movex-light'
                       }`}
                     >
-                      <span>{link.text}</span>
-                      <ArrowRight size={14} />
+                      <span className="font-medium">{link.text}</span>
+                      <ArrowRight size={16} />
                     </Button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Navigation */}
+            {/* Navigation Footer */}
             <div className="flex justify-between items-center px-6 py-4 border-t border-gray-100 bg-gray-50">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2 text-xs px-3 py-1.5 h-auto"
+                className="flex items-center gap-2 text-sm px-4 py-2"
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={16} />
                 Zurück
               </Button>
 
-              <div className="flex gap-1.5">
+              <div className="flex gap-2">
                 {onboardingSteps.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentStep(index)}
-                    className={`w-1.5 h-1.5 rounded-full transition-all ${
+                    className={`w-2 h-2 rounded-full transition-all ${
                       index === currentStep
-                        ? 'bg-movex-blue w-4'
+                        ? 'bg-movex-blue w-6'
                         : index < currentStep
                         ? 'bg-blue-300'
                         : 'bg-gray-200'
@@ -383,11 +383,11 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
               <Button
                 onClick={handleNext}
                 disabled={isLastStep}
-                className="flex items-center gap-2 text-xs px-3 py-1.5 h-auto bg-movex-blue hover:bg-blue-700"
+                className="flex items-center gap-2 text-sm px-4 py-2 bg-movex-blue hover:bg-blue-700"
               >
                 {!isLastStep && 'Weiter'}
-                {!isLastStep && <ChevronRight size={14} />}
-                {isLastStep && <span className="text-sm">🎉</span>}
+                {!isLastStep && <ChevronRight size={16} />}
+                {isLastStep && <span className="text-lg">🎉</span>}
               </Button>
             </div>
           </div>
