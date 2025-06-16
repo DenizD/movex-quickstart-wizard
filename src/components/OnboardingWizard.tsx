@@ -9,6 +9,7 @@ interface OnboardingStep {
   emoji: string;
   title: string;
   content: string;
+  tip?: string;
   highlight?: string;
 }
 
@@ -16,58 +17,64 @@ const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
     emoji: '🎉',
-    title: 'Willkommen bei MOVEX | Live Shopping!',
-    content: 'Wir zeigen dir die wichtigsten Funktionen in 60 Sekunden.',
+    title: 'Willkommen bei MOVEX',
+    content: 'Willkommen auf deiner interaktiven Live Shopping Plattform! Mit MOVEX kannst du Live-Formate erstellen, einbetten und auswerten – inklusive Clips, Media Library, Moderation & Analytics.',
     highlight: 'Bereit für deine Live Shopping Journey?'
   },
   {
     id: 2,
     emoji: '📺',
-    title: 'Erste Show erstellen',
-    content: 'Klicke links auf „Shows" > „Create Show"',
-    highlight: 'Erstelle Titel, Datum, Cover & Produkte.'
+    title: 'Show erstellen – der zentrale Content-Typ',
+    content: 'Klicke auf "Shows" in der linken Navigation und wähle "Create Show". Gib Titel, Beschreibung, Datum & Uhrzeit ein. Lade ein Cover hoch, füge Produkte & Tags hinzu.',
+    tip: 'Funktionen: Pre-Live Modus, CTA-Button, FAB-Modus, Miniplayer aktivieren',
+    highlight: 'Eine Show ist das Herzstück deines Live Shopping-Erlebnisses – sie bündelt Inhalte, Video, Produkte & Nutzerinteraktion.'
   },
   {
     id: 3,
     emoji: '🔗',
-    title: 'Show einbetten',
-    content: 'Kopiere den Embed-Code aus dem Show-Detailbereich.',
-    highlight: 'Füge ihn in deine Website ein (HTML-Snippet oder CMS).'
+    title: 'Show einbetten – so geht Integration',
+    content: 'Gehe in die Detailansicht der Show und kopiere den Einbettungscode. Du kannst MOVEX auf jeder Seite per iFrame einbinden oder direkt per JavaScript Snippet.',
+    tip: 'Optional: FAB oder Miniplayer aktivieren, PDP-Einbindung möglich.',
+    highlight: 'MOVEX ist vollständig Headless-fähig – ideal für CMS, Shopsysteme & mobile Views.'
   },
   {
     id: 4,
     emoji: '🎬',
-    title: 'Clips erstellen',
-    content: 'Im Menüpunkt „Clips" kannst du kurze, shoppable Videos hochladen.',
-    highlight: 'Lade ein Video hoch, füge ein Produkt & Coverbild hinzu.'
+    title: 'Clips erstellen – Evergreen Content für deinen Shop',
+    content: 'Clips sind kurze, shoppable Videos (z. B. 15–90 Sekunden). Lade Video + Cover hoch, verknüpfe ein Produkt, schreibe eine kurze Beschreibung.',
+    tip: 'Clips können auf Startseiten, PDPs oder in Playlists genutzt werden.',
+    highlight: 'Clips funktionieren unabhängig von Zeit & Live-Status – ideal für Conversion im On-Demand-Umfeld.'
   },
   {
     id: 5,
     emoji: '📚',
-    title: 'Media Library erstellen',
-    content: 'Erstelle eine Mediathek mit Playlists für vergangene und zukünftige Shows.',
-    highlight: 'Sortiere nach Tags, Status & Reihenfolge.'
+    title: 'Media Library – Struktur für Content',
+    content: 'Erstelle Playlists, um Shows & Clips zu gruppieren (z. B. "Kampagne Mai", "Sneaker Woche"). Ordne Playlists per Drag & Drop, setze Tags & Status (Live, Upcoming, Ended).',
+    tip: 'Nutze die Mediathek als dauerhaftes Live Shopping Archiv.',
+    highlight: 'Die Library ist ein wachsender Content-Hub mit Filter- und Suchfunktionen für deine Nutzer:innen.'
   },
   {
     id: 6,
     emoji: '👥',
-    title: 'Nutzer verwalten',
-    content: 'Unter „Users" kannst du neue Teammitglieder einladen.',
-    highlight: 'Rollen: Admin, Host, Moderator, Analytics etc.'
+    title: 'User Management – Teamarbeit leicht gemacht',
+    content: 'Navigiere zu "Users" und lade per E-Mail weitere Personen ein.',
+    tip: 'Rollen: Admin (alles), Host (Shows & Clips), Moderator (Chat & Live Tools), Analytics (nur Leserechte)',
+    highlight: 'MOVEX unterstützt kollaboratives Arbeiten mit klarer Rollentrennung und Rechteverwaltung.'
   },
   {
     id: 7,
     emoji: '📊',
-    title: 'Analytics verstehen',
-    content: 'Sieh dir unter „Analytics" alle KPIs deiner Shows an.',
-    highlight: 'Metriken wie Zuschauer, Chat, Produktklicks und mehr.'
+    title: 'Analytics – Erfolg sichtbar machen',
+    content: 'Nach jeder Show findest du in "Analytics" KPIs wie: Zuschauer live & on demand, Watchtime, Produktklicks & Engagement, Conversion Funnels.',
+    tip: 'Nutze die KPIs zur Optimierung von Format, Laufzeit & Produktinszenierung.',
+    highlight: 'Datenbasierte Entscheidungen für bessere Live Shopping Performance.'
   },
   {
     id: 8,
     emoji: '🚀',
-    title: 'Los geht\'s!',
-    content: 'Du bist bereit! Viel Erfolg mit deinem ersten Live Shopping Event!',
-    highlight: 'Zeit, deine erste Show zu starten!'
+    title: 'Let\'s go!',
+    content: 'Du bist bereit! Starte deine erste Show oder lege deine Clips & Playlists an. Dein MOVEX Setup steht.',
+    highlight: 'Viel Erfolg beim Live Shopping!'
   }
 ];
 
@@ -113,7 +120,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 animate-slide-in">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 animate-slide-in max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="relative p-6 pb-4 bg-gradient-to-r from-movex-blue to-blue-600 text-white rounded-t-2xl">
           <button
@@ -145,14 +152,19 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
             <div className="text-6xl mb-4 animate-bounce">
               {currentStepData.emoji}
             </div>
-            <h3 className="text-2xl font-bold text-movex-blue mb-3">
+            <h3 className="text-2xl font-bold text-movex-blue mb-4">
               {currentStepData.title}
             </h3>
-            <p className="text-gray-700 text-lg mb-4 leading-relaxed">
+            <p className="text-gray-700 text-base mb-4 leading-relaxed text-left">
               {currentStepData.content}
             </p>
+            {currentStepData.tip && (
+              <div className="text-sm text-gray-600 bg-gray-50 px-4 py-2 rounded-lg mb-4 text-left">
+                <strong>Tipp:</strong> {currentStepData.tip}
+              </div>
+            )}
             {currentStepData.highlight && (
-              <p className="text-movex-blue font-semibold bg-movex-light px-4 py-2 rounded-lg">
+              <p className="text-movex-blue font-semibold bg-movex-light px-4 py-3 rounded-lg text-sm">
                 {currentStepData.highlight}
               </p>
             )}
@@ -190,9 +202,9 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
             onClick={handleNext}
             className="flex items-center gap-2 bg-movex-blue hover:bg-blue-700"
           >
-            {isLastStep ? 'Fertig' : 'Weiter'}
+            {isLastStep ? 'Jetzt loslegen' : 'Weiter'}
             {!isLastStep && <ChevronRight size={16} />}
-            {isLastStep && <span className="text-lg">🎉</span>}
+            {isLastStep && <span className="text-lg">🚀</span>}
           </Button>
         </div>
       </div>
