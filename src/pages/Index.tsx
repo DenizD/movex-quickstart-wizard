@@ -1,14 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import { useOnboarding } from '@/hooks/useOnboarding';
+import OnboardingWizard from '@/components/OnboardingWizard';
+import Dashboard from '@/components/Dashboard';
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+  const { shouldShowOnboarding, isLoading, completeOnboarding, resetOnboarding } = useOnboarding();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-movex-blue border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600">MOVEX | Live Shopping wird geladen...</p>
+        </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <Dashboard onResetOnboarding={resetOnboarding} />
+      {shouldShowOnboarding && (
+        <OnboardingWizard onComplete={completeOnboarding} />
+      )}
+    </>
   );
 };
 
 export default Index;
+</tml-write>
