@@ -82,6 +82,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onResetOnboarding }) => {
                   onClick={() => setIsEducationHubOpen(true)}
                   variant="outline"
                   className="text-movex-blue border-movex-blue hover:bg-movex-blue hover:text-white flex items-center gap-2"
+                  data-onboarding="education-hub"
                 >
                   <BookOpen className="w-4 h-4" />
                   Education Hub
@@ -111,10 +112,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onResetOnboarding }) => {
           </div>
 
           {/* Quick Actions */}
-          <div className="mb-8 bg-gradient-to-r from-movex-blue to-blue-600 rounded-xl p-6 text-white">
+          <div className="mb-8 bg-gradient-to-r from-movex-blue to-blue-600 rounded-xl p-6 text-white" data-onboarding="quick-actions">
             <h3 className="text-xl font-semibold mb-4">Schnellstart</h3>
             <div className="flex gap-4 flex-wrap">
-              <Button className="bg-white text-movex-blue hover:bg-gray-100">
+              <Button className="bg-white text-movex-blue hover:bg-gray-100" data-onboarding="create-show">
                 <Plus className="w-4 h-4 mr-2" />
                 Erste Show erstellen
               </Button>
@@ -134,7 +135,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onResetOnboarding }) => {
           </div>
 
           {/* Feature Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-onboarding="features-grid">
             {features.map((feature, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer">
                 <CardHeader className="pb-4">
@@ -158,7 +159,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onResetOnboarding }) => {
           </div>
 
           {/* Getting Started Tips */}
-          <div className="mt-12 bg-white rounded-xl p-6 border">
+          <div className="mt-12 bg-white rounded-xl p-6 border" data-onboarding="getting-started">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               🚀 Erste Schritte
             </h3>
