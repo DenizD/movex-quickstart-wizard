@@ -11,6 +11,7 @@ import Clips from "./pages/Clips";
 import MediaLibrary from "./pages/MediaLibrary";
 import Users from "./pages/Users";
 import Analytics from "./pages/Analytics";
+import Customisation from "./pages/Customisation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/media-library" element={<Layout><MediaLibrary /></Layout>} />
           <Route path="/users" element={<Layout><Users /></Layout>} />
           <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
+          <Route path="/customisation" element={<Layout><Customisation /></Layout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

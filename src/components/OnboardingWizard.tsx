@@ -18,7 +18,6 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
       if (element) {
         const domRect = element.getBoundingClientRect();
         setRect(domRect);
-        
         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
@@ -28,15 +27,15 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/50 z-40" />
+      <div className="fixed inset-0 bg-black/40 z-40" />
       <div 
-        className="fixed z-50 pointer-events-none border-2 border-blue-500 rounded-lg"
+        className="fixed z-50 pointer-events-none border-2 border-teal-500 rounded-lg shadow-lg"
         style={{
           top: rect.top - 4,
           left: rect.left - 4,
           width: rect.width + 8,
           height: rect.height + 8,
-          boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+          boxShadow: '0 0 0 4px rgba(20, 184, 166, 0.2)'
         }}
       />
     </>
@@ -53,50 +52,50 @@ interface OnboardingStep {
 const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
-    title: 'Willkommen bei MOVEX',
-    description: 'Entdecken Sie die Möglichkeiten von Live Shopping mit MOVEX',
+    title: 'Willkommen bei MOVEX Live Shopping',
+    description: 'Entdecken Sie die Möglichkeiten von Live Shopping mit MOVEX. Wir führen Sie durch die wichtigsten Funktionen.',
     targetSelector: '[data-onboarding="overview-header"]'
   },
   {
     id: 2,
     title: 'Dashboard Übersicht',
-    description: 'Hier sehen Sie alle wichtigen Kennzahlen auf einen Blick',
+    description: 'Hier sehen Sie alle wichtigen Kennzahlen und Analytics auf einen Blick. Verfolgen Sie Ihre Performance in Echtzeit.',
     targetSelector: '[data-onboarding="analytics-chart"]'
   },
   {
     id: 3,
-    title: 'Content Management',
-    description: 'Erstellen und verwalten Sie Ihre Live Shopping Inhalte',
+    title: 'Content erstellen',
+    description: 'Erstellen Sie Shows, Clips und Media Libraries für Ihre Live Shopping Events.',
     targetSelector: '[data-onboarding="content-creation"]'
   },
   {
     id: 4,
-    title: 'Live Shows',
-    description: 'Starten Sie interaktive Live Shopping Events',
+    title: 'Live Shows verwalten',
+    description: 'Planen und verwalten Sie Ihre Live Shopping Events mit unserem Show-Management.',
     targetSelector: '[data-onboarding="shows"]'
   },
   {
     id: 5,
-    title: 'Video Clips',
-    description: 'Erstellen Sie kurze, wiederverwendbare Shopping Videos',
+    title: 'Video Clips erstellen',
+    description: 'Erstellen Sie kurze, shoppable Videos die jederzeit verfügbar sind.',
     targetSelector: '[data-onboarding="clips"]'
   },
   {
     id: 6,
-    title: 'Media Library',
-    description: 'Organisieren Sie Ihre Medien in übersichtlichen Bibliotheken',
+    title: 'Media Library organisieren',
+    description: 'Organisieren Sie Ihre Inhalte in übersichtlichen Media Libraries und Playlists.',
     targetSelector: '[data-onboarding="media-library"]'
   },
   {
     id: 7,
     title: 'Team Verwaltung',
-    description: 'Verwalten Sie Teammitglieder und deren Berechtigungen',
+    description: 'Verwalten Sie Teammitglieder und deren Berechtigungen für Ihr Live Shopping.',
     targetSelector: '[data-onboarding="users"]'
   },
   {
     id: 8,
-    title: 'Analytics',
-    description: 'Analysieren Sie die Performance Ihrer Live Shopping Events',
+    title: 'Detaillierte Analytics',
+    description: 'Analysieren Sie die Performance Ihrer Shows mit detaillierten Metriken und Insights.',
     targetSelector: '[data-onboarding="analytics"]'
   }
 ];
@@ -155,13 +154,16 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
       {isMinimized && (
         <div className="fixed bottom-4 right-4 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-3 flex items-center gap-2 border">
-            <div className="text-sm font-medium">MOVEX Tour</div>
+          <div className="bg-white rounded-lg shadow-xl p-4 flex items-center gap-3 border border-gray-200">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
+              <span className="text-sm font-medium text-gray-900">MOVEX Tour läuft</span>
+            </div>
             <Button
               size="sm"
               variant="ghost"
               onClick={handleMinimize}
-              className="h-6 w-6 p-0"
+              className="h-6 w-6 p-0 text-gray-500 hover:text-gray-700"
             >
               <Maximize2 size={12} />
             </Button>
@@ -169,7 +171,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
               size="sm"
               variant="ghost"
               onClick={handleSkip}
-              className="h-6 w-6 p-0"
+              className="h-6 w-6 p-0 text-gray-500 hover:text-gray-700"
             >
               <X size={12} />
             </Button>
@@ -178,20 +180,25 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
       )}
 
       {!isMinimized && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 border border-gray-200">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b">
-              <div>
-                <h3 className="text-lg font-semibold">MOVEX Tour</h3>
-                <p className="text-sm text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
+                  <div className="w-4 h-4 bg-white rounded-sm"></div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">MOVEX Tour</h3>
+                  <p className="text-sm text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+                </div>
               </div>
               <div className="flex gap-1">
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={handleMinimize}
-                  className="h-8 w-8 p-0"
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
                 >
                   <Minimize2 size={16} />
                 </Button>
@@ -199,7 +206,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                   size="sm"
                   variant="ghost"
                   onClick={handleSkip}
-                  className="h-8 w-8 p-0"
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
                 >
                   <X size={16} />
                 </Button>
@@ -207,37 +214,42 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
             </div>
 
             {/* Progress */}
-            <div className="p-4 pb-2">
-              <Progress value={progress} className="h-2" />
+            <div className="px-6 pt-4">
+              <Progress value={progress} className="h-2 bg-gray-100">
+                <div 
+                  className="h-full bg-teal-500 rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
+              </Progress>
             </div>
 
             {/* Content */}
-            <div className="p-4">
-              <h4 className="text-xl font-semibold mb-2">{currentStepData.title}</h4>
-              <p className="text-gray-600 mb-6">{currentStepData.description}</p>
+            <div className="p-6">
+              <h4 className="text-xl font-semibold mb-3 text-gray-900">{currentStepData.title}</h4>
+              <p className="text-gray-600 leading-relaxed">{currentStepData.description}</p>
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between p-4 border-t bg-gray-50">
+            <div className="flex items-center justify-between p-6 border-t border-gray-100 bg-gray-50 rounded-b-xl">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 border-gray-300"
               >
                 <ChevronLeft size={16} />
                 Zurück
               </Button>
 
-              <div className="flex gap-1">
+              <div className="flex gap-2">
                 {onboardingSteps.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-2 h-2 rounded-full ${
+                    className={`w-2 h-2 rounded-full transition-colors ${
                       index === currentStep
-                        ? 'bg-blue-500'
+                        ? 'bg-teal-500'
                         : index < currentStep
-                        ? 'bg-blue-300'
+                        ? 'bg-teal-300'
                         : 'bg-gray-200'
                     }`}
                   />
@@ -246,9 +258,9 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
               <Button
                 onClick={handleNext}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700"
               >
-                {isLastStep ? 'Fertig' : 'Weiter'}
+                {isLastStep ? 'Tour beenden' : 'Weiter'}
                 {!isLastStep && <ChevronRight size={16} />}
               </Button>
             </div>

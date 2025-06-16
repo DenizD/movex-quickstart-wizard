@@ -46,9 +46,10 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     
-    /* MOVEX Brand Colors */
-    --movex-blue: #002A60;
-    --movex-light: #EBF3FF;
+    /* MOVEX Brand Colors - Updated to match screenshots */
+    --movex-blue: #14b8a6;
+    --movex-teal: #0d9488;
+    --movex-light: #f0fdfa;
   }
 
   .dark {
@@ -94,18 +95,38 @@
 
 @layer utilities {
   .bg-movex-blue {
-    background-color: #002A60;
+    background-color: #14b8a6;
   }
   
   .text-movex-blue {
-    color: #002A60;
+    color: #14b8a6;
   }
   
   .border-movex-blue {
-    border-color: #002A60;
+    border-color: #14b8a6;
   }
   
   .bg-movex-light {
-    background-color: #EBF3FF;
+    background-color: #f0fdfa;
+  }
+  
+  .bg-teal-500 {
+    background-color: #14b8a6;
+  }
+  
+  .bg-teal-600 {
+    background-color: #0d9488;
+  }
+  
+  .text-teal-600 {
+    color: #0d9488;
+  }
+  
+  .border-teal-600 {
+    border-color: #0d9488;
+  }
+  
+  .hover\:bg-teal-700:hover {
+    background-color: #0f766e;
   }
 }
