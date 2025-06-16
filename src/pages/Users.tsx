@@ -3,13 +3,16 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Users as UsersIcon } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const Users = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="flex-1 p-6">
       <div className="mb-6" data-onboarding="users-header">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Users</h1>
-        <p className="text-gray-600">Verwalten Sie Teammitglieder und Berechtigungen.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('page.users.title')}</h1>
+        <p className="text-gray-600">{t('page.users.subtitle')}</p>
       </div>
 
       <div className="flex justify-end mb-6">

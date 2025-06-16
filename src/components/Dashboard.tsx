@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import EducationHub from './EducationHub';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const chartData = [
   { month: 'Jan', viewers: 1200, engagement: 65 },
@@ -26,6 +27,7 @@ const chartData = [
 
 const Dashboard = () => {
   const [isEducationHubOpen, setIsEducationHubOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -34,8 +36,8 @@ const Dashboard = () => {
         <div className="mb-8" data-onboarding="overview-header">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Willkommen zurück, Deniz</h1>
-              <p className="text-gray-600">Hier ist Ihre Live Shopping Übersicht für heute</p>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Deniz</h1>
+              <p className="text-gray-600">Here is your Live Shopping overview for today</p>
             </div>
             <div className="flex gap-3">
               <Button
@@ -58,9 +60,9 @@ const Dashboard = () => {
                 <TrendingUp className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Gesamte Zuschauer</p>
+                <p className="text-sm text-gray-600">Total Viewers</p>
                 <p className="text-2xl font-bold">12.5K</p>
-                <p className="text-xs text-green-600">+12% vs. letzter Monat</p>
+                <p className="text-xs text-green-600">+12% vs. last month</p>
               </div>
             </div>
           </Card>
@@ -71,9 +73,9 @@ const Dashboard = () => {
                 <Users className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Aktive Shows</p>
+                <p className="text-sm text-gray-600">Active Shows</p>
                 <p className="text-2xl font-bold">24</p>
-                <p className="text-xs text-green-600">+3 diese Woche</p>
+                <p className="text-xs text-green-600">+3 this week</p>
               </div>
             </div>
           </Card>
@@ -84,9 +86,9 @@ const Dashboard = () => {
                 <Play className="w-6 h-6 text-[#0066CC]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Clips erstellt</p>
+                <p className="text-sm text-gray-600">Clips Created</p>
                 <p className="text-2xl font-bold">148</p>
-                <p className="text-xs text-gray-500">Letzte 30 Tage</p>
+                <p className="text-xs text-gray-500">Last 30 days</p>
               </div>
             </div>
           </Card>
@@ -99,7 +101,7 @@ const Dashboard = () => {
               <div>
                 <p className="text-sm text-gray-600">Conversion Rate</p>
                 <p className="text-2xl font-bold">3.2%</p>
-                <p className="text-xs text-green-600">+0.5% vs. letzter Monat</p>
+                <p className="text-xs text-green-600">+0.5% vs. last month</p>
               </div>
             </div>
           </Card>
@@ -108,11 +110,11 @@ const Dashboard = () => {
         {/* Analytics Chart */}
         <Card className="p-6 mb-8" data-onboarding="analytics-chart">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Performance Übersicht</h2>
+            <h2 className="text-xl font-semibold">Performance Overview</h2>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm">7 Tage</Button>
-              <Button variant="outline" size="sm" className="bg-[#E6F3FF] text-[#0066CC] border-[#0066CC]">30 Tage</Button>
-              <Button variant="outline" size="sm">90 Tage</Button>
+              <Button variant="outline" size="sm">7 Days</Button>
+              <Button variant="outline" size="sm" className="bg-[#E6F3FF] text-[#0066CC] border-[#0066CC]">30 Days</Button>
+              <Button variant="outline" size="sm">90 Days</Button>
             </div>
           </div>
           <div className="h-80">
@@ -135,19 +137,19 @@ const Dashboard = () => {
 
         {/* Quick Actions */}
         <div className="mb-8" data-onboarding="quick-actions">
-          <h2 className="text-xl font-semibold mb-6">Schnellaktionen</h2>
+          <h2 className="text-xl font-semibold mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="p-6 text-center">
               <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Calendar className="w-8 h-8 text-[#0066CC]" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Neue Show erstellen</h3>
+              <h3 className="text-lg font-semibold mb-2">Create New Show</h3>
               <p className="text-gray-600 mb-4 text-sm">
-                Planen Sie Ihre nächste Live Shopping Show mit Produktintegration.
+                Plan your next Live Shopping show with product integration.
               </p>
               <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
-                Show erstellen
+                Create Show
               </Button>
             </Card>
 
@@ -155,13 +157,13 @@ const Dashboard = () => {
               <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Play className="w-8 h-8 text-[#0066CC]" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Neuen Clip erstellen</h3>
+              <h3 className="text-lg font-semibold mb-2">Create New Clip</h3>
               <p className="text-gray-600 mb-4 text-sm">
-                Erstellen Sie kurze, ansprechende Videos für Ihre Produkte.
+                Create short, engaging videos for your products.
               </p>
               <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
-                Clip erstellen
+                Create Clip
               </Button>
             </Card>
 
@@ -171,11 +173,11 @@ const Dashboard = () => {
               </div>
               <h3 className="text-lg font-semibold mb-2">Media Library</h3>
               <p className="text-gray-600 mb-4 text-sm">
-                Organisieren Sie Ihre Inhalte in übersichtlichen Bibliotheken.
+                Organize your content in structured libraries.
               </p>
               <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
                 <Plus className="w-4 h-4 mr-2" />
-                Bibliothek erstellen
+                Create Library
               </Button>
             </Card>
           </div>
@@ -184,12 +186,12 @@ const Dashboard = () => {
         {/* Recent Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Letzte Shows</h3>
+            <h3 className="text-lg font-semibold mb-4">Recent Shows</h3>
             <div className="space-y-4">
               {[
-                { title: "Summer Fashion Show 2024", date: "Heute, 14:00", status: "Live", viewers: "1.2K" },
-                { title: "Tech Gadgets Special", date: "Gestern, 16:30", status: "Beendet", viewers: "892" },
-                { title: "Beauty Essentials", date: "2 Tage", status: "Beendet", viewers: "1.5K" }
+                { title: "Summer Fashion Show 2024", date: "Today, 2:00 PM", status: "Live", viewers: "1.2K" },
+                { title: "Tech Gadgets Special", date: "Yesterday, 4:30 PM", status: "Ended", viewers: "892" },
+                { title: "Beauty Essentials", date: "2 days ago", status: "Ended", viewers: "1.5K" }
               ].map((show, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div>
@@ -202,7 +204,7 @@ const Dashboard = () => {
                     }`}>
                       {show.status}
                     </span>
-                    <p className="text-xs text-gray-500 mt-1">{show.viewers} Zuschauer</p>
+                    <p className="text-xs text-gray-500 mt-1">{show.viewers} viewers</p>
                   </div>
                 </div>
               ))}
@@ -214,8 +216,8 @@ const Dashboard = () => {
             <div className="space-y-4">
               {[
                 { title: "iPhone 15 Unboxing & Review", views: "12.5K", engagement: "85%" },
-                { title: "Sommermode Trends 2024", views: "9.8K", engagement: "78%" },
-                { title: "Küchen-Gadgets im Test", views: "7.2K", engagement: "72%" }
+                { title: "Summer Fashion Trends 2024", views: "9.8K", engagement: "78%" },
+                { title: "Kitchen Gadgets Test", views: "7.2K", engagement: "72%" }
               ].map((video, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-3">
@@ -224,7 +226,7 @@ const Dashboard = () => {
                     </div>
                     <div>
                       <p className="font-medium text-sm">{video.title}</p>
-                      <p className="text-xs text-gray-500">{video.views} Aufrufe</p>
+                      <p className="text-xs text-gray-500">{video.views} views</p>
                     </div>
                   </div>
                   <div className="text-right">

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -85,25 +86,25 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
         {
           id: 1,
           title: 'Show Management',
-          description: 'Verwalten Sie alle Ihre Live Shopping Shows an einem Ort. Planen, starten und analysieren Sie Ihre Events.',
+          description: 'Manage all your Live Shopping shows in one place. Plan, start and analyze your events.',
           targetSelector: '[data-onboarding="shows-header"]'
         },
         {
           id: 2,
-          title: 'Show erstellen',
-          description: 'Klicken Sie hier, um eine neue Live Shopping Show zu erstellen und zu planen.',
+          title: 'Create Show',
+          description: 'Click here to create and schedule a new Live Shopping show.',
           targetSelector: '[data-onboarding="create-show-button"]'
         },
         {
           id: 3,
           title: 'Show Status',
-          description: 'Hier sehen Sie den aktuellen Status Ihrer Shows - Live, Geplant oder Beendet.',
+          description: 'Here you can see the current status of your shows - Live, Scheduled or Ended.',
           targetSelector: '[data-onboarding="shows-tabs"]'
         },
         {
           id: 4,
-          title: 'Show Verwaltung',
-          description: 'Jede Show kann bearbeitet, dupliziert oder gelöscht werden über das Menü.',
+          title: 'Show Management',
+          description: 'Each show can be edited, duplicated or deleted via the menu.',
           targetSelector: '[data-onboarding="shows-grid"]'
         }
       ];
@@ -112,32 +113,32 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Show erstellen',
-          description: 'Hier erstellen Sie eine neue Live Shopping Show. Füllen Sie alle notwendigen Informationen aus.',
+          title: 'Create Show',
+          description: 'Here you create a new Live Shopping show. Fill in all necessary information.',
           targetSelector: '[data-onboarding="create-show-header"]'
         },
         {
           id: 2,
-          title: 'Grundinformationen',
-          description: 'Geben Sie den Namen und die Beschreibung Ihrer Show ein.',
+          title: 'Basic Information',
+          description: 'Enter the name and description of your show.',
           targetSelector: '[data-onboarding="show-basic-info"]'
         },
         {
           id: 3,
-          title: 'Zeitplanung',
-          description: 'Planen Sie Datum, Uhrzeit und Dauer Ihrer Live Show.',
+          title: 'Scheduling',
+          description: 'Plan the date, time and duration of your live show.',
           targetSelector: '[data-onboarding="show-schedule"]'
         },
         {
           id: 4,
-          title: 'Show-Einstellungen',
-          description: 'Konfigurieren Sie Chat, Warteraum und Aufzeichnungsoptionen.',
+          title: 'Show Settings',
+          description: 'Configure chat, waiting room and recording options.',
           targetSelector: '[data-onboarding="show-settings"]'
         },
         {
           id: 5,
-          title: 'Vorschau & Aktionen',
-          description: 'Sehen Sie eine Vorschau Ihrer Show und erstellen Sie sie final.',
+          title: 'Preview & Actions',
+          description: 'See a preview of your show and create it.',
           targetSelector: '[data-onboarding="show-preview"]'
         }
       ];
@@ -147,25 +148,25 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
         {
           id: 1,
           title: 'Video Clips',
-          description: 'Erstellen und verwalten Sie kurze, shoppable Videos für Ihre Produkte.',
+          description: 'Create and manage short, shoppable videos for your products.',
           targetSelector: '[data-onboarding="clips-header"]'
         },
         {
           id: 2,
-          title: 'Clip erstellen',
-          description: 'Erstellen Sie neue Video Clips mit integrierten Shopping-Funktionen.',
+          title: 'Create Clip',
+          description: 'Create new video clips with integrated shopping features.',
           targetSelector: '[data-onboarding="create-clip-button"]'
         },
         {
           id: 3,
           title: 'Clip Status',
-          description: 'Verfolgen Sie den Bearbeitungsstatus Ihrer Clips - Entwurf, Bereit oder Fehler.',
+          description: 'Track the editing status of your clips - Draft, Ready or Error.',
           targetSelector: '[data-onboarding="clips-tabs"]'
         },
         {
           id: 4,
-          title: 'Clip Bibliothek',
-          description: 'Alle Ihre Clips werden hier übersichtlich dargestellt mit Vorschau und Status.',
+          title: 'Clip Library',
+          description: 'All your clips are displayed here clearly with preview and status.',
           targetSelector: '[data-onboarding="clips-grid"]'
         }
       ];
@@ -174,32 +175,32 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Clip erstellen',
-          description: 'Erstellen Sie einen neuen shoppable Video Clip. Laden Sie Ihr Video hoch und konfigurieren Sie es.',
+          title: 'Create Clip',
+          description: 'Create a new shoppable video clip. Upload your video and configure it.',
           targetSelector: '[data-onboarding="create-clip-header"]'
         },
         {
           id: 2,
-          title: 'Video hochladen',
-          description: 'Laden Sie Ihr Video hoch oder ziehen Sie es in den Upload-Bereich.',
+          title: 'Upload Video',
+          description: 'Upload your video or drag it into the upload area.',
           targetSelector: '[data-onboarding="clip-upload"]'
         },
         {
           id: 3,
-          title: 'Clip-Informationen',
-          description: 'Geben Sie Name, Beschreibung und Tags für Ihren Clip ein.',
+          title: 'Clip Information',
+          description: 'Enter name, description and tags for your clip.',
           targetSelector: '[data-onboarding="clip-basic-info"]'
         },
         {
           id: 4,
-          title: 'Thumbnail auswählen',
-          description: 'Wählen Sie ein ansprechendes Thumbnail für Ihren Clip.',
+          title: 'Select Thumbnail',
+          description: 'Choose an appealing thumbnail for your clip.',
           targetSelector: '[data-onboarding="clip-thumbnail"]'
         },
         {
           id: 5,
-          title: 'Clip-Einstellungen',
-          description: 'Konfigurieren Sie Shopping-Features und Veröffentlichungsoptionen.',
+          title: 'Clip Settings',
+          description: 'Configure shopping features and publishing options.',
           targetSelector: '[data-onboarding="clip-settings"]'
         }
       ];
@@ -209,19 +210,19 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
         {
           id: 1,
           title: 'Media Library',
-          description: 'Organisieren Sie Ihre Inhalte in strukturierten Bibliotheken für bessere Übersicht.',
+          description: 'Organize your content in structured libraries for better overview.',
           targetSelector: '[data-onboarding="media-header"]'
         },
         {
           id: 2,
-          title: 'Bibliothek erstellen',
-          description: 'Erstellen Sie neue Media Libraries um Ihre Inhalte zu kategorisieren.',
+          title: 'Create Library',
+          description: 'Create new Media Libraries to categorize your content.',
           targetSelector: '[data-onboarding="create-library-button"]'
         },
         {
           id: 3,
-          title: 'Content Organisation',
-          description: 'Jede Bibliothek zeigt die Anzahl der enthaltenen Videos und kann einzeln verwaltet werden.',
+          title: 'Content Organization',
+          description: 'Each library shows the number of contained videos and can be managed individually.',
           targetSelector: '[data-onboarding="library-table"]'
         }
       ];
@@ -230,26 +231,26 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Media Library erstellen',
-          description: 'Erstellen Sie eine neue Bibliothek zur Organisation Ihrer Video-Inhalte.',
+          title: 'Create Media Library',
+          description: 'Create a new library to organize your video content.',
           targetSelector: '[data-onboarding="create-library-header"]'
         },
         {
           id: 2,
-          title: 'Grundinformationen',
-          description: 'Geben Sie Name, Beschreibung und Kategorie für Ihre Bibliothek ein.',
+          title: 'Basic Information',
+          description: 'Enter name, description and category for your library.',
           targetSelector: '[data-onboarding="library-basic-info"]'
         },
         {
           id: 3,
-          title: 'Datenschutz & Zugriff',
-          description: 'Bestimmen Sie, wer Zugriff auf diese Bibliothek haben soll.',
+          title: 'Privacy & Access',
+          description: 'Determine who should have access to this library.',
           targetSelector: '[data-onboarding="library-privacy"]'
         },
         {
           id: 4,
-          title: 'Organisations-Einstellungen',
-          description: 'Konfigurieren Sie, wie Inhalte automatisch organisiert werden sollen.',
+          title: 'Organization Settings',
+          description: 'Configure how content should be automatically organized.',
           targetSelector: '[data-onboarding="library-organization"]'
         }
       ];
@@ -258,20 +259,20 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Team Verwaltung',
-          description: 'Verwalten Sie Teammitglieder und deren Berechtigungen für Ihre MOVEX Plattform.',
+          title: 'Team Management',
+          description: 'Manage team members and their permissions for your MOVEX platform.',
           targetSelector: '[data-onboarding="users-header"]'
         },
         {
           id: 2,
-          title: 'Benutzer einladen',
-          description: 'Laden Sie neue Teammitglieder ein und weisen Sie ihnen Rollen zu.',
+          title: 'Invite Users',
+          description: 'Invite new team members and assign roles to them.',
           targetSelector: '[data-onboarding="invite-user-button"]'
         },
         {
           id: 3,
-          title: 'Team Übersicht',
-          description: 'Hier sehen Sie alle Teammitglieder mit ihren Rollen und Berechtigungen.',
+          title: 'Team Overview',
+          description: 'Here you see all team members with their roles and permissions.',
           targetSelector: '[data-onboarding="users-list"]'
         }
       ];
@@ -280,20 +281,20 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Detaillierte Analytics',
-          description: 'Analysieren Sie die Performance Ihrer Shows mit umfassenden Metriken und Insights.',
+          title: 'Detailed Analytics',
+          description: 'Analyze the performance of your shows with comprehensive metrics and insights.',
           targetSelector: '[data-onboarding="analytics-header"]'
         },
         {
           id: 2,
-          title: 'Performance Metriken',
-          description: 'Verfolgen Sie wichtige KPIs wie Zuschauerzahlen, Engagement und Conversion Rates.',
+          title: 'Performance Metrics',
+          description: 'Track important KPIs like viewer numbers, engagement and conversion rates.',
           targetSelector: '[data-onboarding="analytics-cards"]'
         },
         {
           id: 3,
-          title: 'Zeitraum Analyse',
-          description: 'Analysieren Sie Trends über verschiedene Zeiträume - täglich, wöchentlich oder monatlich.',
+          title: 'Time Period Analysis',
+          description: 'Analyze trends over different time periods - daily, weekly or monthly.',
           targetSelector: '[data-onboarding="analytics-charts"]'
         }
       ];
@@ -302,20 +303,20 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
       return [
         {
           id: 1,
-          title: 'Plattform Anpassung',
-          description: 'Personalisieren Sie Ihre MOVEX Plattform nach Ihren Bedürfnissen und Ihrem Branding.',
+          title: 'Platform Customization',
+          description: 'Personalize your MOVEX platform according to your needs and branding.',
           targetSelector: '[data-onboarding="customisation-header"]'
         },
         {
           id: 2,
-          title: 'Design Einstellungen',
-          description: 'Passen Sie Farben, Logos und das Layout Ihrer Live Shopping Erfahrung an.',
+          title: 'Design Settings',
+          description: 'Customize colors, logos and the layout of your Live Shopping experience.',
           targetSelector: '[data-onboarding="design-settings"]'
         },
         {
           id: 3,
-          title: 'Funktionen konfigurieren',
-          description: 'Aktivieren oder deaktivieren Sie spezifische Features je nach Ihren Anforderungen.',
+          title: 'Configure Features',
+          description: 'Enable or disable specific features according to your requirements.',
           targetSelector: '[data-onboarding="feature-settings"]'
         }
       ];
@@ -391,7 +392,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, current
           <div className="bg-white rounded-lg shadow-xl p-4 flex items-center gap-3 border border-gray-200">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-[#0066CC] rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-900">MOVEX Tour läuft</span>
+              <span className="text-sm font-medium text-gray-900">MOVEX Tour running</span>
             </div>
             <Button
               size="sm"
@@ -424,7 +425,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete, current
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900">MOVEX Tour</h3>
-                  <p className="text-sm text-gray-500">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
+                  <p className="text-sm text-gray-500">Step {currentStep + 1} of {onboardingSteps.length}</p>
                 </div>
               </div>
               <div className="flex gap-1">
