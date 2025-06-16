@@ -1,189 +1,240 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { 
-  BarChart3,
   Plus,
   BookOpen,
-  MessageCircle,
-  Heart,
-  Eye,
-  MousePointer
+  TrendingUp,
+  Users,
+  Play,
+  Calendar,
+  Clock,
+  Star
 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import EducationHub from './EducationHub';
 
-interface DashboardProps {
-  onResetOnboarding: () => void;
-}
-
 const chartData = [
-  { month: 'Mar 2023', users: 80 },
-  { month: 'Apr 2023', users: 90 },
-  { month: 'May 2023', users: 70 },
-  { month: 'Jun 2023', users: 400 },
-  { month: 'Jul 2023', users: 90 },
-  { month: 'Aug 2023', users: 150 },
-  { month: 'Sep 2023', users: 120 },
-  { month: 'Oct 2023', users: 80 },
-  { month: 'Nov 2023', users: 60 },
-  { month: 'Dec 2023', users: 40 },
-  { month: 'Jan 2024', users: 30 },
-  { month: 'Feb 2024', users: 25 }
+  { month: 'Jan', viewers: 1200, engagement: 65 },
+  { month: 'Feb', viewers: 1800, engagement: 72 },
+  { month: 'Mar', viewers: 2400, engagement: 68 },
+  { month: 'Apr', viewers: 3200, engagement: 75 },
+  { month: 'May', viewers: 2800, engagement: 70 },
+  { month: 'Jun', viewers: 3600, engagement: 78 }
 ];
 
-const Dashboard: React.FC<DashboardProps> = ({ onResetOnboarding }) => {
+const Dashboard = () => {
   const [isEducationHubOpen, setIsEducationHubOpen] = useState(false);
 
   return (
     <>
       <div className="p-6">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8" data-onboarding="overview-header">
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back, Deniz</h1>
-          <div className="flex gap-3">
-            <Button
-              onClick={() => setIsEducationHubOpen(true)}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <BookOpen className="w-4 h-4" />
-              Education Hub
-            </Button>
-            <Button
-              onClick={onResetOnboarding}
-              variant="outline"
-            >
-              Tour wiederholen
-            </Button>
+        {/* Welcome Header */}
+        <div className="mb-8" data-onboarding="overview-header">
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Willkommen zurück, Deniz</h1>
+              <p className="text-gray-600">Hier ist Ihre Live Shopping Übersicht für heute</p>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                onClick={() => setIsEducationHubOpen(true)}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <BookOpen className="w-4 h-4" />
+                Education Hub
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Analytics Chart Section */}
-        <div className="mb-8">
-          <Card className="p-6" data-onboarding="analytics-chart">
-            <div className="flex justify-between items-start mb-6">
-              <div className="flex-1">
-                <h2 className="text-lg font-semibold mb-6">Analytics Overview</h2>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={chartData}>
-                      <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                      <YAxis axisLine={false} tickLine={false} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="users" 
-                        stroke="#f59e0b" 
-                        strokeWidth={2}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-teal-600" />
               </div>
-              <div className="ml-8 space-y-4">
-                <div className="text-right">
-                  <div className="text-sm text-gray-500">Total Viewers</div>
-                  <div className="text-2xl font-bold">1.182</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-500">Total Chat Messages</div>
-                  <div className="text-2xl font-bold">1.341</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-500">Total Likes</div>
-                  <div className="text-2xl font-bold">342</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-500">Total Product Clicks</div>
-                  <div className="text-2xl font-bold">193</div>
-                </div>
+              <div>
+                <p className="text-sm text-gray-600">Gesamte Zuschauer</p>
+                <p className="text-2xl font-bold">12.5K</p>
+                <p className="text-xs text-green-600">+12% vs. letzter Monat</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Users className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Aktive Shows</p>
+                <p className="text-2xl font-bold">24</p>
+                <p className="text-xs text-green-600">+3 diese Woche</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Play className="w-6 h-6 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Clips erstellt</p>
+                <p className="text-2xl font-bold">148</p>
+                <p className="text-xs text-gray-500">Letzte 30 Tage</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <Star className="w-6 h-6 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Conversion Rate</p>
+                <p className="text-2xl font-bold">3.2%</p>
+                <p className="text-xs text-green-600">+0.5% vs. letzter Monat</p>
               </div>
             </div>
           </Card>
         </div>
 
-        {/* Start creating content */}
+        {/* Analytics Chart */}
+        <Card className="p-6 mb-8" data-onboarding="analytics-chart">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold">Performance Übersicht</h2>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm">7 Tage</Button>
+              <Button variant="outline" size="sm" className="bg-teal-50 text-teal-600 border-teal-200">30 Tage</Button>
+              <Button variant="outline" size="sm">90 Tage</Button>
+            </div>
+          </div>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData}>
+                <XAxis dataKey="month" axisLine={false} tickLine={false} />
+                <YAxis axisLine={false} tickLine={false} />
+                <Area 
+                  type="monotone" 
+                  dataKey="viewers" 
+                  stroke="#14b8a6" 
+                  fill="#14b8a6" 
+                  fillOpacity={0.1}
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        {/* Quick Actions */}
         <div className="mb-8" data-onboarding="content-creation">
-          <h2 className="text-lg font-semibold mb-6">Start creating content</h2>
+          <h2 className="text-xl font-semibold mb-6">Schnellaktionen</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="p-6" data-onboarding="shows">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold mb-2">New show</h3>
-                <p className="text-gray-600 mb-4">
-                  Plan your next show and connect them directly to your product pages.
-                </p>
-                <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                  Create
-                </Button>
+            <Card className="p-6 text-center" data-onboarding="shows">
+              <div className="w-16 h-16 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-8 h-8 text-teal-600" />
               </div>
+              <h3 className="text-lg font-semibold mb-2">Neue Show erstellen</h3>
+              <p className="text-gray-600 mb-4 text-sm">
+                Planen Sie Ihre nächste Live Shopping Show mit Produktintegration.
+              </p>
+              <Button className="bg-teal-600 hover:bg-teal-700 text-white w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Show erstellen
+              </Button>
             </Card>
 
-            <Card className="p-6" data-onboarding="clips">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold mb-2">New Clip</h3>
-                <p className="text-gray-600 mb-4">
-                  Advertise your products with short and direct videos that are easily integrable.
-                </p>
-                <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                  Create
-                </Button>
+            <Card className="p-6 text-center" data-onboarding="clips">
+              <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Play className="w-8 h-8 text-orange-600" />
               </div>
+              <h3 className="text-lg font-semibold mb-2">Neuen Clip erstellen</h3>
+              <p className="text-gray-600 mb-4 text-sm">
+                Erstellen Sie kurze, ansprechende Videos für Ihre Produkte.
+              </p>
+              <Button className="bg-orange-600 hover:bg-orange-700 text-white w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Clip erstellen
+              </Button>
             </Card>
 
-            <Card className="p-6" data-onboarding="media-library">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold mb-2">New Media Library</h3>
-                <p className="text-gray-600 mb-4">
-                  Display your videos on your website and generate more leads.
-                </p>
-                <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                  Create
-                </Button>
+            <Card className="p-6 text-center" data-onboarding="media-library">
+              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="w-8 h-8 text-blue-600" />
               </div>
+              <h3 className="text-lg font-semibold mb-2">Media Library</h3>
+              <p className="text-gray-600 mb-4 text-sm">
+                Organisieren Sie Ihre Inhalte in übersichtlichen Bibliotheken.
+              </p>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Bibliothek erstellen
+              </Button>
             </Card>
           </div>
         </div>
 
-        {/* Recent Shows */}
-        <div>
-          <h2 className="text-lg font-semibold mb-6">Recent Shows</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-teal-500 rounded-lg aspect-[4/5] flex items-center justify-center text-white">
-                <div className="text-center">
-                  <div className="w-8 h-8 bg-white/20 rounded mx-auto mb-2"></div>
-                  <div className="text-xs">Show {i}</div>
+        {/* Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Letzte Shows</h3>
+            <div className="space-y-4">
+              {[
+                { title: "Summer Fashion Show 2024", date: "Heute, 14:00", status: "Live", viewers: "1.2K" },
+                { title: "Tech Gadgets Special", date: "Gestern, 16:30", status: "Beendet", viewers: "892" },
+                { title: "Beauty Essentials", date: "2 Tage", status: "Beendet", viewers: "1.5K" }
+              ].map((show, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">{show.title}</p>
+                    <p className="text-xs text-gray-500">{show.date}</p>
+                  </div>
+                  <div className="text-right">
+                    <span className={`inline-block px-2 py-1 rounded-full text-xs ${
+                      show.status === 'Live' ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {show.status}
+                    </span>
+                    <p className="text-xs text-gray-500 mt-1">{show.viewers} Zuschauer</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
+          </Card>
 
-        {/* Top Performing Videos */}
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold mb-6">Top Performing Videos</h2>
-          <div className="space-y-4">
-            {[
-              { name: "Deniz Dogan - Ein Blick hinter die Kulissen von MOVEX | Live Shopping", date: "20.6.2023" },
-              { name: "Jörg Heinemann von OTTO Insights & Learnings aus dem Live Shopping bei OTTO", date: "20.6.2023" },
-              { name: "iSHOP User Group", date: "14.9.2023" }
-            ].map((video, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="w-12 h-8 bg-teal-500 rounded flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded"></div>
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Top Performing Videos</h3>
+            <div className="space-y-4">
+              {[
+                { title: "iPhone 15 Unboxing & Review", views: "12.5K", engagement: "85%" },
+                { title: "Sommermode Trends 2024", views: "9.8K", engagement: "78%" },
+                { title: "Küchen-Gadgets im Test", views: "7.2K", engagement: "72%" }
+              ].map((video, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-8 bg-teal-500 rounded flex items-center justify-center">
+                      <Play className="w-3 h-3 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">{video.title}</p>
+                      <p className="text-xs text-gray-500">{video.views} Aufrufe</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-green-600">{video.engagement}</p>
+                    <p className="text-xs text-gray-500">Engagement</p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <div className="font-medium text-sm">{video.name}</div>
-                  <div className="text-xs text-gray-500">{video.date}</div>
-                </div>
-                <Button size="sm" variant="outline" className="text-teal-600 border-teal-600">
-                  Show
-                </Button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Card>
         </div>
       </div>
 
