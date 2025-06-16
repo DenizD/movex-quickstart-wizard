@@ -19,7 +19,6 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
         const domRect = element.getBoundingClientRect();
         setRect(domRect);
         
-        // Scroll element into view if needed
         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
@@ -29,9 +28,7 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
 
   return (
     <>
-      {/* Dark overlay */}
       <div className="fixed inset-0 bg-black/50 z-40 pointer-events-none" />
-      {/* Highlight box */}
       <div 
         className="fixed z-50 pointer-events-none"
         style={{
@@ -39,9 +36,9 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
           left: rect.left - 8,
           width: rect.width + 16,
           height: rect.height + 16,
-          border: '3px solid #3B82F6',
+          border: '3px solid #002A60',
           borderRadius: '12px',
-          boxShadow: '0 0 0 4px rgba(59, 130, 246, 0.2), 0 0 20px rgba(59, 130, 246, 0.3)',
+          boxShadow: '0 0 0 4px rgba(0, 42, 96, 0.2), 0 0 20px rgba(0, 42, 96, 0.3)',
           background: 'rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(1px)'
         }}
@@ -70,73 +67,95 @@ const onboardingSteps: OnboardingStep[] = [
     id: 1,
     emoji: '🎉',
     title: 'Willkommen bei MOVEX',
-    content: 'Willkommen auf deiner interaktiven Live Shopping Plattform! Mit MOVEX kannst du Live-Formate erstellen, einbetten und auswerten.',
+    content: 'Willkommen auf deiner Live Shopping Plattform! MOVEX ermöglicht es dir, interaktive Live-Events zu erstellen und nahtlos in deine Website zu integrieren.',
     highlight: 'Bereit für deine Live Shopping Journey?',
-    targetSelector: 'header',
+    targetSelector: '[data-onboarding="overview-header"]',
     links: [
       { text: 'Los gehts!', action: 'next', type: 'primary' }
     ]
   },
   {
     id: 2,
-    emoji: '📺',
-    title: 'Shows erstellen',
-    content: 'Hier siehst du den "Erste Show erstellen" Button. Klicke darauf, um dein erstes Live Shopping Event zu planen.',
-    tip: 'Shows sind das Herzstück deines Live Shopping-Erlebnisses',
-    targetSelector: '[data-onboarding="create-show"]',
-    links: [
-      { text: 'Button gefunden!', action: 'next', type: 'primary' }
-    ]
-  },
-  {
-    id: 3,
-    emoji: '🎬',
-    title: 'Clips & Media Library',
-    content: 'In der Schnellstart-Sektion findest du auch Buttons für Clips und die Media Library. Diese helfen dir beim Organisieren deiner Inhalte.',
-    tip: 'Clips sind kurze, shoppable Videos für dauerhaften Content',
-    targetSelector: '[data-onboarding="quick-actions"]',
+    emoji: '📊',
+    title: 'Analytics Dashboard',
+    content: 'Hier siehst du deine wichtigsten Kennzahlen auf einen Blick: Viewer, Chat-Nachrichten, Likes und Produkt-Klicks.',
+    tip: 'Die Analytics helfen dir dabei, den Erfolg deiner Shows zu messen',
+    targetSelector: '[data-onboarding="analytics-chart"]',
     links: [
       { text: 'Verstanden!', action: 'next', type: 'primary' }
     ]
   },
   {
-    id: 4,
-    emoji: '🎯',
-    title: 'Funktions-Übersicht',
-    content: 'Hier siehst du alle verfügbaren Features: Shows, Clips, Media Library, Team-Verwaltung, Analytics und Einstellungen.',
-    tip: 'Jede Karte führt dich zu einem anderen Bereich der Plattform',
-    targetSelector: '[data-onboarding="features-grid"]',
+    id: 3,
+    emoji: '🎬',
+    title: 'Content erstellen',
+    content: 'In diesem Bereich kannst du neue Shows, Clips und Media Libraries erstellen. Jeder Content-Typ hat seinen eigenen Zweck.',
+    tip: 'Shows sind live, Clips sind kurz und immer verfügbar, Media Libraries organisieren deine Inhalte',
+    targetSelector: '[data-onboarding="content-creation"]',
     links: [
       { text: 'Alles klar!', action: 'next', type: 'primary' }
     ]
   },
   {
-    id: 5,
-    emoji: '🚀',
-    title: 'Erste Schritte Guide',
-    content: 'Unten findest du eine Schritt-für-Schritt Anleitung für deine ersten Aktionen auf der Plattform.',
-    tip: 'Folge diesen Schritten für den optimalen Start',
-    targetSelector: '[data-onboarding="getting-started"]',
+    id: 4,
+    emoji: '📺',
+    title: 'Shows verwalten',
+    content: 'Im Shows-Bereich findest du alle deine Live Shopping Events. Du kannst sie filtern, bearbeiten und neue erstellen.',
+    tip: 'Nutze die Tabs um zwischen Live, Upcoming und Ended Shows zu wechseln',
+    targetSelector: '[data-onboarding="shows"]',
     links: [
-      { text: 'Perfect!', action: 'next', type: 'primary' }
+      { text: 'Shows ansehen', action: 'navigate', type: 'primary' }
+    ]
+  },
+  {
+    id: 5,
+    emoji: '✂️',
+    title: 'Clips für Evergreen Content',
+    content: 'Clips sind kurze shoppable Videos, die dauerhaft auf deiner Website verfügbar sind und hohe Conversion-Raten erzielen.',
+    tip: 'Clips eignen sich perfekt für Produktpräsentationen und können überall eingebettet werden',
+    targetSelector: '[data-onboarding="clips"]',
+    links: [
+      { text: 'Clips entdecken', action: 'navigate', type: 'primary' }
     ]
   },
   {
     id: 6,
-    emoji: '🎓',
-    title: 'Education Hub',
-    content: 'Über den "Education Hub" Button oben rechts findest du Tutorials, Best Practices und Hilfestellungen.',
-    tip: 'Hier lernst du alles über erfolgreiches Live Shopping',
-    targetSelector: '[data-onboarding="education-hub"]',
+    emoji: '📚',
+    title: 'Media Library Organisation',
+    content: 'Die Media Library organisiert all deine Inhalte in strukturierten Playlists mit erweiterten Filter- und Suchfunktionen.',
+    tip: 'Erstelle thematische Playlists für bessere Organisation',
+    targetSelector: '[data-onboarding="media-library"]',
     links: [
-      { text: 'Gut zu wissen!', action: 'next', type: 'primary' }
+      { text: 'Library erkunden', action: 'navigate', type: 'primary' }
     ]
   },
   {
     id: 7,
-    emoji: '✨',
-    title: 'Du bist bereit!',
-    content: 'Perfekt! Du kennst jetzt alle wichtigen Bereiche. Starte mit deiner ersten Show oder erkunde die Plattform weiter.',
+    emoji: '👥',
+    title: 'Team-Verwaltung',
+    content: 'Hier kannst du Teammitglieder einladen und Rollen wie Admin, Host oder Moderator vergeben.',
+    tip: 'Eine gute Team-Organisation ist der Schlüssel für erfolgreiche Live Shopping Events',
+    targetSelector: '[data-onboarding="users"]',
+    links: [
+      { text: 'Team verwalten', action: 'navigate', type: 'primary' }
+    ]
+  },
+  {
+    id: 8,
+    emoji: '📊',
+    title: 'Detaillierte Analytics',
+    content: 'Im Analytics-Bereich erhältst du tiefe Einblicke in Performance-Metriken, Conversion-Funnels und Viewer-Verhalten.',
+    tip: 'Nutze die Daten für datenbasierte Optimierungen deiner Shows',
+    targetSelector: '[data-onboarding="analytics"]',
+    links: [
+      { text: 'Analytics öffnen', action: 'navigate', type: 'primary' }
+    ]
+  },
+  {
+    id: 9,
+    emoji: '🚀',
+    title: 'Bereit zum Start!',
+    content: 'Perfekt! Du kennst jetzt alle wichtigen Bereiche der MOVEX Plattform. Starte mit deiner ersten Show oder erkunde die Features weiter.',
     highlight: 'Viel Erfolg beim Live Shopping!',
     links: [
       { text: 'Jetzt loslegen!', action: 'complete', type: 'primary' }
@@ -173,10 +192,29 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
     }, 300);
   };
 
+  const handleNavigate = () => {
+    const routes = {
+      4: '/shows',
+      5: '/clips', 
+      6: '/media-library',
+      7: '/users',
+      8: '/analytics'
+    };
+    
+    const route = routes[currentStep as keyof typeof routes];
+    if (route) {
+      window.location.href = route;
+    }
+    handleNext();
+  };
+
   const handleAction = (action: string) => {
     switch (action) {
       case 'next':
         handleNext();
+        break;
+      case 'navigate':
+        handleNavigate();
         break;
       case 'complete':
         handleComplete();
@@ -202,13 +240,11 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
 
   return (
     <>
-      {/* Highlight overlay */}
       <HighlightBox 
         targetSelector={currentStepData.targetSelector || ''} 
         isActive={!isMinimized && !!currentStepData.targetSelector}
       />
 
-      {/* Minimized view */}
       {isMinimized && (
         <div className="fixed bottom-6 right-6 z-50">
           <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 flex items-center gap-3 cursor-pointer hover:shadow-xl transition-all max-w-xs">
@@ -239,7 +275,6 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
         </div>
       )}
 
-      {/* Full wizard */}
       {!isMinimized && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 max-h-[90vh] overflow-hidden">
@@ -260,7 +295,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                 </button>
               </div>
               <div className="pr-16">
-                <h2 className="text-lg font-semibold text-gray-900">MOVEX Tour</h2>
+                <h2 className="text-lg font-semibold text-gray-900">MOVEX Platform Tour</h2>
                 <p className="text-xs text-gray-500 mt-1">Schritt {currentStep + 1} von {onboardingSteps.length}</p>
               </div>
             </div>
@@ -284,19 +319,18 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                 </p>
                 
                 {currentStepData.tip && (
-                  <div className="text-xs text-blue-700 bg-blue-50 px-3 py-2 rounded-lg mb-3">
+                  <div className="text-xs text-movex-blue bg-movex-light px-3 py-2 rounded-lg mb-3">
                     <span className="font-medium">💡 Tipp:</span> {currentStepData.tip}
                   </div>
                 )}
                 
                 {currentStepData.highlight && (
-                  <div className="text-blue-600 font-medium bg-blue-50 px-3 py-2 rounded-lg text-xs">
+                  <div className="text-movex-blue font-medium bg-movex-light px-3 py-2 rounded-lg text-xs">
                     ✨ {currentStepData.highlight}
                   </div>
                 )}
               </div>
 
-              {/* Action Links */}
               {currentStepData.links && (
                 <div className="space-y-2 mb-4">
                   {currentStepData.links.map((link, index) => (
@@ -306,7 +340,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                       variant={link.type === 'primary' ? 'default' : 'outline'}
                       className={`w-full justify-between text-sm ${
                         link.type === 'primary' 
-                          ? 'bg-blue-600 hover:bg-blue-700' 
+                          ? 'bg-movex-blue hover:bg-blue-700' 
                           : 'border-gray-200 hover:bg-gray-50'
                       }`}
                     >
@@ -337,7 +371,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
                     onClick={() => setCurrentStep(index)}
                     className={`w-1.5 h-1.5 rounded-full transition-all ${
                       index === currentStep
-                        ? 'bg-blue-600 w-4'
+                        ? 'bg-movex-blue w-4'
                         : index < currentStep
                         ? 'bg-blue-300'
                         : 'bg-gray-200'
@@ -349,7 +383,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ onComplete }) => {
               <Button
                 onClick={handleNext}
                 disabled={isLastStep}
-                className="flex items-center gap-2 text-xs px-3 py-1.5 h-auto bg-blue-600 hover:bg-blue-700"
+                className="flex items-center gap-2 text-xs px-3 py-1.5 h-auto bg-movex-blue hover:bg-blue-700"
               >
                 {!isLastStep && 'Weiter'}
                 {!isLastStep && <ChevronRight size={14} />}
