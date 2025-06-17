@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -10,10 +9,15 @@ import {
   Play,
   Calendar,
   Clock,
-  Star
+  Star,
+  Upload,
+  CreditCard
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import EducationHub from './EducationHub';
+import WelcomeModal from './onboarding/WelcomeModal';
+import OnboardingTiles from './onboarding/OnboardingTiles';
+import ContextualHelp from './help/ContextualHelp';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const chartData = [
@@ -27,7 +31,99 @@ const chartData = [
 
 const Dashboard = () => {
   const [isEducationHubOpen, setIsEducationHubOpen] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [userOnboardingState, setUserOnboardingState] = useState({
+    videoUploaded: false,
+    planSubscribed: false,
+    showCreated: false,
+    minutesTested: false,
+    selectedFocus: ''
+  });
   const { t } = useLanguage();
+
+  // Simuliere ersten Login Check
+  useEffect(() => {
+    const isFirstLogin = localStorage.getItem('movex_first_login_completed') !== 'true';
+    if (isFirstLogin) {
+      setShowWelcomeModal(true);
+    }
+
+    // Lade Onboarding Status
+    const savedState = localStorage.getItem('movex_onboarding_state');
+    if (savedState) {
+      setUserOnboardingState(JSON.parse(savedState));
+    }
+  }, []);
+
+  const handleWelcomeComplete = (focus: string) => {
+    localStorage.setItem('movex_first_login_completed', 'true');
+    setUserOnboardingState(prev => ({ ...prev, selectedFocus: focus }));
+    setShowWelcomeModal(false);
+  };
+
+  const handleOnboardingAction = (actionType: string) => {
+    const newState = { ...userOnboardingState };
+    
+    switch (actionType) {
+      case 'upload':
+        newState.videoUploaded = true;
+        break;
+      case 'subscribe':
+        newState.planSubscribed = true;
+        break;
+      case 'show':
+        newState.showCreated = true;
+        break;
+      case 'test-minutes':
+        newState.minutesTested = true;
+        break;
+    }
+    
+    setUserOnboardingState(newState);
+    localStorage.setItem('movex_onboarding_state', JSON.stringify(newState));
+  };
+
+  const onboardingSteps = [
+    {
+      id: 'upload',
+      title: 'Video hochladen',
+      description: 'Laden Sie Ihr erstes Video hoch und erstellen Sie shoppable Content',
+      icon: Upload,
+      completed: userOnboardingState.videoUploaded,
+      action: 'Jetzt hochladen',
+      onClick: () => handleOnboardingAction('upload')
+    },
+    {
+      id: 'subscribe',
+      title: 'Plan abonnieren',
+      description: 'Wählen Sie einen Plan und erhalten Sie mehr Minuten für Live Shopping',
+      icon: CreditCard,
+      completed: userOnboardingState.planSubscribed,
+      action: 'Plan wählen',
+      onClick: () => handleOnboardingAction('subscribe')
+    },
+    {
+      id: 'show',
+      title: 'Show erstellen',
+      description: 'Planen Sie Ihre erste Live Shopping Show mit Produktintegration',
+      icon: Calendar,
+      completed: userOnboardingState.showCreated,
+      action: 'Show planen',
+      onClick: () => handleOnboardingAction('show')
+    },
+    {
+      id: 'test',
+      title: 'Minuten testen',
+      description: 'Nutzen Sie Ihre kostenlosen Test-Minuten und probieren Sie alle Features aus',
+      icon: Clock,
+      completed: userOnboardingState.minutesTested,
+      action: 'Jetzt testen',
+      onClick: () => handleOnboardingAction('test-minutes')
+    }
+  ];
+
+  const completedSteps = onboardingSteps.filter(step => step.completed).length;
+  const showOnboardingTiles = completedSteps < onboardingSteps.length;
 
   return (
     <>
@@ -38,6 +134,13 @@ const Dashboard = () => {
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Deniz</h1>
               <p className="text-gray-600">Here is your Live Shopping overview for today</p>
+              {userOnboardingState.selectedFocus && (
+                <div className="mt-2">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#E6F3FF] text-[#0066CC]">
+                    🎯 Fokus: {userOnboardingState.selectedFocus}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex gap-3">
               <Button
@@ -48,9 +151,40 @@ const Dashboard = () => {
                 <BookOpen className="w-4 h-4" />
                 Education Hub
               </Button>
+              {showOnboardingTiles && (
+                <Button
+                  onClick={() => setShowWelcomeModal(true)}
+                  variant="outline"
+                  className="flex items-center gap-2 border-[#0066CC] text-[#0066CC]"
+                >
+                  🚀 Setup fortsetzen
+                </Button>
+              )}
             </div>
           </div>
         </div>
+
+        {/* Onboarding Tiles - nur anzeigen wenn nicht abgeschlossen */}
+        {showOnboardingTiles && (
+          <OnboardingTiles steps={onboardingSteps} />
+        )}
+
+        {/* Gamification Reward */}
+        {completedSteps > 0 && completedSteps < onboardingSteps.length && (
+          <div className="mb-8 p-4 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <div className="text-2xl">🎉</div>
+              <div>
+                <h3 className="font-semibold text-green-900">
+                  Großartig! {completedSteps} von {onboardingSteps.length} Schritten abgeschlossen
+                </h3>
+                <p className="text-sm text-green-700">
+                  Sie haben <strong>+{completedSteps} Extra-Minuten</strong> für Ihr Engagement erhalten!
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-onboarding="stats-cards">
@@ -240,10 +374,20 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Modals and Components */}
+      <WelcomeModal 
+        isOpen={showWelcomeModal}
+        onClose={() => setShowWelcomeModal(false)}
+        userName="Deniz"
+        onFocusSelect={handleWelcomeComplete}
+      />
+
       <EducationHub 
         isOpen={isEducationHubOpen} 
         onClose={() => setIsEducationHubOpen(false)} 
       />
+
+      <ContextualHelp context="dashboard" />
     </>
   );
 };
