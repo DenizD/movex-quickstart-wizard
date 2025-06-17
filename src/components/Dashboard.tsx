@@ -1,33 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   Plus,
-  BookOpen,
-  TrendingUp,
-  Users,
-  Play,
-  Calendar,
-  Clock,
-  Star,
-  Upload,
-  CreditCard
+  BookOpen
 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import EducationHub from './EducationHub';
 import WelcomeModal from './onboarding/WelcomeModal';
 import OnboardingTiles from './onboarding/OnboardingTiles';
 import ContextualHelp from './help/ContextualHelp';
 import { useLanguage } from '@/hooks/useLanguage';
-
-const chartData = [
-  { month: 'Jan', viewers: 1200, engagement: 65 },
-  { month: 'Feb', viewers: 1800, engagement: 72 },
-  { month: 'Mar', viewers: 2400, engagement: 68 },
-  { month: 'Apr', viewers: 3200, engagement: 75 },
-  { month: 'May', viewers: 2800, engagement: 70 },
-  { month: 'Jun', viewers: 3600, engagement: 78 }
-];
 
 const Dashboard = () => {
   const [isEducationHubOpen, setIsEducationHubOpen] = useState(false);
@@ -41,14 +24,14 @@ const Dashboard = () => {
   });
   const { t } = useLanguage();
 
-  // Simuliere ersten Login Check
+  // Check for first login
   useEffect(() => {
     const isFirstLogin = localStorage.getItem('movex_first_login_completed') !== 'true';
     if (isFirstLogin) {
       setShowWelcomeModal(true);
     }
 
-    // Lade Onboarding Status
+    // Load onboarding status
     const savedState = localStorage.getItem('movex_onboarding_state');
     if (savedState) {
       setUserOnboardingState(JSON.parse(savedState));
@@ -88,7 +71,7 @@ const Dashboard = () => {
       id: 'upload',
       title: 'Video hochladen',
       description: 'Laden Sie Ihr erstes Video hoch und erstellen Sie shoppable Content',
-      icon: Upload,
+      icon: Plus,
       completed: userOnboardingState.videoUploaded,
       action: 'Jetzt hochladen',
       onClick: () => handleOnboardingAction('upload')
@@ -97,7 +80,7 @@ const Dashboard = () => {
       id: 'subscribe',
       title: 'Plan abonnieren',
       description: 'Wählen Sie einen Plan und erhalten Sie mehr Minuten für Live Shopping',
-      icon: CreditCard,
+      icon: Plus,
       completed: userOnboardingState.planSubscribed,
       action: 'Plan wählen',
       onClick: () => handleOnboardingAction('subscribe')
@@ -106,7 +89,7 @@ const Dashboard = () => {
       id: 'show',
       title: 'Show erstellen',
       description: 'Planen Sie Ihre erste Live Shopping Show mit Produktintegration',
-      icon: Calendar,
+      icon: Plus,
       completed: userOnboardingState.showCreated,
       action: 'Show planen',
       onClick: () => handleOnboardingAction('show')
@@ -115,7 +98,7 @@ const Dashboard = () => {
       id: 'test',
       title: 'Minuten testen',
       description: 'Nutzen Sie Ihre kostenlosen Test-Minuten und probieren Sie alle Features aus',
-      icon: Clock,
+      icon: Plus,
       completed: userOnboardingState.minutesTested,
       action: 'Jetzt testen',
       onClick: () => handleOnboardingAction('test-minutes')
@@ -127,254 +110,125 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="p-6">
-        {/* Welcome Header */}
-        <div className="mb-8" data-onboarding="overview-header">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Deniz</h1>
-              <p className="text-gray-600">Here is your Live Shopping overview for today</p>
-              {userOnboardingState.selectedFocus && (
-                <div className="mt-2">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#E6F3FF] text-[#0066CC]">
-                    🎯 Fokus: {userOnboardingState.selectedFocus}
-                  </span>
-                </div>
-              )}
+      <div className="bg-white min-h-screen">
+        {/* No Plan Warning Bar */}
+        <div className="bg-yellow-100 border-b border-yellow-200 px-6 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs">!</span>
+              </div>
+              <span className="text-sm text-gray-900">You have no plan activated. Please activate a plan to access the features.</span>
             </div>
-            <div className="flex gap-3">
-              <Button
-                onClick={() => setIsEducationHubOpen(true)}
-                variant="outline"
-                className="flex items-center gap-2"
-              >
-                <BookOpen className="w-4 h-4" />
-                Education Hub
-              </Button>
-              {showOnboardingTiles && (
-                <Button
-                  onClick={() => setShowWelcomeModal(true)}
-                  variant="outline"
-                  className="flex items-center gap-2 border-[#0066CC] text-[#0066CC]"
-                >
-                  🚀 Setup fortsetzen
-                </Button>
-              )}
-            </div>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2">
+              Buy a Plan
+            </Button>
           </div>
         </div>
 
-        {/* Onboarding Tiles - nur anzeigen wenn nicht abgeschlossen */}
-        {showOnboardingTiles && (
-          <OnboardingTiles steps={onboardingSteps} />
-        )}
-
-        {/* Gamification Reward */}
-        {completedSteps > 0 && completedSteps < onboardingSteps.length && (
-          <div className="mb-8 p-4 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg">
-            <div className="flex items-center gap-3">
-              <div className="text-2xl">🎉</div>
-              <div>
-                <h3 className="font-semibold text-green-900">
-                  Großartig! {completedSteps} von {onboardingSteps.length} Schritten abgeschlossen
-                </h3>
-                <p className="text-sm text-green-700">
-                  Sie haben <strong>+{completedSteps} Extra-Minuten</strong> für Ihr Engagement erhalten!
-                </p>
+        <div className="p-6">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-semibold text-gray-900 mb-2">Welcome back, Deniz (OSP)</h1>
+            {userOnboardingState.selectedFocus && (
+              <div className="mt-2">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-50 text-blue-700">
+                  🎯 Fokus: {userOnboardingState.selectedFocus}
+                </span>
               </div>
+            )}
+          </div>
+
+          {/* Start creating content section */}
+          <div className="mb-8">
+            <h2 className="text-lg font-medium text-gray-900 mb-6">Start creating content</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* New show */}
+              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
+                <CardContent className="p-6">
+                  <h3 className="font-medium text-gray-900 mb-2">New show</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Plan your next show and connect them directly to your product pages.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
+                  >
+                    Unlock the Shows Module
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* New Clip */}
+              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
+                <CardContent className="p-6">
+                  <h3 className="font-medium text-gray-900 mb-2">New Clip</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Advertise your products with short and direct videos that are easily integrable.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
+                  >
+                    Unlock the Clips Module
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* New Media Library */}
+              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
+                <CardContent className="p-6">
+                  <h3 className="font-medium text-gray-900 mb-2">New Media Library</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Display your videos on your website and generate more leads.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
+                  >
+                    Unlock the Media Library Module
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        )}
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-onboarding="stats-cards">
-          <Card className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-[#0066CC]" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Total Viewers</p>
-                <p className="text-2xl font-bold">12.5K</p>
-                <p className="text-xs text-green-600">+12% vs. last month</p>
-              </div>
-            </div>
-          </Card>
+          {/* Onboarding Tiles - only show if not completed */}
+          {showOnboardingTiles && (
+            <OnboardingTiles steps={onboardingSteps} />
+          )}
 
-          <Card className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
-                <Users className="w-6 h-6 text-[#0066CC]" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Active Shows</p>
-                <p className="text-2xl font-bold">24</p>
-                <p className="text-xs text-green-600">+3 this week</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
-                <Play className="w-6 h-6 text-[#0066CC]" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Clips Created</p>
-                <p className="text-2xl font-bold">148</p>
-                <p className="text-xs text-gray-500">Last 30 days</p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#E6F3FF] rounded-lg flex items-center justify-center">
-                <Star className="w-6 h-6 text-[#0066CC]" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">Conversion Rate</p>
-                <p className="text-2xl font-bold">3.2%</p>
-                <p className="text-xs text-green-600">+0.5% vs. last month</p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Analytics Chart */}
-        <Card className="p-6 mb-8" data-onboarding="analytics-chart">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Performance Overview</h2>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">7 Days</Button>
-              <Button variant="outline" size="sm" className="bg-[#E6F3FF] text-[#0066CC] border-[#0066CC]">30 Days</Button>
-              <Button variant="outline" size="sm">90 Days</Button>
+          {/* Recent Shows */}
+          <div className="mb-8">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Shows</h2>
+            <div className="text-center py-12 text-gray-500">
+              <p>No shows yet. Create your first show to get started!</p>
             </div>
           </div>
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={chartData}>
-                <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} />
-                <Area 
-                  type="monotone" 
-                  dataKey="viewers" 
-                  stroke="#0066CC" 
-                  fill="#0066CC" 
-                  fillOpacity={0.1}
-                  strokeWidth={2}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
 
-        {/* Quick Actions */}
-        <div className="mb-8" data-onboarding="quick-actions">
-          <h2 className="text-xl font-semibold mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="p-6 text-center">
-              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-[#0066CC]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Create New Show</h3>
-              <p className="text-gray-600 mb-4 text-sm">
-                Plan your next Live Shopping show with product integration.
-              </p>
-              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Show
-              </Button>
-            </Card>
-
-            <Card className="p-6 text-center">
-              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Play className="w-8 h-8 text-[#0066CC]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Create New Clip</h3>
-              <p className="text-gray-600 mb-4 text-sm">
-                Create short, engaging videos for your products.
-              </p>
-              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Clip
-              </Button>
-            </Card>
-
-            <Card className="p-6 text-center">
-              <div className="w-16 h-16 bg-[#E6F3FF] rounded-lg flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="w-8 h-8 text-[#0066CC]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Media Library</h3>
-              <p className="text-gray-600 mb-4 text-sm">
-                Organize your content in structured libraries.
-              </p>
-              <Button className="bg-[#0066CC] hover:bg-[#0052A3] text-white w-full">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Library
-              </Button>
-            </Card>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Recent Shows</h3>
-            <div className="space-y-4">
-              {[
-                { title: "Summer Fashion Show 2024", date: "Today, 2:00 PM", status: "Live", viewers: "1.2K" },
-                { title: "Tech Gadgets Special", date: "Yesterday, 4:30 PM", status: "Ended", viewers: "892" },
-                { title: "Beauty Essentials", date: "2 days ago", status: "Ended", viewers: "1.5K" }
-              ].map((show, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
-                    <p className="font-medium text-sm">{show.title}</p>
-                    <p className="text-xs text-gray-500">{show.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className={`inline-block px-2 py-1 rounded-full text-xs ${
-                      show.status === 'Live' ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'
-                    }`}>
-                      {show.status}
-                    </span>
-                    <p className="text-xs text-gray-500 mt-1">{show.viewers} viewers</p>
-                  </div>
-                </div>
-              ))}
+          {/* Recent Clips */}
+          <div className="mb-8">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Clips</h2>
+            <div className="text-center py-12 text-gray-500">
+              <p>No clips yet. Create your first clip to get started!</p>
             </div>
-          </Card>
+          </div>
 
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Top Performing Videos</h3>
-            <div className="space-y-4">
-              {[
-                { title: "iPhone 15 Unboxing & Review", views: "12.5K", engagement: "85%" },
-                { title: "Summer Fashion Trends 2024", views: "9.8K", engagement: "78%" },
-                { title: "Kitchen Gadgets Test", views: "7.2K", engagement: "72%" }
-              ].map((video, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-8 bg-[#0066CC] rounded flex items-center justify-center">
-                      <Play className="w-3 h-3 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">{video.title}</p>
-                      <p className="text-xs text-gray-500">{video.views} views</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-green-600">{video.engagement}</p>
-                    <p className="text-xs text-gray-500">Engagement</p>
-                  </div>
-                </div>
-              ))}
+          {/* Top Performing Videos */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-medium text-gray-900">Top Performing Videos</h2>
+              <span className="text-sm text-gray-500">Last 30 days</span>
             </div>
-          </Card>
+            <div className="text-center py-12 text-gray-500">
+              <p>No performance data available yet.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Modals and Components */}
+      {/* Modals */}
       <WelcomeModal 
         isOpen={showWelcomeModal}
         onClose={() => setShowWelcomeModal(false)}
