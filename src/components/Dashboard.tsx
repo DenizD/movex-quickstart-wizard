@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -10,7 +11,7 @@ import {
   Alert,
   AlertTitle,
   Chip,
-  Grid2 as Grid
+  Grid
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -173,7 +174,7 @@ const Dashboard = () => {
             
             <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* New show */}
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
@@ -194,7 +195,7 @@ const Dashboard = () => {
               </Grid>
 
               {/* New Clip */}
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
@@ -215,7 +216,7 @@ const Dashboard = () => {
               </Grid>
 
               {/* New Media Library */}
-              <Grid xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
@@ -304,3 +305,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
