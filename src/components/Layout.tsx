@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useOnboarding } from '@/hooks/useOnboarding';
 import { useLanguage } from '@/hooks/useLanguage';
 import Sidebar from './Sidebar';
-import OnboardingWizard from './OnboardingWizard';
+import OnboardingWizardMUI from './OnboardingWizardMUI';
 import LanguageSelector from './LanguageSelector';
 
 interface LayoutProps {
@@ -58,7 +58,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Show wizard if it should be shown initially or manually triggered */}
       {(shouldShowOnboarding || showWizard) && (
-        <OnboardingWizard onComplete={handleCompleteTour} currentPage={currentPage} />
+        <OnboardingWizardMUI onComplete={handleCompleteTour} currentPage={currentPage} />
       )}
     </>
   );
