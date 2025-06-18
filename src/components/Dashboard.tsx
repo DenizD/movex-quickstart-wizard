@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -15,7 +14,7 @@ import {
 import {
   Add as AddIcon,
   Warning as WarningIcon,
-  BookOpen as BookOpenIcon
+  MenuBook as MenuBookIcon
 } from '@mui/icons-material';
 import EducationHub from './EducationHub';
 import WelcomeModal from './onboarding/WelcomeModal';
