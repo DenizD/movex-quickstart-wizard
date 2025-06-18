@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -172,72 +170,70 @@ const Dashboard = () => {
               Start creating content
             </Typography>
             
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={3} sx={{ mb: 4 }}>
-                {/* New show */}
-                <Grid xs={12} md={4}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New show
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Plan your next show and connect them directly to your product pages.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Shows Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
-
-                {/* New Clip */}
-                <Grid xs={12} md={4}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New Clip
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Advertise your products with short and direct videos that are easily integrable.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Clips Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
-
-                {/* New Media Library */}
-                <Grid xs={12} md={4}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New Media Library
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Display your videos on your website and generate more leads.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Media Library Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
+            <Grid container spacing={3} sx={{ mb: 4 }}>
+              {/* New show */}
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New show
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Plan your next show and connect them directly to your product pages.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Shows Module
+                    </Button>
+                  </CardContent>
+                </Card>
               </Grid>
-            </Box>
+
+              {/* New Clip */}
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New Clip
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Advertise your products with short and direct videos that are easily integrable.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Clips Module
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              {/* New Media Library */}
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New Media Library
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Display your videos on your website and generate more leads.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Media Library Module
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
           </Box>
 
           {/* Onboarding Tiles - only show if not completed */}
@@ -307,4 +303,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
