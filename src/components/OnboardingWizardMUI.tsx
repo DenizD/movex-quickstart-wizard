@@ -22,8 +22,17 @@ import {
 } from '@mui/icons-material';
 import { useLanguage } from '@/hooks/useLanguage';
 
+// Constants for consistent styling
+const THEME_COLORS = {
+  primary: '#0066CC',
+  primaryHover: '#0052A3',
+  primaryLight: 'rgba(0, 102, 204, 0.2)',
+  primaryMedium: 'rgba(0, 102, 204, 0.6)',
+  backdrop: 'rgba(0, 0, 0, 0.4)'
+} as const;
+
 interface HighlightBoxProps {
-  targetSelector: string;
+  targetSelector?: string;
   isActive: boolean;
 }
 
@@ -32,12 +41,22 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
 
   useEffect(() => {
     if (isActive && targetSelector) {
-      const element = document.querySelector(targetSelector);
-      if (element) {
-        const domRect = element.getBoundingClientRect();
-        setRect(domRect);
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try {
+        const element = document.querySelector(targetSelector);
+        if (element) {
+          const domRect = element.getBoundingClientRect();
+          setRect(domRect);
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          console.warn(`OnboardingWizard: Element with selector "${targetSelector}" not found`);
+          setRect(null);
+        }
+      } catch (error) {
+        console.error(`OnboardingWizard: Error selecting element "${targetSelector}":`, error);
+        setRect(null);
       }
+    } else {
+      setRect(null);
     }
   }, [targetSelector, isActive]);
 
@@ -48,7 +67,7 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
       <Backdrop
         open={true}
         sx={{ 
-          bgcolor: 'rgba(0, 0, 0, 0.4)',
+          bgcolor: THEME_COLORS.backdrop,
           zIndex: 1299
         }}
       />
@@ -59,9 +78,9 @@ const HighlightBox: React.FC<HighlightBoxProps> = ({ targetSelector, isActive })
           left: rect.left - 4,
           width: rect.width + 8,
           height: rect.height + 8,
-          border: '2px solid #0066CC',
+          border: `2px solid ${THEME_COLORS.primary}`,
           borderRadius: 1,
-          boxShadow: '0 0 0 4px rgba(0, 102, 204, 0.2)',
+          boxShadow: `0 0 0 4px ${THEME_COLORS.primaryLight}`,
           pointerEvents: 'none',
           zIndex: 1300
         }}
@@ -167,11 +186,15 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
 
   if (!isVisible) return null;
 
+  const dialogId = 'onboarding-wizard-dialog';
+  const titleId = 'onboarding-wizard-title';
+  const descriptionId = 'onboarding-wizard-description';
+
   return (
     <>
       <HighlightBox 
-        targetSelector={currentStepData.targetSelector || ''} 
-        isActive={!isMinimized && !!currentStepData.targetSelector}
+        targetSelector={currentStepData?.targetSelector} 
+        isActive={!isMinimized && !!currentStepData?.targetSelector}
       />
 
       {isMinimized && (
@@ -188,18 +211,29 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
             gap: 1.5,
             borderRadius: 2
           }}
+          role="dialog"
+          aria-labelledby="minimized-tour-label"
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Box
               sx={{
                 width: 8,
                 height: 8,
-                bgcolor: '#0066CC',
+                bgcolor: THEME_COLORS.primary,
                 borderRadius: '50%',
+                '@keyframes pulse': {
+                  '0%': { opacity: 1, transform: 'scale(1)' },
+                  '50%': { opacity: 0.5, transform: 'scale(1.1)' },
+                  '100%': { opacity: 1, transform: 'scale(1)' }
+                },
                 animation: 'pulse 2s infinite'
               }}
             />
-            <Typography variant="body2" fontWeight={500}>
+            <Typography 
+              variant="body2" 
+              fontWeight={500}
+              id="minimized-tour-label"
+            >
               MOVEX Tour running
             </Typography>
           </Box>
@@ -207,6 +241,7 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
             size="small"
             onClick={handleMinimize}
             sx={{ color: 'text.secondary' }}
+            aria-label="Tour maximieren"
           >
             <Maximize />
           </IconButton>
@@ -214,6 +249,7 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
             size="small"
             onClick={handleSkip}
             sx={{ color: 'text.secondary' }}
+            aria-label="Tour beenden"
           >
             <Close />
           </IconButton>
@@ -232,6 +268,9 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
             }
           }}
           sx={{ zIndex: 1400 }}
+          aria-labelledby={titleId}
+          aria-describedby={descriptionId}
+          id={dialogId}
         >
           {/* Header */}
           <DialogTitle sx={{ p: 3, pb: 1 }}>
@@ -241,12 +280,13 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                   sx={{
                     width: 40,
                     height: 40,
-                    bgcolor: '#0066CC',
+                    bgcolor: THEME_COLORS.primary,
                     borderRadius: 1.5,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}
+                  aria-hidden="true"
                 >
                   <Box
                     sx={{
@@ -258,7 +298,7 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                   />
                 </Box>
                 <Box>
-                  <Typography variant="h6" fontWeight="bold">
+                  <Typography variant="h6" fontWeight="bold" id={titleId}>
                     MOVEX Tour
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -271,6 +311,7 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                   size="small"
                   onClick={handleMinimize}
                   sx={{ color: 'text.secondary' }}
+                  aria-label="Tour minimieren"
                 >
                   <Minimize />
                 </IconButton>
@@ -278,6 +319,7 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                   size="small"
                   onClick={handleSkip}
                   sx={{ color: 'text.secondary' }}
+                  aria-label="Tour beenden"
                 >
                   <Close />
                 </IconButton>
@@ -295,20 +337,26 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                 borderRadius: 4,
                 bgcolor: 'grey.100',
                 '& .MuiLinearProgress-bar': {
-                  bgcolor: '#0066CC',
+                  bgcolor: THEME_COLORS.primary,
                   borderRadius: 4
                 }
               }}
+              aria-label={`Fortschritt: ${Math.round(progress)}%`}
             />
           </Box>
 
           {/* Content */}
           <DialogContent sx={{ p: 3 }}>
             <Typography variant="h5" component="h4" sx={{ mb: 2, fontWeight: 'bold' }}>
-              {currentStepData.title}
+              {currentStepData?.title}
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-              {currentStepData.description}
+            <Typography 
+              variant="body1" 
+              color="text.secondary" 
+              sx={{ lineHeight: 1.6 }}
+              id={descriptionId}
+            >
+              {currentStepData?.description}
             </Typography>
           </DialogContent>
 
@@ -320,11 +368,12 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
               disabled={currentStep === 0}
               startIcon={<ChevronLeft />}
               sx={{ borderColor: 'grey.300' }}
+              aria-label="Vorheriger Schritt"
             >
               {t('action.back')}
             </Button>
 
-            <Box sx={{ display: 'flex', gap: 0.5 }}>
+            <Box sx={{ display: 'flex', gap: 0.5 }} role="progressbar" aria-label="Schritt-Indikator">
               {onboardingSteps.map((_, index) => (
                 <Box
                   key={index}
@@ -333,13 +382,14 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
                     height: 8,
                     borderRadius: '50%',
                     bgcolor: index === currentStep 
-                      ? '#0066CC' 
+                      ? THEME_COLORS.primary 
                       : index < currentStep 
-                      ? 'rgba(0, 102, 204, 0.6)' 
+                      ? THEME_COLORS.primaryMedium 
                       : 'grey.300',
                     transform: index === currentStep ? 'scale(1.25)' : 'scale(1)',
                     transition: 'all 0.3s ease'
                   }}
+                  aria-label={`Schritt ${index + 1}${index === currentStep ? ' (aktuell)' : index < currentStep ? ' (abgeschlossen)' : ''}`}
                 />
               ))}
             </Box>
@@ -349,10 +399,11 @@ const OnboardingWizardMUI: React.FC<OnboardingWizardMUIProps> = ({ onComplete, c
               onClick={handleNext}
               endIcon={!isLastStep && <ChevronRight />}
               sx={{
-                bgcolor: '#0066CC',
-                '&:hover': { bgcolor: '#0052A3' },
+                bgcolor: THEME_COLORS.primary,
+                '&:hover': { bgcolor: THEME_COLORS.primaryHover },
                 px: 3
               }}
+              aria-label={isLastStep ? "Tour abschließen" : "Nächster Schritt"}
             >
               {isLastStep ? t('action.finish') : t('action.next')}
             </Button>

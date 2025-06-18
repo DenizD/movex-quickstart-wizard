@@ -93,6 +93,22 @@
   }
 }
 
+/* Pulse animation for onboarding wizard */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @layer utilities {
   .bg-movex-blue {
     background-color: #14b8a6;
