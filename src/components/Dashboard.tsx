@@ -1,11 +1,22 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { 
-  Plus,
-  BookOpen
-} from 'lucide-react';
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Alert,
+  AlertTitle,
+  Chip,
+  Grid
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  Warning as WarningIcon,
+  BookOpen as BookOpenIcon
+} from '@mui/icons-material';
 import EducationHub from './EducationHub';
 import WelcomeModal from './onboarding/WelcomeModal';
 import OnboardingTiles from './onboarding/OnboardingTiles';
@@ -71,7 +82,7 @@ const Dashboard = () => {
       id: 'upload',
       title: 'Video hochladen',
       description: 'Laden Sie Ihr erstes Video hoch und erstellen Sie shoppable Content',
-      icon: Plus,
+      icon: AddIcon,
       completed: userOnboardingState.videoUploaded,
       action: 'Jetzt hochladen',
       onClick: () => handleOnboardingAction('upload')
@@ -80,7 +91,7 @@ const Dashboard = () => {
       id: 'subscribe',
       title: 'Plan abonnieren',
       description: 'Wählen Sie einen Plan und erhalten Sie mehr Minuten für Live Shopping',
-      icon: Plus,
+      icon: AddIcon,
       completed: userOnboardingState.planSubscribed,
       action: 'Plan wählen',
       onClick: () => handleOnboardingAction('subscribe')
@@ -89,7 +100,7 @@ const Dashboard = () => {
       id: 'show',
       title: 'Show erstellen',
       description: 'Planen Sie Ihre erste Live Shopping Show mit Produktintegration',
-      icon: Plus,
+      icon: AddIcon,
       completed: userOnboardingState.showCreated,
       action: 'Show planen',
       onClick: () => handleOnboardingAction('show')
@@ -98,7 +109,7 @@ const Dashboard = () => {
       id: 'test',
       title: 'Minuten testen',
       description: 'Nutzen Sie Ihre kostenlosen Test-Minuten und probieren Sie alle Features aus',
-      icon: Plus,
+      icon: AddIcon,
       completed: userOnboardingState.minutesTested,
       action: 'Jetzt testen',
       onClick: () => handleOnboardingAction('test-minutes')
@@ -110,89 +121,121 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="bg-white min-h-screen">
+      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
         {/* No Plan Warning Bar */}
-        <div className="bg-yellow-100 border-b border-yellow-200 px-6 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">!</span>
-              </div>
-              <span className="text-sm text-gray-900">You have no plan activated. Please activate a plan to access the features.</span>
-            </div>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2">
+        <Alert 
+          severity="warning" 
+          icon={<WarningIcon />}
+          sx={{ 
+            borderRadius: 0,
+            justifyContent: 'space-between',
+            '& .MuiAlert-message': { flex: 1 },
+            '& .MuiAlert-action': { 
+              alignItems: 'center',
+              paddingLeft: 0 
+            }
+          }}
+          action={
+            <Button 
+              variant="contained" 
+              color="primary"
+              size="small"
+            >
               Buy a Plan
             </Button>
-          </div>
-        </div>
+          }
+        >
+          You have no plan activated. Please activate a plan to access the features.
+        </Alert>
 
-        <div className="p-6">
+        <Container maxWidth="xl" sx={{ py: 3 }}>
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">Welcome back, Deniz (OSP)</h1>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+              Welcome back, Deniz (OSP)
+            </Typography>
             {userOnboardingState.selectedFocus && (
-              <div className="mt-2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-50 text-blue-700">
-                  🎯 Fokus: {userOnboardingState.selectedFocus}
-                </span>
-              </div>
+              <Box sx={{ mt: 1 }}>
+                <Chip 
+                  label={`🎯 Fokus: ${userOnboardingState.selectedFocus}`}
+                  variant="outlined"
+                  color="primary"
+                />
+              </Box>
             )}
-          </div>
+          </Box>
 
           {/* Start creating content section */}
-          <div className="mb-8">
-            <h2 className="text-lg font-medium text-gray-900 mb-6">Start creating content</h2>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 500 }}>
+              Start creating content
+            </Typography>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Grid container spacing={3} sx={{ mb: 4 }}>
               {/* New show */}
-              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
-                <CardContent className="p-6">
-                  <h3 className="font-medium text-gray-900 mb-2">New show</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Plan your next show and connect them directly to your product pages.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
-                  >
-                    Unlock the Shows Module
-                  </Button>
-                </CardContent>
-              </Card>
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New show
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Plan your next show and connect them directly to your product pages.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Shows Module
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
 
               {/* New Clip */}
-              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
-                <CardContent className="p-6">
-                  <h3 className="font-medium text-gray-900 mb-2">New Clip</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Advertise your products with short and direct videos that are easily integrable.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
-                  >
-                    Unlock the Clips Module
-                  </Button>
-                </CardContent>
-              </Card>
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New Clip
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Advertise your products with short and direct videos that are easily integrable.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Clips Module
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
 
               {/* New Media Library */}
-              <Card className="border border-gray-200 hover:border-gray-300 transition-colors">
-                <CardContent className="p-6">
-                  <h3 className="font-medium text-gray-900 mb-2">New Media Library</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Display your videos on your website and generate more leads.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-blue-500 text-blue-600 hover:bg-blue-50"
-                  >
-                    Unlock the Media Library Module
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+              <Grid item xs={12} md={4}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
+                      New Media Library
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Display your videos on your website and generate more leads.
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      fullWidth
+                    >
+                      Unlock the Media Library Module
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Box>
 
           {/* Onboarding Tiles - only show if not completed */}
           {showOnboardingTiles && (
@@ -200,33 +243,47 @@ const Dashboard = () => {
           )}
 
           {/* Recent Shows */}
-          <div className="mb-8">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Shows</h2>
-            <div className="text-center py-12 text-gray-500">
-              <p>No shows yet. Create your first show to get started!</p>
-            </div>
-          </div>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 500 }}>
+              Recent Shows
+            </Typography>
+            <Box sx={{ textAlign: 'center', py: 6 }}>
+              <Typography variant="body1" color="text.secondary">
+                No shows yet. Create your first show to get started!
+              </Typography>
+            </Box>
+          </Box>
 
           {/* Recent Clips */}
-          <div className="mb-8">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Clips</h2>
-            <div className="text-center py-12 text-gray-500">
-              <p>No clips yet. Create your first clip to get started!</p>
-            </div>
-          </div>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 500 }}>
+              Recent Clips
+            </Typography>
+            <Box sx={{ textAlign: 'center', py: 6 }}>
+              <Typography variant="body1" color="text.secondary">
+                No clips yet. Create your first clip to get started!
+              </Typography>
+            </Box>
+          </Box>
 
           {/* Top Performing Videos */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-medium text-gray-900">Top Performing Videos</h2>
-              <span className="text-sm text-gray-500">Last 30 days</span>
-            </div>
-            <div className="text-center py-12 text-gray-500">
-              <p>No performance data available yet.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+          <Box sx={{ mb: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h5" component="h2" sx={{ fontWeight: 500 }}>
+                Top Performing Videos
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Last 30 days
+              </Typography>
+            </Box>
+            <Box sx={{ textAlign: 'center', py: 6 }}>
+              <Typography variant="body1" color="text.secondary">
+                No performance data available yet.
+              </Typography>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
       {/* Modals */}
       <WelcomeModal 
