@@ -6,6 +6,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import Sidebar from './Sidebar';
 import OnboardingWizardMUI from './OnboardingWizardMUI';
 import LanguageSelector from './LanguageSelector';
+import CompleteOnboarding from './CompleteOnboarding';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -60,6 +61,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {(shouldShowOnboarding || showWizard) && (
         <OnboardingWizardMUI onComplete={handleCompleteTour} currentPage={currentPage} />
       )}
+
+      {/* Global Onboarding Component */}
+      <CompleteOnboarding />
     </>
   );
 };

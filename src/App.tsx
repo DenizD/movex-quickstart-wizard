@@ -16,6 +16,7 @@ import UserSettings from '@/pages/UserSettings';
 import AccountSettings from '@/pages/AccountSettings';
 import NotFound from '@/pages/NotFound';
 import Signup from '@/pages/Signup';
+import SelfServiceManagement from '@/components/SelfServiceManagement';
 import './App.css';
 
 const App = () => {
@@ -42,6 +43,23 @@ const App = () => {
                 <Route path="/customisation" element={<Customisation />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/account-settings" element={<AccountSettings />} />
+                <Route path="/account-management" element={
+                  <SelfServiceManagement 
+                    currentPlan={{
+                      name: 'Starter',
+                      price: 29,
+                      features: ['5 Stunden Streaming', '3 Nutzer', 'Basis Support'],
+                      streamingHours: 5,
+                      maxUsers: 3,
+                      videosIncluded: 10
+                    }}
+                    usageStats={{
+                      streamingHours: { used: 3.2, total: 5 },
+                      users: { current: 2, max: 3 },
+                      videos: { created: 4, limit: 10 }
+                    }}
+                  />
+                } />
                 <Route path="/payment-history" element={<div className="p-6"><h1 className="text-2xl font-bold">Payment History</h1><p>View your billing and payment history.</p></div>} />
                 <Route path="/usage" element={<div className="p-6"><h1 className="text-2xl font-bold">Usage</h1><p>Monitor your platform usage and consumption.</p></div>} />
                 <Route path="/company-settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Company Settings</h1><p>Manage your company-wide settings and configurations.</p></div>} />
