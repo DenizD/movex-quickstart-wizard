@@ -96,45 +96,83 @@ interface OnboardingStep {
   targetSelector?: string;
 }
 
-// Page-specific onboarding steps with translation support
+// Complete MOVEX Live Shopping onboarding steps with knowledge base content
 const getOnboardingSteps = (currentPage: string, t: (key: string) => string): OnboardingStep[] => {
+  // Complete onboarding flow for all pages
+  const completeOnboardingSteps = [
+    {
+      id: 1,
+      title: 'Willkommen bei MOVEX Live Shopping!',
+      description: 'Willkommen auf Ihrer neuen Plattform für Live Shopping, shoppable Clips und interaktiven Videokommerz. In wenigen Schritten richten Sie Ihr erstes Event ein und entdecken alle Funktionen.',
+      targetSelector: '[data-onboarding="welcome"]'
+    },
+    {
+      id: 2,
+      title: 'Ihr Profil & Unternehmen',
+      description: 'Hinterlegen Sie Ihren Namen und Ihre Firmeninformationen. Laden Sie Ihr Logo und Branding-Elemente hoch, damit Ihre Shows im eigenen Look erscheinen. Diese Einstellungen können Sie jederzeit im Bereich "Company Settings" anpassen.',
+      targetSelector: '[data-onboarding="company-settings"]'
+    },
+    {
+      id: 3,
+      title: 'Ihre erste Show erstellen',
+      description: 'Klicken Sie auf "Neue Show erstellen". Geben Sie Titel, Beschreibung und Startzeit an. Fügen Sie ein Coverbild hinzu, um Ihre Show hervorzuheben. Shows ermöglichen Live-Streaming mit interaktiven Produktpräsentationen.',
+      targetSelector: '[data-onboarding="create-show"]'
+    },
+    {
+      id: 4,
+      title: 'Produkte für Ihre Show',
+      description: 'Fügen Sie Produkte über deren PDP-URLs hinzu. Die Produktdetails (Thumbnail, Name, Brand) werden automatisch geladen. Sie können bis zu 3 Produkte gleichzeitig während einer Live-Show hervorheben.',
+      targetSelector: '[data-onboarding="products"]'
+    },
+    {
+      id: 5,
+      title: 'Clips & Media Library',
+      description: 'Erstellen Sie kurze, shoppable Clips mit Drag & Drop Video-Upload. Die Media Library organisiert Shows und Clips in Playlists. Clips können nur über Media Libraries integriert werden.',
+      targetSelector: '[data-onboarding="media-library"]'
+    },
+    {
+      id: 6,
+      title: 'Ihr Team onboarden',
+      description: 'Laden Sie Kolleg:innen per E-Mail ein und weisen Sie Rollen zu: Admin (volle Kontrolle), Session Manager (Shows verwalten), Host (streamen), Analytics (Berichte ansehen). Rollen können jederzeit angepasst werden.',
+      targetSelector: '[data-onboarding="users"]'
+    },
+    {
+      id: 7,
+      title: 'Streaming & Multistreaming',
+      description: 'Sie können direkt über die MOVEX App streamen oder externe Tools wie OBS nutzen. Multistreaming ermöglicht gleichzeitiges Streamen zu bis zu 3 Plattformen (YouTube, Facebook, Instagram). Shows müssen mindestens 15 Minuten im Voraus geplant werden.',
+      targetSelector: '[data-onboarding="streaming"]'
+    },
+    {
+      id: 8,
+      title: 'Analytics & Erfolg messen',
+      description: 'Analysieren Sie wichtige KPIs: Zuschauerzahlen, qualifizierte Viewer (>10s), durchschnittliche Sehzeit, Chat-Interaktionen und Produkt-Klicks. Verfolgen Sie Live- und VoD-Performance getrennt.',
+      targetSelector: '[data-onboarding="analytics"]'
+    },
+    {
+      id: 9,
+      title: 'Hilfe & Support verfügbar',
+      description: 'Der umfassende User Guide, FAQs und Video-Tutorials sind jederzeit über das Hilfemenü erreichbar. Bei Fragen steht Ihnen unser Support-Team per Chat oder Ticket zur Verfügung. Nutzen Sie die 2-Faktor-Authentifizierung für zusätzliche Sicherheit.',
+      targetSelector: '[data-onboarding="support"]'
+    }
+  ];
+
   switch (currentPage) {
     case 'overview':
-      return [
-        {
-          id: 1,
-          title: t('wizard.welcome.title'),
-          description: t('wizard.welcome.description'),
-          targetSelector: '[data-onboarding="overview-header"]'
-        },
-        {
-          id: 2,
-          title: t('wizard.performance.title'),
-          description: t('wizard.performance.description'),
-          targetSelector: '[data-onboarding="stats-cards"]'
-        },
-        {
-          id: 3,
-          title: t('wizard.analytics.title'),
-          description: t('wizard.analytics.description'),
-          targetSelector: '[data-onboarding="analytics-chart"]'
-        },
-        {
-          id: 4,
-          title: t('wizard.quickActions.title'),
-          description: t('wizard.quickActions.description'),
-          targetSelector: '[data-onboarding="quick-actions"]'
-        }
-      ];
-
+      return completeOnboardingSteps.slice(0, 4); // Show first 4 steps on overview
+    case 'shows':
+      return [completeOnboardingSteps[2], completeOnboardingSteps[3], completeOnboardingSteps[6]]; // Show creation focused
+    case 'clips':
+      return [completeOnboardingSteps[4]]; // Clips focused
+    case 'media-library':
+      return [completeOnboardingSteps[4]]; // Media library focused
+    case 'users':
+      return [completeOnboardingSteps[5]]; // Users focused
+    case 'analytics':
+      return [completeOnboardingSteps[7]]; // Analytics focused
+    case 'customisation':
+      return [completeOnboardingSteps[1]]; // Company settings focused
     default:
-      return [
-        {
-          id: 1,
-          title: t('wizard.welcome.title'),
-          description: t('wizard.welcome.description'),
-        }
-      ];
+      return completeOnboardingSteps; // Complete flow for general onboarding
   }
 };
 
