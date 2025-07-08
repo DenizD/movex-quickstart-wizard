@@ -38,7 +38,7 @@ const Shows = () => {
   return (
     <div className="p-6">
       {/* Header */}
-      <div className="mb-6" data-onboarding="shows-header">
+      <div className="mb-6" data-onboarding="welcome">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Shows</h1>
         <p className="text-gray-600">Verwalten Sie Ihre Live Shopping Shows.</p>
       </div>
@@ -61,7 +61,7 @@ const Shows = () => {
           </select>
           <Button 
             className="bg-[#0066CC] hover:bg-[#0052A3] text-white" 
-            data-onboarding="create-show-button"
+            data-onboarding="create-show"
             onClick={() => navigate('/shows/create')}
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -71,7 +71,7 @@ const Shows = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 mb-6" data-onboarding="shows-tabs">
+      <div className="border-b border-gray-200 mb-6" data-onboarding="streaming">
         <div className="flex justify-between">
           <nav className="flex space-x-8">
             {tabs.map((tab) => (
@@ -114,7 +114,7 @@ const Shows = () => {
                   <MoreVertical size={16} />
                 </button>
               </div>
-              <Badge className={`text-xs ${getStatusColor(show.status)}`}>
+              <Badge className={`text-xs ${getStatusColor(show.status)}`} data-onboarding="products">
                 {show.status}
               </Badge>
             </CardContent>

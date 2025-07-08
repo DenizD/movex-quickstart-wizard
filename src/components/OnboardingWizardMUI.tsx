@@ -160,7 +160,12 @@ const getOnboardingSteps = (currentPage: string, t: (key: string) => string): On
     case 'overview':
       return completeOnboardingSteps.slice(0, 4); // Show first 4 steps on overview
     case 'shows':
-      return [completeOnboardingSteps[2], completeOnboardingSteps[3], completeOnboardingSteps[6]]; // Show creation focused
+      return [
+        completeOnboardingSteps[0], // Welcome
+        completeOnboardingSteps[2], // Create show 
+        completeOnboardingSteps[3], // Products
+        completeOnboardingSteps[6]  // Streaming
+      ]; // Show creation focused
     case 'clips':
       return [completeOnboardingSteps[4]]; // Clips focused
     case 'media-library':
