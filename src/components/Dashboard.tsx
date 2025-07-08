@@ -1,306 +1,239 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Alert,
-  AlertTitle,
-  Chip,
-  Grid
-} from '@mui/material';
-import {
-  Add as AddIcon,
-  Warning as WarningIcon,
-  MenuBook as MenuBookIcon
-} from '@mui/icons-material';
-import EducationHub from './EducationHub';
-import WelcomeModal from './onboarding/WelcomeModal';
-import OnboardingTiles from './onboarding/OnboardingTiles';
-import ContextualHelp from './help/ContextualHelp';
-import { useLanguage } from '@/hooks/useLanguage';
+import React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { TrendingUp, Users, Play, Video } from 'lucide-react';
+import { useOnboarding } from '@/hooks/useOnboarding';
+import OnboardingTiles from '@/components/onboarding/OnboardingTiles';
+import OnboardingChecklist from '@/components/onboarding/OnboardingChecklist';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [isEducationHubOpen, setIsEducationHubOpen] = useState(false);
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [userOnboardingState, setUserOnboardingState] = useState({
-    videoUploaded: false,
-    planSubscribed: false,
-    showCreated: false,
-    minutesTested: false,
-    selectedFocus: ''
-  });
-  const { t } = useLanguage();
+  const { shouldShowOnboarding } = useOnboarding();
+  const navigate = useNavigate();
 
-  // Check for first login
-  useEffect(() => {
-    const isFirstLogin = localStorage.getItem('movex_first_login_completed') !== 'true';
-    if (isFirstLogin) {
-      setShowWelcomeModal(true);
-    }
+  const stats = [
+    { title: 'Live Shows', value: '12', change: '+2 this week', icon: Play, color: 'text-blue-600' },
+    { title: 'Total Views', value: '8,547', change: '+12% from last month', icon: TrendingUp, color: 'text-green-600' },
+    { title: 'Active Users', value: '1,234', change: '+4 new today', icon: Users, color: 'text-purple-600' },
+    { title: 'Video Clips', value: '45', change: '+8 this week', icon: Video, color: 'text-orange-600' },
+  ];
 
-    // Load onboarding status
-    const savedState = localStorage.getItem('movex_onboarding_state');
-    if (savedState) {
-      setUserOnboardingState(JSON.parse(savedState));
-    }
-  }, []);
+  const chartData = [
+    { name: 'Mon', views: 400 },
+    { name: 'Tue', views: 300 },
+    { name: 'Wed', views: 600 },
+    { name: 'Thu', views: 800 },
+    { name: 'Fri', views: 500 },
+    { name: 'Sat', views: 700 },
+    { name: 'Sun', views: 900 },
+  ];
 
-  const handleWelcomeComplete = (focus: string) => {
-    localStorage.setItem('movex_first_login_completed', 'true');
-    setUserOnboardingState(prev => ({ ...prev, selectedFocus: focus }));
-    setShowWelcomeModal(false);
-  };
-
-  const handleOnboardingAction = (actionType: string) => {
-    const newState = { ...userOnboardingState };
-    
-    switch (actionType) {
-      case 'upload':
-        newState.videoUploaded = true;
-        break;
-      case 'subscribe':
-        newState.planSubscribed = true;
-        break;
-      case 'show':
-        newState.showCreated = true;
-        break;
-      case 'test-minutes':
-        newState.minutesTested = true;
-        break;
-    }
-    
-    setUserOnboardingState(newState);
-    localStorage.setItem('movex_onboarding_state', JSON.stringify(newState));
-  };
-
-  const onboardingSteps = [
+  const checklistItems = [
     {
-      id: 'upload',
-      title: 'Video hochladen',
-      description: 'Laden Sie Ihr erstes Video hoch und erstellen Sie shoppable Content',
-      icon: AddIcon,
-      completed: userOnboardingState.videoUploaded,
-      action: 'Jetzt hochladen',
-      onClick: () => handleOnboardingAction('upload')
+      id: 'account-created',
+      title: 'Account erstellt',
+      description: 'Ihr MOVEX-Account wurde erfolgreich eingerichtet',
+      completed: true
     },
     {
-      id: 'subscribe',
-      title: 'Plan abonnieren',
-      description: 'Wählen Sie einen Plan und erhalten Sie mehr Minuten für Live Shopping',
-      icon: AddIcon,
-      completed: userOnboardingState.planSubscribed,
-      action: 'Plan wählen',
-      onClick: () => handleOnboardingAction('subscribe')
+      id: 'profile-setup',
+      title: 'Profil & Unternehmen eingerichtet',
+      description: 'Firmeninformationen und Branding konfiguriert',
+      completed: false,
+      action: () => navigate('/customisation')
     },
     {
-      id: 'show',
-      title: 'Show erstellen',
-      description: 'Planen Sie Ihre erste Live Shopping Show mit Produktintegration',
-      icon: AddIcon,
-      completed: userOnboardingState.showCreated,
-      action: 'Show planen',
-      onClick: () => handleOnboardingAction('show')
+      id: 'first-show',
+      title: 'Erste Show erstellt',
+      description: 'Ihre erste Live-Show wurde angelegt',
+      completed: false,
+      action: () => navigate('/shows/create')
     },
     {
-      id: 'test',
-      title: 'Minuten testen',
-      description: 'Nutzen Sie Ihre kostenlosen Test-Minuten und probieren Sie alle Features aus',
-      icon: AddIcon,
-      completed: userOnboardingState.minutesTested,
-      action: 'Jetzt testen',
-      onClick: () => handleOnboardingAction('test-minutes')
+      id: 'product-added',
+      title: 'Produkt zu Show hinzugefügt',
+      description: 'Mindestens ein Produkt wurde einer Show zugeordnet',
+      completed: false
+    },
+    {
+      id: 'clip-created',
+      title: 'Clip erstellt',
+      description: 'Ihr erster shoppable Clip wurde hochgeladen',
+      completed: false,
+      action: () => navigate('/clips/create')
+    },
+    {
+      id: 'media-uploaded',
+      title: 'Media Library angelegt',
+      description: 'Media Library und Playlists eingerichtet',
+      completed: false,
+      action: () => navigate('/media-library/create')
+    },
+    {
+      id: 'team-invited',
+      title: 'Team-Mitglied eingeladen',
+      description: 'Kollegen wurden zur Plattform eingeladen',
+      completed: false,
+      action: () => navigate('/users')
+    },
+    {
+      id: 'streaming-tested',
+      title: 'Streaming getestet',
+      description: 'Streaming-Setup wurde erfolgreich getestet',
+      completed: false
+    },
+    {
+      id: 'analytics-viewed',
+      title: 'Analytics angesehen',
+      description: 'Analytics Dashboard wurde besucht',
+      completed: false,
+      action: () => navigate('/analytics')
     }
   ];
 
-  const completedSteps = onboardingSteps.filter(step => step.completed).length;
-  const showOnboardingTiles = completedSteps < onboardingSteps.length;
+  const handleStartTour = () => {
+    // This will be handled by the Layout component's FAB
+    console.log('Start onboarding tour');
+  };
 
   return (
-    <>
-      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-        {/* No Plan Warning Bar */}
-        <Alert 
-          severity="warning" 
-          icon={<WarningIcon />}
-          sx={{ 
-            borderRadius: 0,
-            justifyContent: 'space-between',
-            '& .MuiAlert-message': { flex: 1 },
-            '& .MuiAlert-action': { 
-              alignItems: 'center',
-              paddingLeft: 0 
-            }
-          }}
-          action={
-            <Button 
-              variant="contained" 
-              color="primary"
-              size="small"
-            >
-              Buy a Plan
-            </Button>
+    <div className="p-6 space-y-6" data-onboarding="welcome">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-600 mt-1">
+          {shouldShowOnboarding 
+            ? 'Willkommen bei MOVEX! Lassen Sie uns gemeinsam Ihre erste Live-Shopping Experience einrichten.' 
+            : 'Willkommen zurück! Hier ist Ihre Live-Shopping Plattform Übersicht.'
           }
-        >
-          You have no plan activated. Please activate a plan to access the features.
-        </Alert>
+        </p>
+      </div>
 
-        <Container maxWidth="xl" sx={{ py: 3 }}>
-          {/* Header */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
-              Welcome back, Deniz (OSP)
-            </Typography>
-            {userOnboardingState.selectedFocus && (
-              <Box sx={{ mt: 1 }}>
-                <Chip 
-                  label={`🎯 Fokus: ${userOnboardingState.selectedFocus}`}
-                  variant="outlined"
-                  color="primary"
-                />
-              </Box>
-            )}
-          </Box>
+      {/* Onboarding Section - Only show if user is new */}
+      {shouldShowOnboarding && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <h2 className="text-xl font-semibold mb-4">Erste Schritte</h2>
+              <OnboardingTiles />
+            </div>
+            <div>
+              <OnboardingChecklist 
+                items={checklistItems} 
+                onStartTour={handleStartTour}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
-          {/* Start creating content section */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 500 }}>
-              Start creating content
-            </Typography>
-            
-            <Box sx={{ flexGrow: 1, mb: 4 }}>
-              <Grid container spacing={3}>
-                {/* New show */}
-                <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New show
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Plan your next show and connect them directly to your product pages.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Shows Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, index) => {
+          const IconComponent = stat.icon;
+          return (
+            <Card key={index}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">{stat.title}</CardTitle>
+                <IconComponent className={`h-5 w-5 ${stat.color}`} />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
 
-                {/* New Clip */}
-                <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New Clip
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Advertise your products with short and direct videos that are easily integrable.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Clips Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
+      {/* Chart */}
+      <Card data-onboarding="analytics">
+        <CardHeader>
+          <CardTitle>Weekly Views</CardTitle>
+          <CardDescription>Your live show performance over the last 7 days</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="views" fill="#0066CC" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
 
-                {/* New Media Library */}
-                <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ height: '100%', '&:hover': { boxShadow: 3 } }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>
-                        New Media Library
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        Display your videos on your website and generate more leads.
-                      </Typography>
-                      <Button 
-                        variant="outlined" 
-                        color="primary"
-                        fullWidth
-                      >
-                        Unlock the Media Library Module
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card data-onboarding="create-show">
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>Common tasks to get you started</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <button 
+              onClick={() => navigate('/shows/create')}
+              className="w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+            >
+              <div className="font-medium text-blue-900">Create New Show</div>
+              <div className="text-sm text-blue-600">Start a new live shopping event</div>
+            </button>
+            <button 
+              onClick={() => navigate('/clips/create')}
+              className="w-full text-left p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors"
+            >
+              <div className="font-medium text-purple-900">Upload Clip</div>
+              <div className="text-sm text-purple-600">Add a new video clip to your library</div>
+            </button>
+            <button 
+              onClick={() => navigate('/analytics')}
+              className="w-full text-left p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+            >
+              <div className="font-medium text-green-900">View Analytics</div>
+              <div className="text-sm text-green-600">Check your performance metrics</div>
+            </button>
+          </CardContent>
+        </Card>
 
-          {/* Onboarding Tiles - only show if not completed */}
-          {showOnboardingTiles && (
-            <OnboardingTiles steps={onboardingSteps} />
-          )}
-
-          {/* Recent Shows */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 500 }}>
-              Recent Shows
-            </Typography>
-            <Box sx={{ textAlign: 'center', py: 6 }}>
-              <Typography variant="body1" color="text.secondary">
-                No shows yet. Create your first show to get started!
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* Recent Clips */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 500 }}>
-              Recent Clips
-            </Typography>
-            <Box sx={{ textAlign: 'center', py: 6 }}>
-              <Typography variant="body1" color="text.secondary">
-                No clips yet. Create your first clip to get started!
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* Top Performing Videos */}
-          <Box sx={{ mb: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h5" component="h2" sx={{ fontWeight: 500 }}>
-                Top Performing Videos
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Last 30 days
-              </Typography>
-            </Box>
-            <Box sx={{ textAlign: 'center', py: 6 }}>
-              <Typography variant="body1" color="text.secondary">
-                No performance data available yet.
-              </Typography>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Modals */}
-      <WelcomeModal 
-        isOpen={showWelcomeModal}
-        onClose={() => setShowWelcomeModal(false)}
-        userName="Deniz"
-        onFocusSelect={handleWelcomeComplete}
-      />
-
-      <EducationHub 
-        isOpen={isEducationHubOpen} 
-        onClose={() => setIsEducationHubOpen(false)} 
-      />
-
-      <ContextualHelp context="dashboard" />
-    </>
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+            <CardDescription>Latest updates from your platform</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <Play className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">Live show "Winter Collection" ended</div>
+                <div className="text-xs text-gray-500">2 hours ago</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <Video className="w-4 h-4 text-green-600" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">New clip uploaded: "Product Demo"</div>
+                <div className="text-xs text-gray-500">1 day ago</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                <Users className="w-4 h-4 text-purple-600" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">Team member Sarah joined</div>
+                <div className="text-xs text-gray-500">3 days ago</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 };
 
